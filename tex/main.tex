@@ -1,0 +1,94 @@
+\input{pre}
+
+\usepackage{csvsimple}
+% \titleformat{\section}{\fontfamily{put}\selectfont}{\thesection}{1em}{}
+ % \titleformat{\subsection}
+    % {\normalfont\bf}{\thesection}{1em}{}
+
+\usepackage{times}
+% \usepackage{scrextend}
+% \changefontsizes[9pt]{9pt}
+
+\usepackage{datatool}
+
+
+\title{Statistische Verfahren: \\ Projekt 4 - Nahinfrarotspektroskopie I}
+\author{Tobias Giesemann \\ Ferdinand Rewicki \\ Moritz Preu\ss\@}
+% \date{}
+\newcommand{\email}{Tobi.mail \\ Ferdi.mail.com \\ moleo.preuss@gmail.com}
+
+\begin{document}
+	\newgeometry{top=40mm,left=45mm,right=45mm}
+	\onecolumn
+	\maketitle
+	\thispagestyle{empty}
+	\hrule
+	\medskip
+	\begin{abstract}
+		\itshape
+		\input{sec/abstract}
+	\end{abstract}
+	\medskip
+	\hrule
+	\tableofcontents
+	\newpage
+	\null
+	\thispagestyle{empty}
+	\newpage
+	\restoregeometry
+	\pagenumbering{arabic}
+
+	\linespread{1.1}\selectfont
+	\twocolumn[
+		{\begin{@twocolumnfalse}
+			\thispagestyle{titlestyle}
+			{\huge\bfseries \begin{center}{Statistische Verfahren: \\ Projekt 4 - Nahinfrarotspektroskopie I}\end{center}}
+			\bigskip
+			\begin{minipage}[t][][l]{0.25\textwidth}
+				\raggedleft{Tobias Giesemann \\ Mail@me.com}
+			\end{minipage}
+			\hfill
+			\begin{minipage}[t][][l]{0.20\textwidth}
+				\raggedright{Ferdinand Rewicki \\ ...@gmail.com}
+			\end{minipage}
+			\hfill
+			\begin{minipage}[t][][l]{0.25\textwidth}
+				\raggedright{Moritz Preu\ss\@ \\ moleo.preuss@gmail.com}
+			\end{minipage}
+			\bigskip
+			\bigskip
+			\hrule
+			\medskip
+			\begin{abstract}
+				\itshape
+				\input{sec/abstract}
+			\end{abstract}
+			\medskip
+			\hrule
+			\bigskip
+			\bigskip
+			\bigskip
+		\end{@twocolumnfalse}}
+	]
+
+	\linespread{1.15}\selectfont
+
+	\input{sec/introduction}
+	\input{sec/background}
+	\input{sec/methodology}
+	\input{sec/implementation}
+	\input{sec/model-selection}
+	\input{sec/simulation}
+	\input{sec/conclusion}
+	
+	\bibliography{ref}
+	
+	\appendix
+	\onecolumn
+	\pagenumbering{roman}
+	\input{sec/parameters}
+	\input{sec/r-source-code}
+	
+	\input{sec/stat-dec}
+
+\end{document}
