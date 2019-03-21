@@ -1,24 +1,55 @@
-\section{Background}
-\label{sec:background}
+\section{Hintergrund}
+\label{sec:Hintergrund}
 	
 	\subsection{Gebundener Stickstoff}
 	\label{ssec:Gebundener Stickstoff}
 	
-	Der Stickstoffkreislauf steht in engem Zusammenhang mit dem Gehalt des organischen Kohlenstoffes im Boden und hat. 
-    Als Bestandteil von Aminosären in Proteinen und vielen weiteren zum Leben wichtige chemische Verbindungen ist der Stickstoffgehalt des Bodens ein wichtiger Indikator für Fruchtbarkeit des Bodens ... essentieller Bestandteil für den Anbau von Pflanzen.\\
-		
-	
+	Durch den sogenannten Stickstoffkreislauf geschieht der fortwährende  Austausch und die Umwandlung von Stickstoff.
+	Der im Boden gebundenen Stickstoff ist ein unentbehrlicher Nährstoff für Pflanzen und Lebewesen.
+    Zur Steigerung der Ernte ist der Einsatz von Stickstoffdünger daher gängige Praxis in der Landwirtschaft.(\textbf{Quelle...}
+    Dies kann dann zu Problemen führen, wenn zu einer Übersättigung des Bodens mit Stickstoff kommt.
+    Stickstoff liegt im Boden in Form von Ammonium ($NH_4^+$) und Nitrat ($NO_3^-$) vor.
+    Durch das Ausschwemmen des für das Pflanzenwachstum wichtige Nitrat kann dieses in das Grundwasser gelangen, was durch in höherer Konzentration eine Gefahr für die Umwelt werden kann.
+    Für den Erfolg der Landwirtschaft als auch für den Schutz der Umwelt ist daher eine zuverlässige und effiziente Ermittlung des Nitratgehalts im Bodens von entscheidender Bedeutung.
+    Die Stoffmenge von Stickstoff ($N$) in einer gegebene Probe $P_i$ lässt sich wie folgt berechnen:
+    	\[
+			c_{(N)} \define \frac{n_{(N)}}{V_P}
+		\]
+    Für eine gegebene Stoffmengen der gesamten Probe $n_0$ definieren wir dann den Stoffmengenanteil von Stickstoff als,
+        \[
+			X_{(N)} \define \frac{c_{(N)}}{c_0} = \frac{n_{(N)}}{n_0}
+		\]
+   
 	% subsection Gebundener Stickstoff
 
 	\subsection{Nahinfrarotspektroskopie}
 	\label{ssec:nirs}
 	
-		Bei der Nahinfrarot Spektroskopie kommen elektromagnische Wellen im Bereiche zwischen 120 und 400 THz zum Einsatz. \cite{Agelet2010}
-		Das Messverfahren nutzt die Tatsache, dass bei der Bestrahlung einer Probe mit Licht Teile des Lichts reflektiert, hindurchgelassen oder absorbiert werden.
-		Die Anwendung von Beers Law beschreibt die Korrelation zwischen der Konzentration einer Probe und deren Absorbtion bestimmter Wellenlänge.
-		Obwohl das absorbierte Licht nicht direkt gemessen werden kann, können die diffuse Reflektion und Durchlässigkeit wie folgt in Zusammenhang gebracht werden.
+		Bei der Nahinfrarot Spektroskopie kommen elektromagnetische Wellen im Bereich zwischen 120THz und 400 THz zum Einsatz. \cite{Agelet2010}
+		Das Messverfahren nutzt die Tatsache, dass bei der Bestrahlung einer Probe mit Licht Teile des Lichts reflektiert, hindurch gelassen oder absorbiert werden.
+		Von besonderem Interesse ist hierbei die Reflexion des Lichts.
+		Dieses lässt in die zwei Komponenten Spiegelreflexion und diffuse Reflexion unterscheiden.
+		Da die Teile des Lichts welche diffus reflektiert wurden tiefer in die Proben eindringen, können aus diesen Informationen gewonnen werden. 
+		Für eine Wellenlänge $\lambda$ ist das relative Reflexionsvermögen $\delta(\lambda)$ definiert als:
+		\[
+			\func{\delta}{(0,\infty)}{(0,\infty)},\qquad \delta(\lambda) \define \frac{P_\m{r}(\lambda)}{P_s}
+		\]
 		
+		wobei $P_\m{r}(\lambda)$ die Reflexion einer Probe und $P_0$ die Reflexion eines Material mit einer Reflexion nahe $100\%$ ist.
 		
+		Es lässt sich ein Zusammenhang zwischen dem relativen Reflexionsvermögen und der Absorption herstellen.
+		Hierzu definieren wir die Absorption zunächst als:
+		
+		\[
+			-\log \delta(\lambda) = -\log \frac{P_\m{r}(\lambda)}{P_s}
+		\]
+		
+		Beers Law beschreibt den Zusammenhang zwischen der Konzentration einer Probe und deren Absorbtion bestimmter Wellenlänge.
+		Eine direkte Messung des absorbierten Lichts ist nicht möglich, kann aber durch aber wie folgendermaßen mit relativen Reflexion in Verbindung gebracht werden.
+		\[
+			-\log \delta(\lambda) = \varepsilon(\lambda) c_i d
+		\]
+		,wobei 
 		Summarizing, NIR measurements for analytical purposes
 can be carried out in two modes: transmission or diffuse
 reflection. Diffuse reflection mode allows working with thicker
@@ -30,12 +61,9 @@ the wavelength range used in the analysis and sample charac-
 teristics such as density or packing, particle size, and material
 		
 		 
-		The reflectance 
-		\[
-			\func{\varrho}{(0,\infty)}{(0,\infty)},\qquad \varrho(\lambda) \define \frac{P_\m{r}(\lambda)}{P_0}
-		\]
+		
 		of a 
 
 	% subsection nirs
 
-% section fundamentals
+% section Hintergrund
