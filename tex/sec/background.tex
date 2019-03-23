@@ -4,18 +4,22 @@
 	\subsection{Gebundener Stickstoff}
 	\label{ssec:Gebundener Stickstoff}
 	
+	In der Natur geschieht eine fortwährender Austausch von Stickstoff zwischen Lebewesen, Boden und Atmosphäre. Dieser Austausch wird als Stickstoffkreislauf bezeichnet.
 	Durch den sogenannten Stickstoffkreislauf geschieht der fortwährende  Austausch und die Umwandlung von Stickstoff.
 	Der im Boden gebundenen Stickstoff ist ein unentbehrlicher Nährstoff für Pflanzen und Lebewesen.
-    Zur Steigerung der Ernte ist der Einsatz von Stickstoffdünger daher gängige Praxis in der Landwirtschaft.(\textbf{Quelle...}
+	Dieser wird von Pflanzen beim Wachstum aus der Erde aufgenommen und beim Absterben wieder freigesetzt.
+    Zur Steigerung der Ernte ist eine Anreichung der Bodens mit Nitrat durch der Einsatz von Düngemitteln daher gängige Praxis in der Landwirtschaft.(\textbf{Quelle...}
     Dies kann dann zu Problemen führen, wenn zu einer Übersättigung des Bodens mit Stickstoff kommt.
     Stickstoff liegt im Boden in Form von Ammonium ($NH_4^+$) und Nitrat ($NO_3^-$) vor.
-    Durch das Ausschwemmen des für das Pflanzenwachstum wichtige Nitrat kann dieses in das Grundwasser gelangen, was durch in höherer Konzentration eine Gefahr für die Umwelt werden kann.
+    Durch das Ausschwemmen des für das Pflanzenwachstum wichtige Nitrat, kann dieses in das Grundwasser gelangen, was in höherer Konzentration eine Gefahr für die Umwelt darstellt.
     Für den Erfolg der Landwirtschaft als auch für den Schutz der Umwelt ist daher eine zuverlässige und effiziente Ermittlung des Nitratgehalts im Bodens von entscheidender Bedeutung.
-    Die Stoffmenge von Stickstoff ($N$) in einer gegebene Probe $P_i$ lässt sich wie folgt berechnen:
+    Die Stoffmengenkonzentration von Stickstoff ($N$) lässt sich berechnen durch,
     	\[
 			c_{(N)} \define \frac{n_{(N)}}{V_P}
 		\]
-    Für eine gegebene Stoffmengen der gesamten Probe $n_0$ definieren wir dann den Stoffmengenanteil von Stickstoff als,
+		,wobei $V$ das Volumen der Lösung und $N_{(N)}$ die enthaltenen Stoffmenge von Stickstoff ist.
+		
+    Für eine gegebene Stoffmengenkonzentration $c_0$ und Stoffmenge $n_o$ der gesamten Probe, definieren wir dann den Stoffmengenanteil $X_{(N)}$ von Stickstoff als,
         \[
 			X_{(N)} \define \frac{c_{(N)}}{c_0} = \frac{n_{(N)}}{n_0}
 		\]
@@ -29,7 +33,7 @@
 		Das Messverfahren nutzt die Tatsache, dass bei der Bestrahlung einer Probe mit Licht Teile des Lichts reflektiert, hindurch gelassen oder absorbiert werden.
 		Von besonderem Interesse ist hierbei die Reflexion des Lichts.
 		Dieses lässt in die zwei Komponenten Spiegelreflexion und diffuse Reflexion unterscheiden.
-		Da die Teile des Lichts welche diffus reflektiert wurden tiefer in die Proben eindringen, können aus diesen Informationen gewonnen werden. 
+		Da die Teile des Lichts welche diffus reflektiert werden tiefer in die Proben eindringen, können aus diesen Informationen über dessen Zusammensetzung gewonnen werden. 
 		Für eine Wellenlänge $\lambda$ ist das relative Reflexionsvermögen $\delta(\lambda)$ definiert als:
 		\[
 			\func{\delta}{(0,\infty)}{(0,\infty)},\qquad \delta(\lambda) \define \frac{P_\m{r}(\lambda)}{P_s}
@@ -37,32 +41,14 @@
 		
 		wobei $P_\m{r}(\lambda)$ die Reflexion einer Probe und $P_0$ die Reflexion eines Material mit einer Reflexion nahe $100\%$ ist.
 		
-		Es lässt sich ein Zusammenhang zwischen dem relativen Reflexionsvermögen und der Absorption herstellen.
-		Hierzu definieren wir die Absorption zunächst als:
+		Weiterhin lässt sich ein Zusammenhang zwischen dem relativen Reflexionsvermögen und der Absorption herstellen.
+		Unter Anwendung des Beer'schen Gesetzes kann das Reflexionsvermögen mit der Stoffmenge $c_{(N)}$ des Stickstoffs in Verbindung gebracht werden.
+		In eine Probe mit $n$ verschiedenen Stoffen sei $c_i$ die Stoffmengenkonzentration des $i$ten Stoffes. Dann sei $\varepsilon_i(\lambda)$ ein Koeffizient mit $i\in\SN,i\leq n$ so, dass
 		
 		\[
-			-\log \delta(\lambda) = -\log \frac{P_\m{r}(\lambda)}{P_s}
+			-\log \delta(\lambda) = -\log \frac{P_\m{r}(\lambda)}{P_s} = \sum_{i=1}^{n} \varepsilon_i(\lambda) c_i
 		\]
-		
-		Beers Law beschreibt den Zusammenhang zwischen der Konzentration einer Probe und deren Absorbtion bestimmter Wellenlänge.
-		Eine direkte Messung des absorbierten Lichts ist nicht möglich, kann aber durch aber wie folgendermaßen mit relativen Reflexion in Verbindung gebracht werden.
-		\[
-			-\log \delta(\lambda) = \varepsilon(\lambda) c_i d
-		\]
-		,wobei 
-		Summarizing, NIR measurements for analytical purposes
-can be carried out in two modes: transmission or diffuse
-reflection. Diffuse reflection mode allows working with thicker
-and denser samples without inducing as much heating as trans-
-mission. While sample path length is pre-determined and must
-be kept constant for transmittance measurements, the minimum
-sample required in reflectance mode is highly dependent on
-the wavelength range used in the analysis and sample charac-
-teristics such as density or packing, particle size, and material
-		
-		 
-		
-		of a 
+
 
 	% subsection nirs
 
