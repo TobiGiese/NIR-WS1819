@@ -64,7 +64,7 @@ nirs_filtered.data = subset(nirs.data, select=c(c("SOC", "N", "pH"), as.characte
 require(leaps)
 
 # Select model
-subsets = regsubsets( N ~ 1+nm2144+nm2148+nm2152+nm2156+nm2160+nm2164+nm2168+nm2172+nm2176+nm2180+nm2216+nm2220+nm2408+nm2412+nm2416+nm2424+nm2428+nm2476+nm2480+nm2504+nm2508+nm2512+nm2552+nm2556+nm2560+nm2564+nm2568+nm2572+nm2576+nm2580+nm2584+nm2588+nm2592+nm2596+nm2600+nm2656+nm2660+nm2664, nirs_filtered.data, really.big=F, nvmax=39)
+subsets = regsubsets( N ~ 1+nm2144+nm2148+nm2152+nm2156+nm2160+nm2164+nm2168+nm2172+nm2176+nm2180+nm2216+nm2220+nm2408+nm2412+nm2416+nm2424+nm2428+nm2476+nm2480+nm2504+nm2508+nm2512+nm2552+nm2556+nm2560+nm2564+nm2568+nm2572+nm2576+nm2580+nm2584+nm2588+nm2592+nm2596+nm2600+nm2656+nm2660+nm2664, nirs_filtered.data, really.big=F, nvmax=39, method="seqrep")
 optModelId = which.min(summary(subsets)$cp)
 coeffs = as.vector(coef(subsets, optModelId))
 
@@ -73,7 +73,7 @@ coeffs = as.vector(coef(subsets, optModelId))
 # ##########################################################
 # ## SIMULATION
 # ##########################################################
-
+set.seed(13)
 getDesignmatrix = function(subsets, modelId, responsevar, data) {
   X <- summary(subsets)$which
   xvars <- dimnames(X)[[2]][-1]
@@ -123,4 +123,35 @@ simdata$N = simulate(subsets, optModelId, nirs.data, nrow(nirs.data), 1000)
 plot(nirs.data[,4], nirs.data[,2], type="p", col=1, ylim=c(-0.1, 0.75))
 points(nirs.data[,4], simdata$N, type="p", col=2, ylim=c(-0.1, 0.75))
 
+simsets533 = regsubsets( N ~ 1+nm2144+nm2148+nm2152+nm2156+nm2160+nm2164+nm2168+nm2172+nm2176+nm2180+nm2216+nm2220+nm2408+nm2412+nm2416+nm2424+nm2428+nm2476+nm2480+nm2504+nm2508+nm2512+nm2552+nm2556+nm2560+nm2564+nm2568+nm2572+nm2576+nm2580+nm2584+nm2588+nm2592+nm2596+nm2600+nm2656+nm2660+nm2664, simdata, really.big=F, nvmax=39)
+optModelId533 = which.min(summary(simsets533)$cp)
+print(paste("========= Num Rows: 533 ========="))
+print(paste("Optimal Model (ID): ", optModelId533))
+print("CP Value")
+print(summary(simsets533)$cp)
 
+# Shrink designmatrix
+getDataSubset = function(data.origin, numRows) {
+  if (numRows < nrow(data.origin)) {
+    return(nirs.data[sample(nrow(data.origin), numRows), ])
+  }
+  
+  return(nirs.data)
+}
+
+# rum simulation and second model selection for a subset of nirs.data with increasing size
+# TODO: repeat simulation and model selection x times
+for (numRows in seq(50, 500, 50)) {
+  print(paste("========= Num Rows: ", numRows, " ========="))
+  nirs.data100 = getDataSubset(nirs.data, numRows)
+  simdata100 = subset(nirs.data100, select=c(c("SOC", "N", "pH"), as.character(filteredAvg1stDev[,"nm"])))
+  simdata100$N = simulate(subsets, optModelId, nirs.data100, numRows, 1000)
+  plot(nirs.data[,4], nirs.data[,2], type="p", col=1, ylim=c(-0.1, 0.75))
+  points(nirs.data100[,4], simdata100$N, type="p", col=2, ylim=c(-0.1, 0.75))
+  
+  simsets100 = regsubsets( N ~ 1+nm2144+nm2148+nm2152+nm2156+nm2160+nm2164+nm2168+nm2172+nm2176+nm2180+nm2216+nm2220+nm2408+nm2412+nm2416+nm2424+nm2428+nm2476+nm2480+nm2504+nm2508+nm2512+nm2552+nm2556+nm2560+nm2564+nm2568+nm2572+nm2576+nm2580+nm2584+nm2588+nm2592+nm2596+nm2600+nm2656+nm2660+nm2664, simdata100, really.big=F, nvmax=39)
+  optModelId100 = which.min(summary(simsets100)$cp)
+  print(paste("Optimal Model (ID): ", optModelId100))
+  print("CP Value")
+  print(summary(simsets100)$cp)
+}
