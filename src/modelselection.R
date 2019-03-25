@@ -64,35 +64,92 @@ nirs_filtered.data = subset(nirs.data, select=c(c("SOC", "N", "pH"), as.characte
 require(leaps)
 
 # Select model
-subsets = regsubsets( N ~ nm2144+nm2148+nm2152+nm2156+nm2160+nm2164+nm2168+nm2172+nm2176+nm2180+nm2216+nm2220+nm2408+nm2412+nm2416+nm2424+nm2428+nm2476+nm2480+nm2504+nm2508+nm2512+nm2552+nm2556+nm2560+nm2564+nm2568+nm2572+nm2576+nm2580+nm2584+nm2588+nm2592+nm2596+nm2600+nm2656+nm2660+nm2664, nirs_filtered.data, really.big=F, nvmax=38)
+subsets = regsubsets( N ~ 1+nm2144+nm2148+nm2152+nm2156+nm2160+nm2164+nm2168+nm2172+nm2176+nm2180+nm2216+nm2220+nm2408+nm2412+nm2416+nm2424+nm2428+nm2476+nm2480+nm2504+nm2508+nm2512+nm2552+nm2556+nm2560+nm2564+nm2568+nm2572+nm2576+nm2580+nm2584+nm2588+nm2592+nm2596+nm2600+nm2656+nm2660+nm2664, nirs_filtered.data, really.big=F, nvmax=39)
 optModelId = which.min(summary(subsets)$cp)
-coeffs = coef(subsets, optModelId)
+coeffs = as.vector(coef(subsets, optModelId))
+
+# Get designmatrix
+X <- summary(subsets)$which
+xvars <- dimnames(X)[[2]][-1]
+responsevar <- "N"
+id <- X[optModelId,]
+form <- reformulate(xvars[which(id[-1])], responsevar, id[1])
+mod.nir <- lm(form, nirs_filtered.data)
+design_mat <- model.matrix(mod.nir)
 
 # ##########################################################
 # ## SIMULATION
 # ##########################################################
-getColumnMean = function(colname, data) {
-  return(mean(data[,colname]))
+
+# Berechnet Erwartungswertvektor, Standartabweichung, 
+getParam = function(colname, data) {
+  mu_vec <- design_mat %*% coeffs
+  
+  resid_vec <- as.vector(nirs.data[,2]  - mu_vec)
+  
+  sd <- sqrt(as.numeric(t(resid_vec) %*% resid_vec / (dim(nirs.data)[1] - dim(design_mat)[2])))
 }
 
-getColumnSD = function(colname, data) {
-  return(sd(data[,colname]))
-}
-
-
+# Generiert #TIMES Spalten Vectoren von Zielgröße N
 simulateColumn = function(num, colname, data.origin, TIMES) {
   data = data.frame(matrix(nrow=num, ncol=TIMES));
+  getParam();
   for (i in 1:TIMES) {
-    data[i] = rnorm(num, mean=getColumnMean(colname, data.origin), sd = getColumnSD(colname, data.origin))  
+    data[i] = rnorm(num, mean=mu_vec, sd = sd)  
   }
   
-  dataAVG = rowMeans(data)
+  return(data)
+# write.table(data)  ?? zum speichern der simulierten Einflussgrößen
   
-  return(dataAVG)
+#  dataAVG = rowMeans(data)
+#  return(dataAVG)
 }
+
+
+# Auswahl jedes 4. Indexes (der Spalte in Designmatrix)
+step <- 4
+index_pred_vec <- seq(1, dim(design_mat)[2], by=step)
+
+# Auswahl zufälliger Indexe (der Zeilen in Designmatrix, Beobachtungsvektor N, Pseudobeobachtungsvektor (N))
+count <- 100
+index_obs_vec <- sample(dim(design_mat)[1], count)
+
+n_sample_vec <- nirs.data[2,index_obs_vec]
+design_sample_mat <- design_mat[index_obs_vec,index_pred_vec]
+
+# Anzahl der Simulationsdurchläufen ist durch die Spaltenanzahl der Pseudobeobachtungsmatrix begrenzt (hier TIMES)
+count_sim <- dim(data)[2] #TIMES
+
+for(i in 1:count_sim){
+  pseudo_n_vec <- as.vector(data[index_obs_vec, i]) # Auswahl der i-ten Spalten der Pseudobeobachtungsmatrix + ausgewählte Zeilen
+  
+  pseudo_dataset <- cbind(pseudo_n_vec, design_sample_mat)
+  
+  pseudo_subsets = regsubsets()
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 simulateDataset = function(numRows, coeffs, data.origin, TIMES) {
   sim.data = data.frame(matrix(nrow=numRows));
+  
+  colnames(nirs.data)[-1:-3]
   
   # simulate nir data
   for (feature in colnames(data.origin)[-1:-3]) {
