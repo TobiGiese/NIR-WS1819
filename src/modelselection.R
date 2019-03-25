@@ -70,3 +70,4 @@ subsets = regsubsets( N ~ nm2144+nm2148+nm2152+nm2156+nm2160+nm2164+nm2168+nm217
 model.summary = summary(subsets)
 min.model.index = which.min(summary(subsets)$cp)
 model.summary
+ 
