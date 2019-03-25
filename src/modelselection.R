@@ -68,110 +68,59 @@ subsets = regsubsets( N ~ 1+nm2144+nm2148+nm2152+nm2156+nm2160+nm2164+nm2168+nm2
 optModelId = which.min(summary(subsets)$cp)
 coeffs = as.vector(coef(subsets, optModelId))
 
-# Get designmatrix
-X <- summary(subsets)$which
-xvars <- dimnames(X)[[2]][-1]
-responsevar <- "N"
-id <- X[optModelId,]
-form <- reformulate(xvars[which(id[-1])], responsevar, id[1])
-mod.nir <- lm(form, nirs_filtered.data)
-design_mat <- model.matrix(mod.nir)
+
 
 # ##########################################################
 # ## SIMULATION
 # ##########################################################
 
-# Berechnet Erwartungswertvektor, Standartabweichung, 
-getParam = function(colname, data) {
-  mu_vec <- design_mat %*% coeffs
+getDesignmatrix = function(subsets, modelId, responsevar, data) {
+  X <- summary(subsets)$which
+  xvars <- dimnames(X)[[2]][-1]
+  id <- X[modelId,]
+  form <- reformulate(xvars[which(id[-1])], responsevar, id[1])
+  mod.nir <- lm(form, data)
+  designMatrix <- model.matrix(mod.nir)
   
-  resid_vec <- as.vector(nirs.data[,2]  - mu_vec)
-  
-  sd <- sqrt(as.numeric(t(resid_vec) %*% resid_vec / (dim(nirs.data)[1] - dim(design_mat)[2])))
+  return(designMatrix)
 }
 
-# Generiert #TIMES Spalten Vectoren von Zielgröße N
-simulateColumn = function(num, colname, data.origin, TIMES) {
-  data = data.frame(matrix(nrow=num, ncol=TIMES));
-  getParam();
+getMeans = function(designMatrix, subsets, optModelId) {
+  coeffs = as.vector(coef(subsets, optModelId))
+  means = designMatrix %*% coeffs
+  
+  return(means)
+}
+
+getSDs = function(designMatrix, means, data.origin) {
+  residuals = as.vector(data.origin$N - means)
+  sd = sqrt(as.numeric(t(residuals) %*% residuals / (dim(data.origin)[1] - dim(designMatrix)[2])))
+  
+  return(sd)
+}
+
+# Generiert num Pseudodaten für Zielgröße N
+# num: Anzahl zu erzeugender Pseudodaten
+# TIMES: Anzahl wiederholungen
+simulate = function(subsets, modelId, data.origin, num, TIMES) {
+  data = data.frame(matrix(nrow = num, ncol=TIMES));
+  
+  designmatrix = getDesignmatrix(subsets, modelId, "N", data.origin)
+  means = getMeans(designmatrix, subsets, modelId)
+  sd = getSDs(designmatrix, means, data.origin)
+  
   for (i in 1:TIMES) {
-    data[i] = rnorm(num, mean=mu_vec, sd = sd)  
+    data[i] = rnorm(num, mean=means, sd = sd)  
   }
-  
-  return(data)
-# write.table(data)  ?? zum speichern der simulierten Einflussgrößen
-  
-#  dataAVG = rowMeans(data)
-#  return(dataAVG)
+
+  dataAVG = rowMeans(data)
+  return(dataAVG)
 }
 
+# simulate 
+simdata = nirs_filtered.data;
+simdata$N = simulate(subsets, optModelId, nirs.data, nrow(nirs.data), 1000)
+plot(nirs.data[,4], nirs.data[,2], type="p", col=1, ylim=c(-0.1, 0.75))
+points(nirs.data[,4], simdata$N, type="p", col=2, ylim=c(-0.1, 0.75))
 
-# Auswahl jedes 4. Indexes (der Spalte in Designmatrix)
-step <- 4
-index_pred_vec <- seq(1, dim(design_mat)[2], by=step)
-
-# Auswahl zufälliger Indexe (der Zeilen in Designmatrix, Beobachtungsvektor N, Pseudobeobachtungsvektor (N))
-count <- 100
-index_obs_vec <- sample(dim(design_mat)[1], count)
-
-n_sample_vec <- nirs.data[2,index_obs_vec]
-design_sample_mat <- design_mat[index_obs_vec,index_pred_vec]
-
-# Anzahl der Simulationsdurchläufen ist durch die Spaltenanzahl der Pseudobeobachtungsmatrix begrenzt (hier TIMES)
-count_sim <- dim(data)[2] #TIMES
-
-for(i in 1:count_sim){
-  pseudo_n_vec <- as.vector(data[index_obs_vec, i]) # Auswahl der i-ten Spalten der Pseudobeobachtungsmatrix + ausgewählte Zeilen
-  
-  pseudo_dataset <- cbind(pseudo_n_vec, design_sample_mat)
-  
-  pseudo_subsets = regsubsets()
-  
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-simulateDataset = function(numRows, coeffs, data.origin, TIMES) {
-  sim.data = data.frame(matrix(nrow=numRows));
-  
-  colnames(nirs.data)[-1:-3]
-  
-  # simulate nir data
-  for (feature in colnames(data.origin)[-1:-3]) {
-    sim.data[,feature] = simulateColumn(numRows, feature, data.origin, TIMES)
-  }
-  
-  # use estimated coefficients to calculate value for N
-  sim.data$N = as.vector(coeffs)[1];  
-  for (feature in names(coeffs[-1])) {
-    sim.data$N = sim.data$N + coeffs[feature] + sim.data[,feature]
-  }
-  
-  return(sim.data[,-1])
-}
-
-
-set.seed(13)
-simdata = simulateDataset(30, coeffs, nirs.data, 100);
-simdata
-#plot(seq(1400, 2672, 4), simdata[1,], type='l', col=1, ylim=c(0.3,0.7))
-#lines(seq(1400, 2672, 4), simdata[2,], type='l', col=2, ylim=c(0.3,0.7))
-#lines(seq(1400, 2672, 4), simdata[3,], type='l', col=3, ylim=c(0.3,0.7))
-#lines(seq(1400, 2672, 4), simdata[4,], type='l', col=4, ylim=c(0.3,0.7))
-#lines(seq(1400, 2672, 4), simdata[5,], type='l', col=5, ylim=c(0.3,0.7))
 
