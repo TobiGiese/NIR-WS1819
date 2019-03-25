@@ -1,6 +1,6 @@
 getDiff = function(row, n) {
   x=c()
-  for (i in 1:317) {
+  for (i in 1:(length(row)-1)) {
     x[i] = abs(row[i]-row[i+1])
   }
   
@@ -20,33 +20,39 @@ getDiffMatrix = function(M, rows, cols) {
 
 nirs.data = read.csv("../NIR.csv", sep=";")
 head(nirs.data)
-nirs.dataNew = nirs.data[,seq(1, ncol(nirs.data), 2)]
-nirs.dataNew$N = nirs.data$N
+nirs.dataNew = nirs.data[,seq(2, ncol(nirs.data), 2)]
+nirs.dataNew$SOC = nirs.data$SOC
+nirs.dataNew$pH = nirs.data$pH
 nirs.data = nirs.dataNew
 
 # nir data only
-nir.data = nirs.data[, 4:ncol(nirs.data)]
+nir.data = nirs.data[, 2:(ncol(nirs.data)-2)]
 ncol(nir.data)
 
 # wavelengths
 x=seq(1400, 2664, 8)
+length(x)
+length(nir.data[1,])
 
-plot(seq(1400, 2664, 8), nir.data[1,], type='l', col=1, ylim=c(0.3,0.7))
-lines(seq(1400, 2664, 8), nir.data[2,], type='l', col=2, ylim=c(0.3,0.7))
-lines(seq(1400, 2664, 8), nir.data[3,], type='l', col=3, ylim=c(0.3,0.7))
-lines(seq(1400, 2664, 8), nir.data[4,], type='l', col=4, ylim=c(0.3,0.7))
-lines(seq(1400, 2664, 8), nir.data[5,], type='l', col=5, ylim=c(0.3,0.7))
+plot(seq(1400, 2672, 8), nir.data[1,], type='l', col=1, ylim=c(0.3,0.7))
+lines(seq(1400, 2672, 8), nir.data[2,], type='l', col=2, ylim=c(0.3,0.7))
+lines(seq(1400, 2672, 8), nir.data[3,], type='l', col=3, ylim=c(0.3,0.7))
+lines(seq(1400, 2672, 8), nir.data[4,], type='l', col=4, ylim=c(0.3,0.7))
+lines(seq(1400, 2672, 8), nir.data[5,], type='l', col=5, ylim=c(0.3,0.7))
 
 # plot first deviation for first 6 records
-plot(x, getDiff(t(nir.data)[,1], 318), type='l', col=1)
-lines(x, getDiff(t(nir.data)[,2], 318), type='l', col=2)
-lines(x, getDiff(t(nir.data)[,3], 318), type='l', col=3)
-lines(x, getDiff(t(nir.data)[,4], 318), type='l', col=4)
-lines(x, getDiff(t(nir.data)[,5], 318), type='l', col=5)
-lines(x, getDiff(t(nir.data)[,6], 318), type='l', col=6)
+length(x)
+foo = getDiff(t(nir.data)[,1], 159)
+length(foo)
+plot(x, getDiff(t(nir.data)[,1], 159), type='l', col=1, ylim = c(0, 0.010))
+lines(x, getDiff(t(nir.data)[,2], 159), type='l', col=2)
+lines(x, getDiff(t(nir.data)[,3], 159), type='l', col=3)
+lines(x, getDiff(t(nir.data)[,4], 159), type='l', col=4)
+lines(x, getDiff(t(nir.data)[,5], 159), type='l', col=5)
+lines(x, getDiff(t(nir.data)[,6], 159), type='l', col=6)
 
 # calculate first deviation for the whole dataset
-M = getDiffMatrix(nir.data, 533, 318)
+M = getDiffMatrix(nir.data, 533, 159)
 # first deviation average
 Mavg = colMeans(M)
 plot(x, Mavg, type='l', col=1)
@@ -56,7 +62,7 @@ abline(h=THRESHOLD, col=2)
 
 
 # filter dataset for colunms having an average value (1. deviation) above threshold
-df = data.frame(x, colnames(nirs.data[, 4:320]), Mavg)
+df = data.frame(x, colnames(nirs.data[, 2:(ncol(nirs.data)-3)]), Mavg)
 colnames(df) = c("x", "nm", "y")
 filteredAvg1stDev = subset(df, y >= THRESHOLD, select=c("x", "nm", "y"));
 nrow(filteredAvg1stDev)
@@ -68,8 +74,10 @@ nirs_filtered.data = subset(nirs.data, select=c(c("SOC", "N", "pH"), as.characte
 require(leaps)
 
 # Select model
-subsets = regsubsets( N ~ 1+nm2144+nm2148+nm2152+nm2156+nm2160+nm2164+nm2168+nm2172+nm2176+nm2180+nm2216+nm2220+nm2408+nm2412+nm2416+nm2424+nm2428+nm2476+nm2480+nm2504+nm2508+nm2512+nm2552+nm2556+nm2560+nm2564+nm2568+nm2572+nm2576+nm2580+nm2584+nm2588+nm2592+nm2596+nm2600+nm2656+nm2660+nm2664, nirs_filtered.data, really.big=F, nvmax=39)
+subsets = regsubsets( N ~ 1+nm1512+nm1520+nm1528+nm1536+nm1544+nm1552+nm2144+nm2152+nm2160+nm2168+nm2176+nm2184+nm2192+nm2200+nm2208+nm2216+nm2224+nm2232+nm2240+nm2248+nm2256+nm2264+nm2272+nm2400+nm2408+nm2416+nm2424+nm2448+nm2464+nm2472+nm2480+nm2496+nm2504+nm2512+nm2528+nm2536+nm2544+nm2552+nm2560+nm2568+nm2576+nm2584+nm2592+nm2600+nm2648+nm2656+nm2664, nirs_filtered.data, really.big=F, nvmax=39, method="exhaustive")
 optModelId = which.min(summary(subsets)$cp)
+summary(subsets)$cp
+optModelId
 coeffs = as.vector(coef(subsets, optModelId))
 
 
