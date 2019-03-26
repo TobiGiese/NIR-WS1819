@@ -1,34 +1,60 @@
 % !TeX spellcheck = de_DE
-\section{Methodology}
-\label{sec:methodology}
+\section{Methodik}
+\label{sec:Methodik}
 	
-	\subsection{Measured Data}
-	\label{ssec:measured-data}
+	\subsection{Datensatz}
+	\label{ssec:Datensatz}
 	
-		As a ...
-		The reflectance $\varrho(\lambda)$ of a sample at a wavelength $\lambda \in \Lambda$ is recorded as
-		\[
-			-\lg \varrho(\lambda) = -\frac{\ln \varrho(\lambda)}{\ln 10}
+	    Der für die Modellwahl verwendete Datensatz beinhaltet die logarithmierten relativen Reflexionswerte $-\delta(\lambda)$ bei Wellenlängen zwischen 1400 nm und 2672 nm in einem Abstand von 4 nm sowie die Stoffmengeanteile $y^{(N)}$, $y^{(SOC)}$ und entsprechenden pH-Werte von insgesamt 533 Proben.
+	    Informationen über die chemische Zusammensetzung der Probe in den Reflexionswerten im Nahinfrarotbereich sind stark überlagert. \cite{Agelet2010} 
+	    Aus diesem Grund ist eine sorgfältige Auswahl relevanter Wellenlängen von besonderer Bedeutung für die Erstellung eines zuverlässigen Modells. 
+	    
+	
+	% subsection Datensatz
+
+	\subsection{Statistisches Modell}
+	\label{ssec:Statistisches Modell}
+	
+	    Sei $n\in\SN$ die Größe des Datensatzes und $k\in\SN$ mit $k< n$ die Anzahl der Wellenlängen im Datensatz. 
+	    Entsprechend Abschnitt \ref{ssec:Datensatz} definieren wir dann die Einflussgröße $x_{ij}$ als für die $i$te Probe und $j$te Wellenlänge als
+	    \[
+			x_{ij} \define -\lg \delta_i(\lambda_j)
 		\]
-		Figure \ref{fig:soil-spec-rnd} shows six randomly chosen soil spectra in a diagram.
-		\begin{figure*}
-			\centering
-			\input{gp/soil-spec-rnd.tex}
-			\caption{Six near infrared soil spectra of randomly chosen soil samples obtained from the data set, where $\lambda$ is the wavelength and $\rho(\lambda)$ the corresponding reflectance and each colour refers to one sample}
-			\label{fig:soil-spec-rnd}
-		\end{figure*}
+		für jedes $i,j\in\SN,i\leq n,j\leq k$.
+	    
+	    Der Stoffmengenanteil des Stickstoffs  $y^{(N)}$ stellt die Zielgröße unseres späteren Modells dar.
+	    Wie definieren hierfür den Vektor $y_i$ den Stoffmengenanteil der $i$ten Probe als den $n$ dimensionalen Vektor
+		\[
+			 y^{(N)} \define \curvb{y^\m{(N)}_i}
+		\]
+
+        Nachdem wir sowohl die Einflussgrößen als auch die Zielgröße für das lineare Modell definiert haben lassen sich diese nun in Zusammenhang bringen.
+        Es ist plausibel anzunehmen, die sich sie Zielgröße durch einen Linearkombination der Einflussgrößen beschreiben lässt.
+        Hierfür definieren wir zunächst $Y^\m{(N)}$ als einen zufälligen Vektor von $y^\m{(N)}$
+        \[ 
+			 \expect Y^\m{(N)} \define \beta_0 + \sum_{j=1}^k{x_{ij}\beta_j} 
+		\]
 		
+		Zudem ist es notwendig eine Variable $\varepsilon^\m{(N)}$ einzuführen welchen den Zufall der Messungen beschreibt.
+	    In Matrixschreibweise lässt sich dies als die Designmatrix $\mathbb{X} \in \SR^{n \times (k+1)}$, dem Parametervektor $\beta \in \SR^{k+1}$ und dem stochastisch  verteilten Parameter $\varepsilon^\m{(N)}$ darstellen, sodass gilt,
+		\[
+			Y^\m{(N)} = \mathbb{X}\beta + \varepsilon^\m{(N)}
+		\]
+		mit 
+		\[
+			\expect \varepsilon^\m{(N)} = 0, \qquad \cov \varepsilon^\m{(N)} = (\sigma^2)^\m{(N)} \idmat
+		\]
+		wobei $(\sigma^2)^\m{(N)} \in (0,\infty)$.
+		Weiterhin soll angenommen werden, dass
+	    \[
+			\varepsilon^\m{(N)} \sim \FN \curvb{0,(\sigma^2)^\m{(N)}\idmat}
+		\]
+	    sodass sich für das Gesamtmodell gilt 
+		\[
+			Y^\m{(N)} \sim \FN \curvb{\mathbb{X}\beta^\m{(N)},(\sigma^2)^\m{(N)} \idmat}
+		\]
 	
-	% subsection measured-data
-
-	\subsection{Statistical Model}
-	\label{ssec:statistical-model}
-	
-	
-	
-
-	
-	% subsection statistical-model
+	% subsection Statistisches Modell
 
 	\subsection{Modellwahl im klassischen linearen Modell}
 	\label{ssec:mlr}
