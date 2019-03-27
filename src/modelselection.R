@@ -207,4 +207,4 @@ for (run in 41:60) {
 }
 
 write.csv(cpValues, "simulationCpValues.csv")
-write.csv(cpValues, "simulationselectedModelIds.csv")
+write.csv(selectedModels, "simulationselectedModelIds.csv")

@@ -20,7 +20,9 @@ getDiffMatrix = function(M, rows, cols) {
 
 nirs.data = read.csv("../NIR.csv", sep=";")
 head(nirs.data)
-nirs.dataNew = nirs.data[,seq(2, ncol(nirs.data), 2)]
+#nirs.dataNew = nirs.data[,seq(2, ncol(nirs.data), 2)]
+nirs.dataNew = nirs.data[,1:3]
+nirs.dataNew = cbind(nirs.dataNew, nirs.data[,sample(150:ncol(nirs.data)-3, 39)])
 nirs.dataNew$SOC = nirs.data$SOC
 nirs.dataNew$pH = nirs.data$pH
 nirs.data = nirs.dataNew
@@ -30,7 +32,7 @@ nir.data = nirs.data[, 2:(ncol(nirs.data)-2)]
 ncol(nir.data)
 
 # wavelengths
-x=seq(1400, 2664, 8)
+x=seq(1400, 2664, 4)
 length(x)
 length(nir.data[1,])
 
@@ -70,11 +72,13 @@ plot(filteredAvg1stDev$x, filteredAvg1stDev$y, type='p', col=1)
 
 nirs_filtered.data = subset(nirs.data, select=c(c("SOC", "N", "pH"), as.character(filteredAvg1stDev[,"nm"])))
 
+nirs_filtered.data = nirs.dataNew;
 ### Mallows CP
 require(leaps)
 
 # Select model
-subsets = regsubsets( N ~ 1+nm1512+nm1520+nm1528+nm1536+nm1544+nm1552+nm2144+nm2152+nm2160+nm2168+nm2176+nm2184+nm2192+nm2200+nm2208+nm2216+nm2224+nm2232+nm2240+nm2248+nm2256+nm2264+nm2272+nm2400+nm2408+nm2416+nm2424+nm2448+nm2464+nm2472+nm2480+nm2496+nm2504+nm2512+nm2528+nm2536+nm2544+nm2552+nm2560+nm2568+nm2576+nm2584+nm2592+nm2600+nm2648+nm2656+nm2664, nirs_filtered.data, really.big=F, nvmax=39, method="exhaustive")
+#subsets = regsubsets( N ~ 1+nm1512+nm1520+nm1528+nm1536+nm1544+nm1552+nm2144+nm2152+nm2160+nm2168+nm2176+nm2184+nm2192+nm2200+nm2208+nm2216+nm2224+nm2232+nm2240+nm2248+nm2256+nm2264+nm2272+nm2400+nm2408+nm2416+nm2424+nm2448+nm2464+nm2472+nm2480+nm2496+nm2504+nm2512+nm2528+nm2536+nm2544+nm2552+nm2560+nm2568+nm2576+nm2584+nm2592+nm2600+nm2648+nm2656+nm2664, nirs_filtered.data, really.big=F, nvmax=39, method="exhaustive")
+subsets = regsubsets( N ~ 1+nm2076+nm2304+nm2428+nm2352+nm2468+nm2116+nm2244+nm2280+nm2176+nm2368+nm2240+nm2548+nm2532+nm2640+nm2032+nm2052+nm2136+nm2628+nm2268+nm2204+nm1976+nm2252+nm2500+nm2484+nm2284+nm2292+nm2576+nm2288+nm2060+nm2448+nm2480+nm2092+nm2524+nm2248+nm2208+nm2256+nm2308+nm2440+nm2488, nirs_filtered.data, really.big=F, nvmax=39)
 optModelId = which.min(summary(subsets)$cp)
 summary(subsets)$cp
 optModelId
