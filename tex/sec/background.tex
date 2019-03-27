@@ -1,30 +1,55 @@
-\section{Background}
-\label{sec:background}
+\section{Hintergrund}
+\label{sec:Hintergrund}
 	
-	\subsection{Soil Parameters}
-	\label{ssec:soil-parameters}
+	\subsection{Gebundener Stickstoff}
+	\label{ssec:Gebundener Stickstoff}
 	
-		Let $A$ be any substance in a given soil sample dissolved in a solution of volume $V\in(0,\infty)$ and let $n_A\in(0,\infty)$ be the amount of $A$ in the sample.
-		Then the molar concentration $c_A$ of $A$ is given by
-		\[
-			c_A \define \frac{n_A}{V}
+	In der Natur geschieht eine fortwährender Austausch von Stickstoff zwischen Lebewesen, Boden und Atmosphäre. 
+	Ein Großteil des vorhandenen Stickstoffs liegt in gebundener Form im Erdboden vor und ist ein unentbehrlicher Nährstoff für Pflanzen und Lebewesen.
+	Er wird von Pflanzen beim Wachstum aus der Erde aufgenommen und beim Absterben wieder freigesetzt.
+    Zur Steigerung der Ernte ist eine Anreicherung der Bodens mit Nitrat durch der Einsatz von Düngemitteln daher gängige Praxis in der Landwirtschaft.\cite{Umweltbundesamt2017}
+    Dies kann dann zu Problemen führen, wenn zu einer Übersättigung des Bodens mit Stickstoff kommt.
+    Durch Ausschwemmen des in Form von Nitrat ($NO_3^-$) und Ammonium ($NH_4^+$) gebundenen Stickstoffs kann dieses ins Grundwasser gelangen und eine Gefahr für die Umwelt darstellt.
+    Sowohl für den Erfolg der Landwirtschaft als auch für den Schutz der Umwelt ist daher eine zuverlässige und effiziente Ermittlung des Nitratgehalts im Bodens von entscheidender Bedeutung.
+    Der Messung des Stickstoffs liegen folgende chemische Zusammenhänge zu Grunde:
+    
+    
+    Die Stoffmengenkonzentration von Stickstoff $c_{(N)}$ lässt sich berechnen durch,
+    	\[
+			c^{(N)} \define \frac{n^{(N)}}{V}
 		\]
-		Now let $c_0$ be the molar concentration of this whole sample and $n_0$ the amount of the whole sample....
+		wobei $V$ das Volumen der Lösung und $n_{(N)}$ die enthaltenen Stoffmenge von Stickstoff ist.
 		
-	
-	% subsection soil-parameters
+    Für eine gegebene Stoffmengenkonzentration $c_0$  und Stoffmenge $n_o$ einer Probe, definieren wir den Stoffmengenanteil $y_{(N)}$ von Stickstoff als,
+        \[
+			y_{(N)} \define \frac{c^{(N)}}{c_0} = \frac{n^{(N)}}{n_0}
+		\]
+   
+	% subsection Gebundener Stickstoff
 
-	\subsection{Near Infrared Spectroscopy}
+	\subsection{Nahinfrarotspektroskopie}
 	\label{ssec:nirs}
 	
-		NIRS uses electromagnetic waves \cite[246]{agelet:10a},
-		 
-		The reflectance 
+		Bei der Nahinfrarotspektroskopie kommen elektromagnetische Wellen im Bereich zwischen 120 THz und 400 THz bzw. 2.500 nm und 750 nm zum Einsatz. \cite{Agelet2010}
+		Das Messverfahren nutzt die Tatsache, dass bei der Bestrahlung einer Probe Teile des Lichts reflektiert, hindurch gelassen oder absorbiert werden.
+		Von besonderem Interesse ist hierbei die Reflexion des Lichts, welche sich in den zwei Komponenten Spiegelreflexion und diffuse Reflexion unterscheiden lässt.
+		Aus den Teilen des Lichts welche diffus reflektiert werden, können aufgrund der größeren Eindringtiefe Informationen über die Beschaffenheit der Probe gewonnen werden. \cite{Agelet2010}
+		Für eine Wellenlänge $\lambda$ ist das relative Reflexionsvermögen $\delta(\lambda)$ definiert als:
 		\[
-			\func{\varrho}{(0,\infty)}{(0,\infty)},\qquad \varrho(\lambda) \define \frac{P_\m{r}(\lambda)}{P_0}
+			\func{\delta}{(0,\infty)}{(0,\infty)},\qquad \delta(\lambda) \define \frac{P_\m{r}(\lambda)}{P_s}
 		\]
-		of a 
+		
+		wobei $P_\m{r}(\lambda)$ die Reflexion einer Probe und $P_0$ die Reflexion eines Materials mit einem Reflexionsanteil nahe $100\%$ ist. 
+		
+		Weiterhin lässt sich unter Anwendung des Beer'schen Gesetzes ein approximativer Zusammenhang zwischen dem relativen Reflexionsvermögen und der Stoffmenge $c_{(N)}$ des Stickstoffs herstellen.
+		In eine Probe mit $n$ verschiedenen Stoffen sei $c_i$ die Stoffmengenkonzentration des $i$ten in der Probe enthaltenen Stoffes. 
+		Dann sei $\varepsilon_i(\lambda)$ ein Koeffizient mit $i\in\SN,i\leq n$ sodass
+		
+		\[
+			-\log \delta(\lambda) = -\log \frac{P_\m{r}(\lambda)}{P_s} = \sum_{i=1}^{n} \varepsilon_i(\lambda) c_i
+		\]
+
 
 	% subsection nirs
 
-% section fundamentals
+% section Hintergrund
