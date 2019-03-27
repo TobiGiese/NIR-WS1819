@@ -76,7 +76,6 @@ sigma2.tilde.full = RSS_full/(533-39)
 
 
 
-
 # ##########################################################
 # ## SIMULATION
 # ##########################################################
@@ -208,3 +207,33 @@ for (run in 41:60) {
 
 write.csv(cpValues, "simulationCpValues.csv")
 write.csv(selectedModels, "simulationselectedModelIds.csv")
+
+# #########################################
+# calculate true SPSE
+# #########################################
+X <- summary(subsets)$which
+xvars <- dimnames(X)[[2]][-1]
+id <- X[optModelId,]
+form <- reformulate(xvars[which(id[-1])], "N", id[1])
+lm_opt <- lm(form, nirs.data)
+rss_opt = sum(residuals(lm_opt)^2)
+sigma2.tilde.opt = RSS_full/(533-20)
+spse_true = (533+20)*sigma2.tilde.opt
+
+
+# ##########################
+# Calculate estimated SPSE
+# #########################
+sim.cp = read.csv("simulationCpValues.csv")
+sim.spse = data.frame(matrix(nrow=6, ncol=60))
+rownames(sim.spse) = c(100, 200, 300, 400, 500, 533)
+
+sim.spse = sim.cp * sigma2.tilde.full + 533*sigma2.tilde.full
+
+plot(x=100, y=mean(as.vector(t(sim.spse[1,]))), xlim = c(0,550), ylim = c(1.33, 1.4))
+points(x=200, y=mean(as.vector(t(sim.spse[2,]))))
+points(x=300, y=mean(as.vector(t(sim.spse[3,]))))
+points(x=400, y=mean(as.vector(t(sim.spse[4,]))))
+points(x=500, y=mean(as.vector(t(sim.spse[5,]))))
+points(x=533, y=mean(as.vector(t(sim.spse[6,]))))
+points(x=533, y=spse_true, col=2)
