@@ -87,11 +87,11 @@ varHigh3.optModelId = which.min(summary(varHigh3.subsets)$cp)
 varHigh3.lm.opt = getModelFromSubsets(varHigh3.subsets, varHigh3.optModelId, "N", nirs.data)
 
 #  model with highest 1. deviation, (without abs)
-varHigh4.subsets = regsubsets( N ~ 1+nm1432+nm1444+nm1488+nm1492+nm1496+nm1500+nm1504+nm1508+nm1512+nm1516+nm1520+nm1524+nm1528+nm1532+nm1536+nm1540+nm1544+nm1548+nm1552+nm1556+nm1560+nm1564+nm1568+nm1572+nm1576+nm1580+nm1584+nm1588+nm1592+nm1596+nm1600+nm1604+nm1632+nm1636+nm1644+nm1648+nm1652+nm1656+nm1660+nm1672+nm1676+nm1680+nm1684+nm1688+nm1692+nm2084+nm2104+nm2128+nm2140+nm2144+nm2148+nm2152+nm2156+nm2160+nm2164+nm2168+nm2172+nm2176+nm2180+nm2188+nm2192+nm2196+nm2200+nm2204+nm2208+nm2212+nm2216+nm2220+nm2224+nm2228+nm2232+nm2236+nm2240+nm2244+nm2248+nm2252+nm2256+nm2260+nm2264+nm2268+nm2272+nm2276+nm2280+nm2284+nm2288+nm2292+nm2296+nm2304+nm2308+nm2312+nm2376+nm2380+nm2384+nm2388+nm2392+nm2396+nm2400+nm2404+nm2408+nm2412+nm2416+nm2420+nm2424+nm2428+nm2432+nm2444+nm2448+nm2452+nm2456+nm2460+nm2464+nm2468+nm2472+nm2476+nm2480+nm2484+nm2488+nm2496+nm2500+nm2504+nm2508+nm2512+nm2516+nm2524+nm2528+nm2532+nm2536+nm2540+nm2544+nm2548+nm2552+nm2556+nm2560+nm2564+nm2568+nm2572+nm2576+nm2580+nm2584+nm2588+nm2592+nm2596+nm2600+nm2604+nm2608+nm2612+nm2636+nm2640+nm2644+nm2652+nm2656+nm2660+nm2664, nirs.data, really.big=T, nvmax=154, method="backward")
-varHigh4.lm.full = lm(N ~ 1+nm1432+nm1444+nm1488+nm1492+nm1496+nm1500+nm1504+nm1508+nm1512+nm1516+nm1520+nm1524+nm1528+nm1532+nm1536+nm1540+nm1544+nm1548+nm1552+nm1556+nm1560+nm1564+nm1568+nm1572+nm1576+nm1580+nm1584+nm1588+nm1592+nm1596+nm1600+nm1604+nm1632+nm1636+nm1644+nm1648+nm1652+nm1656+nm1660+nm1672+nm1676+nm1680+nm1684+nm1688+nm1692+nm2084+nm2104+nm2128+nm2140+nm2144+nm2148+nm2152+nm2156+nm2160+nm2164+nm2168+nm2172+nm2176+nm2180+nm2188+nm2192+nm2196+nm2200+nm2204+nm2208+nm2212+nm2216+nm2220+nm2224+nm2228+nm2232+nm2236+nm2240+nm2244+nm2248+nm2252+nm2256+nm2260+nm2264+nm2268+nm2272+nm2276+nm2280+nm2284+nm2288+nm2292+nm2296+nm2304+nm2308+nm2312+nm2376+nm2380+nm2384+nm2388+nm2392+nm2396+nm2400+nm2404+nm2408+nm2412+nm2416+nm2420+nm2424+nm2428+nm2432+nm2444+nm2448+nm2452+nm2456+nm2460+nm2464+nm2468+nm2472+nm2476+nm2480+nm2484+nm2488+nm2496+nm2500+nm2504+nm2508+nm2512+nm2516+nm2524+nm2528+nm2532+nm2536+nm2540+nm2544+nm2548+nm2552+nm2556+nm2560+nm2564+nm2568+nm2572+nm2576+nm2580+nm2584+nm2588+nm2592+nm2596+nm2600+nm2604+nm2608+nm2612+nm2636+nm2640+nm2644+nm2652+nm2656+nm2660+nm2664, data=nirs.data)
-varHigh4.cp = min(summary(varHigh4.subsets)$cp)
-varHigh4.optModelId = which.min(summary(varHigh4.subsets)$cp)
-varHigh4.lm.opt = getModelFromSubsets(varHigh4.subsets, varHigh4.optModelId, "N", nirs.data)
+devHigh4.subsets = regsubsets( N ~ 1+nm1432+nm1444+nm1488+nm1492+nm1496+nm1500+nm1504+nm1508+nm1512+nm1516+nm1520+nm1524+nm1528+nm1532+nm1536+nm1540+nm1544+nm1548+nm1552+nm1556+nm1560+nm1564+nm1568+nm1572+nm1576+nm1580+nm1584+nm1588+nm1592+nm1596+nm1600+nm1604+nm1632+nm1636+nm1644+nm1648+nm1652+nm1656+nm1660+nm1672+nm1676+nm1680+nm1684+nm1688+nm1692+nm2084+nm2104+nm2128+nm2140+nm2144+nm2148+nm2152+nm2156+nm2160+nm2164+nm2168+nm2172+nm2176+nm2180+nm2188+nm2192+nm2196+nm2200+nm2204+nm2208+nm2212+nm2216+nm2220+nm2224+nm2228+nm2232+nm2236+nm2240+nm2244+nm2248+nm2252+nm2256+nm2260+nm2264+nm2268+nm2272+nm2276+nm2280+nm2284+nm2288+nm2292+nm2296+nm2304+nm2308+nm2312+nm2376+nm2380+nm2384+nm2388+nm2392+nm2396+nm2400+nm2404+nm2408+nm2412+nm2416+nm2420+nm2424+nm2428+nm2432+nm2444+nm2448+nm2452+nm2456+nm2460+nm2464+nm2468+nm2472+nm2476+nm2480+nm2484+nm2488+nm2496+nm2500+nm2504+nm2508+nm2512+nm2516+nm2524+nm2528+nm2532+nm2536+nm2540+nm2544+nm2548+nm2552+nm2556+nm2560+nm2564+nm2568+nm2572+nm2576+nm2580+nm2584+nm2588+nm2592+nm2596+nm2600+nm2604+nm2608+nm2612+nm2636+nm2640+nm2644+nm2652+nm2656+nm2660+nm2664, nirs.data, really.big=T, nvmax=154, method="backward")
+devHigh4.lm.full = lm(N ~ 1+nm1432+nm1444+nm1488+nm1492+nm1496+nm1500+nm1504+nm1508+nm1512+nm1516+nm1520+nm1524+nm1528+nm1532+nm1536+nm1540+nm1544+nm1548+nm1552+nm1556+nm1560+nm1564+nm1568+nm1572+nm1576+nm1580+nm1584+nm1588+nm1592+nm1596+nm1600+nm1604+nm1632+nm1636+nm1644+nm1648+nm1652+nm1656+nm1660+nm1672+nm1676+nm1680+nm1684+nm1688+nm1692+nm2084+nm2104+nm2128+nm2140+nm2144+nm2148+nm2152+nm2156+nm2160+nm2164+nm2168+nm2172+nm2176+nm2180+nm2188+nm2192+nm2196+nm2200+nm2204+nm2208+nm2212+nm2216+nm2220+nm2224+nm2228+nm2232+nm2236+nm2240+nm2244+nm2248+nm2252+nm2256+nm2260+nm2264+nm2268+nm2272+nm2276+nm2280+nm2284+nm2288+nm2292+nm2296+nm2304+nm2308+nm2312+nm2376+nm2380+nm2384+nm2388+nm2392+nm2396+nm2400+nm2404+nm2408+nm2412+nm2416+nm2420+nm2424+nm2428+nm2432+nm2444+nm2448+nm2452+nm2456+nm2460+nm2464+nm2468+nm2472+nm2476+nm2480+nm2484+nm2488+nm2496+nm2500+nm2504+nm2508+nm2512+nm2516+nm2524+nm2528+nm2532+nm2536+nm2540+nm2544+nm2548+nm2552+nm2556+nm2560+nm2564+nm2568+nm2572+nm2576+nm2580+nm2584+nm2588+nm2592+nm2596+nm2600+nm2604+nm2608+nm2612+nm2636+nm2640+nm2644+nm2652+nm2656+nm2660+nm2664, data=nirs.data)
+devHigh4.cp = min(summary(devHigh4.subsets)$cp)
+devHigh4.optModelId = which.min(summary(devHigh4.subsets)$cp)
+devHigh4.lm.opt = getModelFromSubsets(devHigh4.subsets, devHigh4.optModelId, "N", nirs.data)
 
 # #########################################
 # calculate true SPSE
@@ -103,7 +103,7 @@ varHigh.spse.true = calculateTrueSpse(varHigh.lm.opt, varHigh.optModelId, 533)
 devHigh2.spse.true = calculateTrueSpse(devHigh2.lm.opt, devHigh2.optModelId, 533)
 varHigh2.spse.true = calculateTrueSpse(varHigh2.lm.opt, varHigh2.optModelId, 533)
 varHigh3.spse.true = calculateTrueSpse(varHigh3.lm.opt, varHigh3.optModelId, 533)
-varHigh4.spse.true = calculateTrueSpse(varHigh4.lm.opt, varHigh4.optModelId, 533)
+devHigh4.spse.true = calculateTrueSpse(devHigh4.lm.opt, devHigh4.optModelId, 533)
 
 devHigh.spse.true
 devLow.spse.true
@@ -111,7 +111,7 @@ varHigh.spse.true
 devHigh2.spse.true
 varHigh2.spse.true
 varHigh3.spse.true
-varHigh4.spse.true
+devHigh4.spse.true
 
 
 # ###################################################
@@ -124,7 +124,7 @@ varHigh.spse.true2 = calculateTrueSpse2(varHigh.lm.opt, varHigh.optModelId, varH
 devHigh2.spse.true2 = calculateTrueSpse2(devHigh2.lm.opt, devHigh2.optModelId, devHigh2.lm.full, 533, 39)
 varHigh2.spse.true2 = calculateTrueSpse2(varHigh2.lm.opt, varHigh2.optModelId, varHigh2.lm.full, 533, 36)
 varHigh3.spse.true2 = calculateTrueSpse2(varHigh3.lm.opt, varHigh3.optModelId, varHigh3.lm.full, 533, 37)
-varHigh4.spse.true2 = calculateTrueSpse2(varHigh4.lm.opt, varHigh4.optModelId, varHigh4.lm.full, 533, 50)
+devHigh4.spse.true2 = calculateTrueSpse2(devHigh4.lm.opt, devHigh4.optModelId, devHigh4.lm.full, 533, 50)
 
 devHigh.spse.true2
 devLow.spse.true2
@@ -132,7 +132,7 @@ varHigh.spse.true2
 devHigh2.spse.true2
 varHigh2.spse.true2
 varHigh3.spse.true2
-varHigh4.spse.true2
+devHigh4.spse.true2
 
 # ###################################################
 # estimate SPSE based on CP value
@@ -144,7 +144,7 @@ varHigh.spse.est.cp = calculateEstimatedSpse(varHigh.cp, varHigh.lm.full, 37, 53
 devHigh2.spse.est.cp = calculateEstimatedSpse(devHigh2.cp, devHigh2.lm.full, 39, 533)
 varHigh2.spse.est.cp = calculateEstimatedSpse(varHigh2.cp, varHigh2.lm.full, 36, 533)
 varHigh3.spse.est.cp = calculateEstimatedSpse(varHigh3.cp, varHigh3.lm.full, 37, 533)
-varHigh4.spse.est.cp = calculateEstimatedSpse(varHigh4.cp, varHigh4.lm.full, 50, 533)
+devHigh4.spse.est.cp = calculateEstimatedSpse(devHigh4.cp, devHigh4.lm.full, 50, 533)
 
 
 devHigh.spse.est.cp 
@@ -153,4 +153,4 @@ varHigh.spse.est.cp
 devHigh2.spse.est.cp
 varHigh2.spse.est.cp
 varHigh3.spse.est.cp
-varHigh4.spse.est.cp
+devHigh4.spse.est.cp
