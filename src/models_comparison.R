@@ -71,13 +71,19 @@ devHigh2.cp = min(summary(devHigh2.subsets)$cp)
 devHigh2.optModelId = which.min(summary(devHigh2.subsets)$cp)
 devHigh2.lm.opt = getModelFromSubsets(devHigh2.subsets, devHigh2.optModelId, "N", nirs.data)
 
-#  model with only 7
-var7.subsets = regsubsets( N ~ 1+nm1456+nm1460+nm1464+nm1472+nm1476+nm1484+nm1936+nm1956+nm1960+nm1964+nm1968+nm1972+nm1976+nm1980+nm1984+nm2112+nm2124+nm2136+nm2184+nm2188+nm2360+nm2436+nm2456+nm2492+nm2496+nm2520+nm2524+nm2616+nm2620+nm2624+nm2628+nm2632+nm2640+nm2644+nm2648, nirs.data, really.big=T, nvmax=36)
-var7.lm.full = lm(N ~ 1+nm1456+nm1460+nm1464+nm1472+nm1476+nm1484+nm1936+nm1956+nm1960+nm1964+nm1968+nm1972+nm1976+nm1980+nm1984+nm2112+nm2124+nm2136+nm2184+nm2188+nm2360+nm2436+nm2456+nm2492+nm2496+nm2520+nm2524+nm2616+nm2620+nm2624+nm2628+nm2632+nm2640+nm2644+nm2648, data=nirs.data)
-var7.cp = min(summary(var7.subsets)$cp)
-var7.optModelId = which.min(summary(var7.subsets)$cp)
-var7.lm.opt = getModelFromSubsets(var7.subsets, var7.optModelId, "N", nirs.data)
+#  model with highest variability, based on normalized distance between max and  min (without abs)
+varHigh2.subsets = regsubsets( N ~ 1+nm1456+nm1460+nm1464+nm1472+nm1476+nm1484+nm1936+nm1956+nm1960+nm1964+nm1968+nm1972+nm1976+nm1980+nm1984+nm2112+nm2124+nm2136+nm2184+nm2188+nm2360+nm2436+nm2456+nm2492+nm2496+nm2520+nm2524+nm2616+nm2620+nm2624+nm2628+nm2632+nm2640+nm2644+nm2648, nirs.data, really.big=T, nvmax=36)
+varHigh2.lm.full = lm(N ~ 1+nm1456+nm1460+nm1464+nm1472+nm1476+nm1484+nm1936+nm1956+nm1960+nm1964+nm1968+nm1972+nm1976+nm1980+nm1984+nm2112+nm2124+nm2136+nm2184+nm2188+nm2360+nm2436+nm2456+nm2492+nm2496+nm2520+nm2524+nm2616+nm2620+nm2624+nm2628+nm2632+nm2640+nm2644+nm2648, data=nirs.data)
+varHigh2.cp = min(summary(varHigh2.subsets)$cp)
+varHigh2.optModelId = which.min(summary(varHigh2.subsets)$cp)
+varHigh2.lm.opt = getModelFromSubsets(varHigh2.subsets, varHigh2.optModelId, "N", nirs.data)
 
+# model with highest variability, based on distance between max and  min (without abs)
+varHigh3.subsets = regsubsets( N ~ 1+nm1548+nm2144+nm2148+nm2152+nm2156+nm2160+nm2164+nm2168+nm2172+nm2176+nm2180+nm2184+nm2188+nm2192+nm2196+nm2400+nm2404+nm2408+nm2412+nm2416+nm2424+nm2428+nm2452+nm2456+nm2484+nm2492+nm2496+nm2500+nm2512+nm2520+nm2624+nm2628+nm2632+nm2636+nm2640+nm2664, nirs.data, really.big=T, nvmax=37)
+varHigh3.lm.full = lm(N ~ 1+nm1548+nm2144+nm2148+nm2152+nm2156+nm2160+nm2164+nm2168+nm2172+nm2176+nm2180+nm2184+nm2188+nm2192+nm2196+nm2400+nm2404+nm2408+nm2412+nm2416+nm2424+nm2428+nm2452+nm2456+nm2484+nm2492+nm2496+nm2500+nm2512+nm2520+nm2624+nm2628+nm2632+nm2636+nm2640+nm2664, data=nirs.data)
+varHigh3.cp = min(summary(varHigh3.subsets)$cp)
+varHigh3.optModelId = which.min(summary(varHigh3.subsets)$cp)
+varHigh3.lm.opt = getModelFromSubsets(varHigh3.subsets, varHigh3.optModelId, "N", nirs.data)
 
 # #########################################
 # calculate true SPSE
@@ -87,13 +93,15 @@ devHigh.spse.true = calculateTrueSpse(devHigh.lm.opt, devHigh.optModelId, 533)
 devLow.spse.true = calculateTrueSpse(devLow.lm.opt, devLow.optModelId, 533)
 varHigh.spse.true = calculateTrueSpse(varHigh.lm.opt, varHigh.optModelId, 533)
 devHigh2.spse.true = calculateTrueSpse(devHigh2.lm.opt, devHigh2.optModelId, 533)
-var7.spse.true = calculateTrueSpse(var7.lm.opt, var7.optModelId, 533)
+varHigh2.spse.true = calculateTrueSpse(varHigh2.lm.opt, varHigh2.optModelId, 533)
+varHigh3.spse.true = calculateTrueSpse(varHigh3.lm.opt, varHigh3.optModelId, 533)
 
 devHigh.spse.true
 devLow.spse.true
 varHigh.spse.true
 devHigh2.spse.true
-var7.spse.true
+varHigh2.spse.true
+varHigh3.spse.true
 
 
 # ###################################################
@@ -104,13 +112,15 @@ devHigh.spse.true2 = calculateTrueSpse2(devHigh.lm.opt, devHigh.optModelId, devH
 devLow.spse.true2 = calculateTrueSpse2(devLow.lm.opt, devLow.optModelId, devLow.lm.full, 533, 70)
 varHigh.spse.true2 = calculateTrueSpse2(varHigh.lm.opt, varHigh.optModelId, varHigh.lm.full, 533, 37)
 devHigh2.spse.true2 = calculateTrueSpse2(devHigh2.lm.opt, devHigh2.optModelId, devHigh2.lm.full, 533, 39)
-var7.spse.true2 = calculateTrueSpse2(var7.lm.opt, var7.optModelId, var7.lm.full, 533, 36)
+varHigh2.spse.true2 = calculateTrueSpse2(varHigh2.lm.opt, varHigh2.optModelId, varHigh2.lm.full, 533, 36)
+varHigh3.spse.true2 = calculateTrueSpse2(varHigh3.lm.opt, varHigh3.optModelId, varHigh3.lm.full, 533, 37)
 
 devHigh.spse.true2
 devLow.spse.true2
 varHigh.spse.true2
 devHigh2.spse.true2
-var7.spse.true2
+varHigh2.spse.true2
+varHigh3.spse.true2
 
 # ###################################################
 # estimate SPSE based on CP value
@@ -120,10 +130,12 @@ devHigh.spse.est.cp = calculateEstimatedSpse(devHigh.cp, devHigh.lm.full, 39, 53
 devLow..spse.est.cp = calculateEstimatedSpse(devLow.cp, devLow.lm.full, 70, 533)
 varHigh.spse.est.cp = calculateEstimatedSpse(varHigh.cp, varHigh.lm.full, 37, 533)
 devHigh2.spse.est.cp = calculateEstimatedSpse(devHigh2.cp, devHigh2.lm.full, 39, 533)
-var7.spse.est.cp = calculateEstimatedSpse(var7.cp, var7.lm.full, 36, 533)
+varHigh2.spse.est.cp = calculateEstimatedSpse(varHigh2.cp, varHigh2.lm.full, 36, 533)
+varHigh3.spse.est.cp = calculateEstimatedSpse(varHigh3.cp, varHigh3.lm.full, 37, 533)
 
 devHigh.spse.est.cp 
 devLow..spse.est.cp 
 varHigh.spse.est.cp 
 devHigh2.spse.est.cp
-var7.spse.est.cp
+varHigh2.spse.est.cp
+varHigh3.spse.est.cp
