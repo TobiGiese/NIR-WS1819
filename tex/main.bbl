@@ -1,3 +1,13 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{Wei05}
+
+\bibitem[Sch19]{Schumacher.2019}
+Jens Schumacher.
+\newblock Skript zur vorlesung statistische verfahren im wintersemester
+  2018/19, 2019.
+
+\bibitem[Wei05]{weisberg2005}
+Sanford Weisberg.
+\newblock {\em Applied linear regression}, volume 528.
+\newblock John Wiley \& Sons, 2005.
 
 \end{thebibliography}

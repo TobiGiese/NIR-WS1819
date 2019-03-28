@@ -27,7 +27,9 @@ nir.data = nirs.data[, 4:322]
 # wavelengths
 x=seq(1400, 2664, 4)
 
-plot(seq(1400, 2672, 4), nir.data[1,], type='l', col=1, ylim=c(0.3,0.7))
+plot(5,3)
+
+plot(seq(1400, 2672, 4), nir.data[1,], type='l', col=1, ylim=c(0.1,0.7))
 lines(seq(1400, 2672, 4), nir.data[2,], type='l', col=2, ylim=c(0.3,0.7))
 lines(seq(1400, 2672, 4), nir.data[3,], type='l', col=3, ylim=c(0.3,0.7))
 lines(seq(1400, 2672, 4), nir.data[4,], type='l', col=4, ylim=c(0.3,0.7))
@@ -67,8 +69,9 @@ require(leaps)
 subsets = regsubsets( N ~ 1+nm2144+nm2148+nm2152+nm2156+nm2160+nm2164+nm2168+nm2172+nm2176+nm2180+nm2216+nm2220+nm2408+nm2412+nm2416+nm2424+nm2428+nm2476+nm2480+nm2504+nm2508+nm2512+nm2552+nm2556+nm2560+nm2564+nm2568+nm2572+nm2576+nm2580+nm2584+nm2588+nm2592+nm2596+nm2600+nm2656+nm2660+nm2664, nirs_filtered.data, really.big=F, nvmax=39, method="seqrep")
 optModelId = which.min(summary(subsets)$cp)
 coeffs = as.vector(coef(subsets, optModelId))
+optModelId
 
-
+cp.ground.model = summary(subsets)$cp[20]
 
 # ##########################################################
 # ## SIMULATION
@@ -112,7 +115,7 @@ simulate = function(subsets, modelId, data.origin, num, TIMES) {
   for (i in 1:TIMES) {
     data[i] = rnorm(num, mean=means, sd = sd)  
   }
-
+  
   dataAVG = rowMeans(data)
   return(dataAVG)
 }
@@ -151,8 +154,21 @@ for (numRows in seq(50, 500, 50)) {
   
   simsets100 = regsubsets( N ~ 1+nm2144+nm2148+nm2152+nm2156+nm2160+nm2164+nm2168+nm2172+nm2176+nm2180+nm2216+nm2220+nm2408+nm2412+nm2416+nm2424+nm2428+nm2476+nm2480+nm2504+nm2508+nm2512+nm2552+nm2556+nm2560+nm2564+nm2568+nm2572+nm2576+nm2580+nm2584+nm2588+nm2592+nm2596+nm2600+nm2656+nm2660+nm2664, simdata100, really.big=F, nvmax=39)
   optModelId100 = which.min(summary(simsets100)$cp)
+
   print(paste("Optimal Model (ID): ", optModelId100))
   print("CP Value")
   print(summary(simsets100)$cp)
 }
 
+# Maximales Modell
+lm.max =lm(N~1+nm2144+nm2148+nm2152+nm2156+nm2160+nm2164+
+             nm2168+nm2172+nm2176+nm2180+nm2216+nm2220+nm2408+
+             nm2412+nm2416+nm2424+nm2428+nm2476+nm2480+nm2504+
+             nm2508+nm2512+nm2552+nm2556+nm2560+nm2564+nm2568+
+             nm2572+nm2576+nm2580+nm2584+nm2588+nm2592+nm2596+
+             nm2600+nm2656+nm2660+nm2664, data = nirs_filtered.data)
+rss.max = sum(residuals(lm.max)^2)
+sigma2.tilde.full = rss.max/(533-40)
+
+spse = (rss.max+ 2*sigma2.tilde.full*40)
+spse.2 = cp.ground.model * sigma2.tilde.full

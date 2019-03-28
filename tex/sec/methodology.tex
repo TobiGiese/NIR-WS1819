@@ -1,30 +1,30 @@
 % !TeX spellcheck = de_DE_frami
 
 \section{Methodology}
+%	\label{sec:methodology}
 
-\label{sec:methodology}
+%	\subsection{Measured Data}
+%	\label{ssec:measured-data}
 	
-	\subsection{Measured Data}
-	\label{ssec:measured-data}
-	
-		As a ...
-		The reflectance $\varrho(\lambda)$ of a sample at a wavelength $\lambda \in \Lambda$ is recorded as
-		\[
-			-\lg \varrho(\lambda) = -\frac{\ln \varrho(\lambda)}{\ln 10}
-		\]
-		Figure \ref{fig:soil-spec-rnd} shows six randomly chosen soil spectra in a diagram.
-		\begin{figure*}
-			\centering
-			\input{gp/soil-spec-rnd.tex}
-			\caption{Six near infrared soil spectra of randomly chosen soil samples obtained from the data set, where $\lambda$ is the wavelength and $\rho(\lambda)$ the corresponding reflectance and each colour refers to one sample}
-			\label{fig:soil-spec-rnd}
-		\end{figure*}
+%		As a ...
+%		The reflectance $\varrho(\lambda)$ of a sample at a wavelength $\lambda \in \Lambda$ is recorded as
+%		\[
+%			-\lg \varrho(\lambda) = -\frac{\ln \varrho(\lambda)}{\ln 10}
+%		\]
+%		Figure \ref{fig:soil-spec-rnd} shows six randomly chosen soil spectra in a diagram.
+%		\begin{figure*}
+%			\centering
+%			\include{gp/soil-spec-rnd.tex}
+%			\caption{Six near infrared soil spectra of randomly chosen soil samples obtained from the data set, where $\lambda$ is the wavelength and $\rho(\lambda)$ the 5
+%			corresponding reflectance and each colour refers to one sample}
+%			\label{fig:soil-spec-rnd}
+%		\end{figure*}
 		
 	
 	% subsection measured-data
 
-	\subsection{Statistical Model}
-	\label{ssec:statistical-model}
+%	\subsection{Statistical Model}
+%	\label{ssec:statistical-model}
 	
 	
 	
@@ -33,19 +33,19 @@
 	% subsection statistical-model
 	
 	\subsection{Multivariate lineare Regression}
-	Lineare Modelle(LMs) zur Bestimmung der Abhängigkeit einer Zielgröße von mehreren Einflussvariablen wird multivariate lineare Regression genannt (Douglas et al. 2012, S. 50f). Ein typisches lineares Modell hat dabei die Form
+	Ein lineares Modell (LM) zur Bestimmung der Abhängigkeit einer Zielgröße von mehreren Einflussvariablen wird multivariate lineare Regression genannt \cite{weisberg2005}. Ein typisches LM hat die Form
 	\begin{align}
 	E(Y|\mathbb{X}) = \beta_0 + \beta_1\mathbb{X}_1 + \beta_2\mathbb{X}_2 + ... + \beta_k\mathbb{X}_k,
 	\end{align}
-	wobei $Y\in \rm I\!R^{n}$ die Zielgröße und $X \in \rm I\!R^{n \times d}$ die Matrix von $d$ Einflussparametern und $n$ Beobachtungen sind. $Y$ wird dabei als normalverteilter Zufallsparameter mit $ Y \sim N(X\beta, \sigma^2)$ angenommen. Lineare Modelle sind nun eine Methode, die Einflussstärke und Richtung der Größen in der Designmatrix auf die Zufallsgröße $Y$ mithilfe der Maximum-Likelihood Methode zu bestimmen:
+	wobei $Y\in \rm I\!R^{n}$ die Zielgröße und $X \in \rm I\!R^{n \times (k+1)}$ die Matrix von $d$ Einflussparametern und $n$ Beobachtungen (Designmatrix) sind. $Y$ wird als normalverteilter Zufallsparameter mit $ Y \sim N(X\beta, \sigma^2)$ angenommen. Lineare Modelle sind nun eine Methode, die Einflussstärke und Richtung der Variablen in der Designmatrix auf die Zufallsgröße $Y$ mithilfe der Maximum-Likelihood Methode zu bestimmen:
 	\begin{align}
 	\hat{\beta}(Y) = (\mathbb{X}^T\mathbb{X})^{-1}\mathbb{X}^TY
 	\end{align}
 	Des Weiteren ergibt sich ein Schätzer für die Varianz $\sigma^2$ des Modells:
 	\begin{align}
-	\hat{\sigma^2}(Y) = \frac{1}{n-d}||Y-\mathbb{X}\hat{\beta}(Y)||^2
+	\hat{\sigma^2}(Y) = \frac{1}{n-(k+1)}||Y-\mathbb{X}\hat{\beta}(Y)||^2
 	\end{align}
-	Für eine Realisierung von $y := (y_i) \in \rm I\!R^{n}$ von $Y$ definieren wir:
+	Für eine Realisierung von $y := (y_i) \in \rm I\!R^{n}$ von $Y$ definieren wir \cite{Schumacher.2019}:
 	\begin{align}
 	\hat{y} := \mathbb{X}\hat{\beta}(y) =\mathbb{X} (\mathbb{X}^T\mathbb{X})^{-1}\mathbb{X}^Ty
 	\end{align}	
@@ -54,55 +54,63 @@
 	\end{align}
 	% subsection multivariate lineare regression
 
-	\subsection{Statistische Modellwahl im Falle von NIR-Spektroskopie}
+	\subsection{Modellwahl im Falle der NIR-Spektroskopie}
 	\label{ssec:mlr}
-	Seien $Y\in \rm I\!R^{n}$ die Zielgröße eines statistischen Modellwahlverfahrens und $\mathbb{X} \in \rm I\!R^{n \times d}$ die Matrix von $d$ Einflussparametern und $n$ Beobachtungen. 
-	Zur Wahl einer geeigneten Menge von Einflussparametern $x_i$ auf die Zielgröße $y_i$  wird im klassischen linearen Modell die Modellwahl über eine hierarchische Aufstellung von linearen Modellen erreicht. Beginnend mit dem minimalen Modelle $E(Y_i) = \beta_0$ werden dem Modell nach und nach neue potenzielle Einflussparameter $x_{ik}$ hinzugefügt. Zu jedem dieser neuen $x_{ik}$ wird dann eine Teststatistik aufgestellt, die darauf hinweist, ob der gewählte Parameter wichtig ist ist oder nicht. Dabei ist die Nullhypothese, dass $x_{ik}$ keinen Einfluss auf die Zielgröße hat: $ H_0 = \beta_k = 0$ und wird abgelehnt, falls $H_1 = \beta_k \neq 0$ zutrifft. 
-	Dies wird über die T-Teststatistik erreicht,  wobei für den Fall, dass $H_0$ richtig ist, gilt: $\frac{\hat{\beta_k}}{\sqrt{\sigma^2(\mathbb{X}^T\mathbb{X})^{-1}_{kk}}} \sim t_{n-(k+1)}$.
-	Mit diesem Modellwahlverfahren ergeben sich einige Schwierigkeiten, wobei die für unseren Fall besonders schwerwiegenden herausgehoben werden: In dieser Arbeit haben wir es mit einer großen Anzahl potenzieller Einflussvariablen auf dem Nah-Infrarotspekturm zu tun. A priori kann schwer eine inhaltliche Deutung vorgenommen werden, die gewisse Wellenlängen bevorzugt. Daher ist eine hierarchische Modellwahll mit wenigen, wohlüberlegten Einflussvariablen nicht möglich. Demnach muss in dieser Arbeit die Anzahl der möglichen Einflussgrößen stark erhöht werden und hier bekommen wir ein Problem mit der T-Teststatistik. Es ließen sich sehr viele unterschiedliche Kombinationen von Einflussgrößen aufstellen und in eine hierarchische Form bringen. Doch da wir bei der T-Teststatistik ein $\underline{zufälliges}$ Intervall konstruieren, gegen das unsere Hypothese getestet wird, ist die Wahrscheinlichkeit bei oft wiederholten Tests fälschlicherweise die Nullhypothese abzulehnen steigend mit Anzahl der Versuche. An ein automatisiertes Modellwahlverfahren, das in dieser Arbeit von Vorteil ist, ist also mittels des T-Tests nicht zu erreichen. (siehe Skript 11/2018)
+	Seien $Y\in \rm I\!R^{n}$ die Zielgröße in einem statistischen Modellwahlverfahrens und $\mathbb{X} \in \rm I\!R^{n \times d}$ eine Designmatrix.
+	Zur Wahl einer geeigneten Menge von $k$ Einflussparametern auf die Zielgröße $y_i$  wird klassischerweise die Modellwahl über eine hierarchische Aufstellung von linearen Modellen erreicht. Beginnend mit dem minimalen Modell $E(Y_i) = \beta_0$ werden nach und nach neue potenzielle Einflussparameter $x_{ik}$ hinzugefügt. Zu jedem dieser neuen $x_{ik}$ wird dann eine Teststatistik aufgestellt, die darauf hinweist, ob der gewählte Parameter wichtig ist ist oder nicht. Dabei ist die Nullhypothese, dass $x_{ik}$ keinen Einfluss auf die Zielgröße hat: $ H_0 = \beta_k = 0$ und wird abgelehnt, falls $H_1 = \beta_k \neq 0$ zutrifft. 
+	Dies wird über die T-Teststatistik erreicht,  wobei für den Fall, dass $H_0$ richtig ist, gilt: 
+	\begin{align}
+	\frac{\hat{\beta_k}}{\sqrt{\sigma^2(\mathbb{X}^T\mathbb{X})^{-1}_{kk}}} \sim t_{n-(k+1)}.
+	\end{align}
+	Dieses Verfahren ist vor allem dann besonders gut geeignet, wenn man bereits theoretisch fundierte Annahmen über die Einflussgrößen machen kann.
+	Mit diesem Modellwahlverfahren ergeben sich hier allerdings einige Schwierigkeiten, wobei die für unseren Fall besonders schwerwiegenden herausgehoben werden: In dieser Arbeit haben wir es mit einer großen Anzahl potenzieller Einflussvariablen auf dem Nah-Infrarotspektrum zu tun. A priori kann schwer eine inhaltliche Deutung vorgenommen werden, die gewisse Wellenlängen bevorzugt. Daher ist eine hierarchische Modellwahl mit wenigen, theoretisch begründeten Einflussvariablen nicht möglich. Demnach muss in dieser Arbeit die Anzahl der möglichen Einflussgrößen stark erhöht werden und hier bekommen wir ein Problem mit der T-Teststatistik. Es ließen sich sehr viele unterschiedliche Kombinationen von Einflussgrößen aufstellen und in eine hierarchische Form bringen. Doch da wir bei der T-Teststatistik ein \underline{zufälliges} Intervall konstruieren, gegen das unsere Hypothese getestet wird, wird die Wahrscheinlichkeit bei oft wiederholten Tests fälschlicherweise die Nullhypothese abzulehnen mit Anzahl der Versuchen immer größer. An ein automatisiertes Modellwahlverfahren, das in dieser Arbeit von Vorteil ist, ist also mittels des T-Tests nicht zu erreichen \cite{Schumacher.2019}.
 	Stattdessen bietet sich eine Modellwahl basierend auf dem erwarteten Prognosefehler ("sum of prediction squared error", SPSE) an: 
 	\begin{align}
 		SPSE := E(\sum_{i=1}^{n} (Y_{i+n} - x_{i}^{(M)}\hat{\beta_i}^{((M)})^2)
 	\end{align}
-	
-	Hierbei sind die Werte in $Y_{i+n}$ neue, potenzielle Beobachtungen zum Erwartungsvektor $x_i$ und $x_{i}^{(M)}\hat{\beta_i}^{((M)}$ ist sind die Prognosewerte aus dem Modell $M$. 
-	Der Prognosefehler lässt sich in 3 Terme zerlegen: Einen irreduzierbaren Prognosefehler, der unabhängig von dem momentan betrachteten Modell ist, einen Biasterm, der die Abweichung des aktuellen Modells $M$ vom Prognosemodell als Summe der quadrierten Prognose-Verzerrungen anzeigt und einen Varianzterm, der die Ungenauigkeiten widerspiegelt, die sich aus der Schätzung von $(|M|+1)$ unbekannten Parametern ergibt. 
-	Der SPSE lässt sich über unterschiedliche Wege berechnen / abschätzen, mithilfe neuer Beobachtungen (1), (wiederholter) Zerlegung der Ursprungsdaten in Test- und Trainingsdaten (2) oder mittels Schätzung basierend auf der Residuenquadratsumme ("residual squared sum", RSS), hier im Vergleich zu o.g. SPSE:
-	 
+	Hierbei sind die Werte in $Y_{i+n}$ neue Beobachtungen zum Erwartungsvektor $x_i$ und $x_{i}^{(M)}\hat{\beta_i}^{((M)}$ ist sind die Prognosewerte aus dem zu testenden Modell $M$. 
+	Der Prognosefehler lässt sich in 3 Terme zerlegen: Einen irreduzierbaren Prognosefehler, der unabhängig von dem momentan betrachteten Modell ist, einen Biasterm, der die Abweichung des aktuellen Modells $M$ vom Prognosemodell als Summe der quadrierten Prognose-Verzerrungen anzeigt und einen Varianzterm, der die Ungenauigkeiten widerspiegelt, die sich aus der Schätzung von $p = (|M|+1)$ unbekannten Parametern ergibt:
+	\begin{align}
+	SPSE^{(M)} = n\sigma_{full}^2 + p\sigma_{full}^2 + (bias^{(M)})^2
+	\end{align},
+	Der SPSE lässt sich über unterschiedliche Wege berechnen / abschätzen, mithilfe neuer Beobachtungen (1), (wiederholter) Zerlegung der Ursprungsdaten in Test- und Trainingsdaten (Kreuzvalidierung) (2) oder mittels Schätzung basierend auf der Residuenquadratsumme ("residual squared sum", RSS), hier im Vergleich zu o.g. SPSE:
 	\begin{align}
 	RSS^{(M)} := \sum_{i=1}^{n} E (Y_{i} - \hat{Y_i}^{(M)})^2
 	\end{align}
 	\begin{align}
 	SPSE^{(M)} := \sum_{i=1}^{n} E (Y_{i+n} - \hat{Y_i}^{(M)})^2
 	\end{align}
-
-	Es kann gezeigt werden, dass RSS den Wert von SPSE systematisch unterschätzt, dass diese Unterschätzung jedoch behoben werden kann (siehe Skript 12/2018): 
+	Es kann gezeigt werden, dass RSS den Wert von SPSE systematisch unterschätzt, dass diese Unterschätzung jedoch behoben werden kann, indem für alle Modelle die Varianzschätzung aus dem maximalen Modell verwendet wird\cite{Schumacher.2019}: 
 	\begin{align}
-	SPSE^{(M)} := RSS^{(M)} + 2 \tilde{\sigma}_{\underline{full}} ^2 (|M|+1)
+	SPSE^{(M)} := RSS^{(M)} + 2 \tilde{\sigma}_{full} ^2 (k+1)
+	\end{align}
+	Die Minimierung des SPSE entspricht der Minimierung des Mallow's Cp- Kriteriums, das für die folgenden Analysen getestet werden soll. Dabei gilt:
+	\begin{align}
+	Cp^{(M)} = \frac{1}{\sigma_{full}^2} \sum_{i=1}^{n} (y_i - \hat{y_i}^{(M)})^2 - n + 2(k+1)
 	\end{align}
 	
-
-	% subsection mlr
-
-	\subsection{Mallow's $C_{p}$}
-	\label{ssec:mallows-C_p}
 	
 
-	\subsection{Simulated Annealing}
-	\label{ssec:model-selec}
+	\subsection{Modellselektion}
+	\label{ssec:modellselektion}
+	Das erste Ziel dieser Arbeit ist es, diejenigen Nahinfrarot-Wellenlängen herauszufinden, die einen Einfluss auf den Bodenstickstoffgehalt haben.
+	Für diese Aufgabe nahmen wir zunächst die erste Ableitung der Designmatrix, um eine bessere Einsicht in die Daten zu bekommen( siehe \ref{Wellenlängen_erste_Ableitung}). Für unsere Analyse wurden diejenigen Wellenlängen in das maximale Modell aufgenommen, deren durchschnittliche Ableitungswerte über dem mit der roten Linie angezeigten Schwellwert lagen. 
+	\begin{figure*}
+		\label{Wellenlängen_erste_Ableitung}
+		\includegraphics[width=\textwidth]{img/wave_1dev.png}
+		\caption{Ableitungen der Wellenlängen von fünf zufälligen Spektren}
+	\end{figure*}
+	Über dieses maximale Modell wurde nun mittels Mallows Cp ein bestes Modell(siehe Kapitel \ref{ssec:mlr}) berechnet.
 	
-		We can 
+	\subsection{SPSE-Vergleich}
+	Das zweite Ziel dieser Arbeit ist der Vergleich des SPSE-Wertes für das aus \ref{ssec:modellselektion} gewonnene Idealmodell und der SPSE Schätzung über Mallows Cp, welches auf zufällig gezogene Spektren angewandt wurde. 
+	Zunächst 
 
-	% subsection simulated-annealing
-		
-	\subsection{Model Validation}
-	\label{ssec:model-validation}
-	
 	
 	% subsection model-validation
 	
-	\subsection{Assessment by Simulation}
-	\label{ssec:simulation}
+	%\subsection{Assessment by Simulation}
+	%\label{ssec:simulation}
 	
 		
 		
