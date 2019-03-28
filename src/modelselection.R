@@ -1,7 +1,8 @@
 getDiff = function(row, n) {
   x=c()
   for (i in 1:317) {
-    x[i] = abs(row[i]-row[i+1])
+    #x[i] = abs(row[i]-row[i+1])
+    x[i] = row[i]-row[i+1]
   }
   
   return(x)
@@ -48,7 +49,7 @@ Mavg = colMeans(M)
 which.max(Mavg)
 plot(x, Mavg, type='l', col=1)
 # threshold 
-THRESHOLD = 0.0015
+THRESHOLD = 0.0005
 abline(h=THRESHOLD, col=2)
 
 
@@ -73,7 +74,6 @@ coeffs = as.vector(coef(subsets, optModelId))
 lm_full = lm(N ~ 1+nm2144+nm2148+nm2152+I(nm2156^2)+I(nm2160^2)+I(nm2164^2)+I(nm2168^2)+I(nm2172^2)+nm2176+nm2180+nm2216+nm2220+nm2408+nm2412+nm2416+nm2424+nm2428+nm2476+nm2480+nm2504+nm2508+nm2512+nm2552+nm2556+nm2560+nm2564+nm2568+nm2572+nm2576+nm2580+nm2584+nm2588+nm2592+nm2596+nm2600+nm2656+nm2660+nm2664, nirs.data)
 RSS_full = sum(residuals(lm_full)^2)
 sigma2.tilde.full = RSS_full/(533-39)
-
 
 
 # ##########################################################
@@ -217,7 +217,7 @@ id <- X[optModelId,]
 form <- reformulate(xvars[which(id[-1])], "N", id[1])
 lm_opt <- lm(form, nirs.data)
 rss_opt = sum(residuals(lm_opt)^2)
-sigma2.tilde.opt = RSS_full/(533-20)
+sigma2.tilde.opt = rss_opt/(533-20)
 spse_true = (533+20)*sigma2.tilde.opt
 
 
@@ -228,7 +228,12 @@ sim.cp = read.csv("simulationCpValues.csv")
 sim.spse = data.frame(matrix(nrow=6, ncol=60))
 rownames(sim.spse) = c(100, 200, 300, 400, 500, 533)
 
-sim.spse = sim.cp * sigma2.tilde.full + 533*sigma2.tilde.full
+sim.spse[1,] = sim.cp[1,] * sigma2.tilde.full + 100*sigma2.tilde.full
+sim.spse[2,] = sim.cp[2,] * sigma2.tilde.full + 200*sigma2.tilde.full
+sim.spse[3,] = sim.cp[3,] * sigma2.tilde.full + 300*sigma2.tilde.full
+sim.spse[4,] = sim.cp[4,] * sigma2.tilde.full + 400*sigma2.tilde.full
+sim.spse[5,] = sim.cp[5,] * sigma2.tilde.full + 500*sigma2.tilde.full
+sim.spse[6,] = sim.cp[6,] * sigma2.tilde.full + 533*sigma2.tilde.full
 
 plot(x=100, y=mean(as.vector(t(sim.spse[1,]))), xlim = c(0,550), ylim = c(1.33, 1.4))
 points(x=200, y=mean(as.vector(t(sim.spse[2,]))))
