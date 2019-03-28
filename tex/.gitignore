@@ -1,8 +1,4 @@
-*
-!.gitignore
-!*.tex
-!*.bib
-!*.pdf
-!cpp
-!gp
-!sec
+*.bbl
+*.blg
+*.gz
+*.toc
