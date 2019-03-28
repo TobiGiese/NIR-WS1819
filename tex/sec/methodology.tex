@@ -1,58 +1,60 @@
-% !TeX spellcheck = de_DE_frami
+% !TeX spellcheck = de_DE
+\section{Methodik}
+\label{sec:Methodik}
 
-\section{Methodology}
-%	\label{sec:methodology}
+	\subsection{Datensatz}
+	\label{ssec:Datensatz}
 
-%	\subsection{Measured Data}
-%	\label{ssec:measured-data}
-	
-%		As a ...
-%		The reflectance $\varrho(\lambda)$ of a sample at a wavelength $\lambda \in \Lambda$ is recorded as
-%		\[
-%			-\lg \varrho(\lambda) = -\frac{\ln \varrho(\lambda)}{\ln 10}
-%		\]
-%		Figure \ref{fig:soil-spec-rnd} shows six randomly chosen soil spectra in a diagram.
-%		\begin{figure*}
-%			\centering
-%			\include{gp/soil-spec-rnd.tex}
-%			\caption{Six near infrared soil spectra of randomly chosen soil samples obtained from the data set, where $\lambda$ is the wavelength and $\rho(\lambda)$ the 5
-%			corresponding reflectance and each colour refers to one sample}
-%			\label{fig:soil-spec-rnd}
-%		\end{figure*}
-		
-	
-	% subsection measured-data
+	    Der für die Modellwahl verwendete Datensatz beinhaltet die logarithmierten relativen Reflexionswerte $-\delta(\lambda)$ bei Wellenlängen zwischen 1400 nm und 2672 nm in einem Abstand von 4 nm sowie die Stoffmengeanteile $y^{(N)}$, $y^{(SOC)}$ und entsprechenden pH-Werte von insgesamt 533 Proben.
+	    Informationen über die chemische Zusammensetzung der Probe in den Reflexionswerten im Nahinfrarotbereich sind stark überlagert. \cite{Agelet2010}
+	    Aus diesem Grund ist eine sorgfältige Auswahl relevanter Wellenlängen von besonderer Bedeutung für die Erstellung eines zuverlässigen Modells.
 
-%	\subsection{Statistical Model}
-%	\label{ssec:statistical-model}
-	
-	
-	
 
-	
-	% subsection statistical-model
-	
-	\subsection{Multivariate lineare Regression}
-	Ein lineares Modell (LM) zur Bestimmung der Abhängigkeit einer Zielgröße von mehreren Einflussvariablen wird multivariate lineare Regression genannt \cite{weisberg2005}. Ein typisches LM hat die Form
-	\begin{align}
-	E(Y|\mathbb{X}) = \beta_0 + \beta_1\mathbb{X}_1 + \beta_2\mathbb{X}_2 + ... + \beta_k\mathbb{X}_k,
-	\end{align}
-	wobei $Y\in \rm I\!R^{n}$ die Zielgröße und $X \in \rm I\!R^{n \times (k+1)}$ die Matrix von $d$ Einflussparametern und $n$ Beobachtungen (Designmatrix) sind. $Y$ wird als normalverteilter Zufallsparameter mit $ Y \sim N(X\beta, \sigma^2)$ angenommen. Lineare Modelle sind nun eine Methode, die Einflussstärke und Richtung der Variablen in der Designmatrix auf die Zufallsgröße $Y$ mithilfe der Maximum-Likelihood Methode zu bestimmen:
-	\begin{align}
-	\hat{\beta}(Y) = (\mathbb{X}^T\mathbb{X})^{-1}\mathbb{X}^TY
-	\end{align}
-	Des Weiteren ergibt sich ein Schätzer für die Varianz $\sigma^2$ des Modells:
-	\begin{align}
-	\hat{\sigma^2}(Y) = \frac{1}{n-(k+1)}||Y-\mathbb{X}\hat{\beta}(Y)||^2
-	\end{align}
-	Für eine Realisierung von $y := (y_i) \in \rm I\!R^{n}$ von $Y$ definieren wir \cite{Schumacher.2019}:
-	\begin{align}
-	\hat{y} := \mathbb{X}\hat{\beta}(y) =\mathbb{X} (\mathbb{X}^T\mathbb{X})^{-1}\mathbb{X}^Ty
-	\end{align}	
-	\begin{align}
-	\tilde{\sigma^2}:= \hat{\sigma}^2(y)
-	\end{align}
-	% subsection multivariate lineare regression
+	% subsection Datensatz
+
+	\subsection{Statistisches Modell}
+	\label{ssec:Statistisches Modell}
+
+	    Sei $n\in\SN$ die Größe des Datensatzes und $k\in\SN$ mit $k< n$ die Anzahl der Wellenlängen im Datensatz.
+	    Entsprechend Abschnitt \ref{ssec:Datensatz} definieren wir dann die Einflussgröße $x_{ij}$ als für die $i$te Probe und $j$te Wellenlänge als
+	    \[
+			x_{ij} \define -\lg \delta_i(\lambda_j)
+		\]
+		für jedes $i,j\in\SN,i\leq n,j\leq k$.
+
+	    Der Stoffmengenanteil des Stickstoffs  $y^{(N)}$ stellt die Zielgröße unseres späteren Modells dar.
+	    Wie definieren hierfür den Vektor $y_i$ den Stoffmengenanteil der $i$ten Probe als den $n$ dimensionalen Vektor
+		\[
+			 y^{(N)} \define \curvb{y^\m{(N)}_i}
+		\]
+
+        Nachdem wir sowohl die Einflussgrößen als auch die Zielgröße für das lineare Modell definiert haben lassen sich diese nun in Zusammenhang bringen.
+        Es ist plausibel anzunehmen, die sich sie Zielgröße durch einen Linearkombination der Einflussgrößen beschreiben lässt.
+        Hierfür definieren wir zunächst $Y^\m{(N)}$ als einen zufälligen Vektor von $y^\m{(N)}$
+        \[
+			 \expect Y^\m{(N)} \define \beta_0 + \sum_{j=1}^k{x_{ij}\beta_j}
+		\]
+
+		Zudem ist es notwendig eine Variable $\varepsilon^\m{(N)}$ einzuführen welchen den Zufall der Messungen beschreibt.
+	    In Matrixschreibweise lässt sich dies als die Designmatrix $\mathbb{X} \in \SR^{n \times (k+1)}$, dem Parametervektor $\beta \in \SR^{k+1}$ und dem stochastisch  verteilten Parameter $\varepsilon^\m{(N)}$ darstellen, sodass gilt,
+		\[
+			Y^\m{(N)} = \mathbb{X}\beta + \varepsilon^\m{(N)}
+		\]
+		mit
+		\[
+			\expect \varepsilon^\m{(N)} = 0, \qquad \cov \varepsilon^\m{(N)} = (\sigma^2)^\m{(N)} \idmat
+		\]
+		wobei $(\sigma^2)^\m{(N)} \in (0,\infty)$.
+		Weiterhin soll angenommen werden, dass $\varepsilon^\m{(N)}$ normalverteilt ist mit
+	    \[
+			\varepsilon^\m{(N)} \sim \FN \curvb{0,(\sigma^2)^\m{(N)}\idmat}
+		\]
+	    sodass sich für das Gesamtmodell gilt
+		\[
+			Y^\m{(N)} \sim \FN \curvb{\mathbb{X}\beta^\m{(N)},(\sigma^2)^\m{(N)} \idmat}
+		\]
+
+	% subsection Statistisches Modell
 
 	\subsection{Modellwahl im Falle der NIR-Spektroskopie}
 	\label{ssec:mlr}
@@ -74,6 +76,7 @@
 	SPSE^{(M)} = n\sigma_{full}^2 + p\sigma_{full}^2 + (bias^{(M)})^2
 	\end{align},
 	Der SPSE lässt sich über unterschiedliche Wege berechnen / abschätzen, mithilfe neuer Beobachtungen (1), (wiederholter) Zerlegung der Ursprungsdaten in Test- und Trainingsdaten (Kreuzvalidierung) (2) oder mittels Schätzung basierend auf der Residuenquadratsumme ("residual squared sum", RSS), hier im Vergleich zu o.g. SPSE:
+
 	\begin{align}
 	RSS^{(M)} := \sum_{i=1}^{n} E (Y_{i} - \hat{Y_i}^{(M)})^2
 	\end{align}
@@ -114,5 +117,4 @@
 	
 		
 		
-	% subsection simulation
-% section methodology
+
