@@ -23,14 +23,14 @@
 		für jedes $i,j\in\SN,i\leq n,j\leq k$.
 
 	    Der Stoffmengenanteil des Stickstoffs  $y^{(N)}$ stellt die Zielgröße unseres späteren Modells dar.
-	    Wie definieren hierfür den Vektor $y_i$ den Stoffmengenanteil der $i$ten Probe als den $n$ dimensionalen Vektor
+	    Wie definieren hierfür den Vektor der Stoffmengenanteile $y_i$ der $i$ten Probe als den $n$-dimensionalen Vektor
 		\[
 			 y^{(N)} \define \curvb{y^\m{(N)}_i}
 		\]
 
-        Nachdem wir sowohl die Einflussgrößen als auch die Zielgröße für das lineare Modell definiert haben lassen sich diese nun in Zusammenhang bringen.
-        Es ist plausibel anzunehmen, die sich sie Zielgröße durch einen Linearkombination der Einflussgrößen beschreiben lässt.
-        Hierfür definieren wir zunächst $Y^\m{(N)}$ als einen zufälligen Vektor von $y^\m{(N)}$
+        Nachdem wir sowohl die Einflussgrößen als auch die Zielgröße für das lineare Modell definiert haben, lassen sich diese nun in Zusammenhang bringen.
+        Es ist plausibel anzunehmen, sich die Zielgröße durch einen Linearkombination der Einflussgrößen beschreiben lässt.
+        Hierfür definieren wir zunächst $Y^\m{(N)}$ als einen zufälligen Vektor von $y^\m{(N)}$ mit
         \[
 			 \expect Y^\m{(N)} \define \beta_0 + \sum_{j=1}^k{x_{ij}\beta_j}
 		\]
@@ -71,28 +71,28 @@
 	Doch da wir bei der T-Teststatistik ein $\underline{zufälliges}$ Intervall konstruieren, gegen das unsere Hypothese getestet wird, ist die Wahrscheinlichkeit bei oft wiederholten Tests fälschlicherweise die Nullhypothese abzulehnen steigend mit Anzahl der Versuche.
 	An ein automatisiertes Modellwahlverfahren, das in dieser Arbeit von Vorteil ist, ist also mittels des T-Tests nicht zu erreichen. (siehe Skript 11/2018)
 	Stattdessen bietet sich eine Modellwahl basierend auf dem erwarteten Prognosefehler ("sum of prediction squared error", SPSE) an:
-	\begin{align}
-		SPSE := E(\sum_{i=1}^{n} (Y_{i+n} - x_{i}^{(M)}\hat{\beta_i}^{((M)})^2)
-	\end{align}
+	\[
+		SPSE \define \expect \sum_{i=1}^{n} (Y_{i+n} - x_{i}^\m{(M)}\hat{\beta_i}^\m{(M)})^2
+	\]
 
-	Hierbei sind die Werte in $Y_{i+n}$ neue, potenzielle Beobachtungen zum Erwartungsvektor $x_i$ und $x_{i}^{(M)}\hat{\beta_i}^{((M)}$ ist sind die Prognosewerte aus dem Modell $M$.
+	Hierbei sind die Werte in $Y_{i+n}$ neue, potenzielle Beobachtungen zum Einflussvektor $x_i$ und $x_{i}^{(M)}\hat{\beta_i}^{((M)}$ ist sind die Prognosewerte aus dem Modell $M$.
 	Der Prognosefehler lässt sich in 3 Terme zerlegen: Einen irreduzierbaren Prognosefehler, der unabhängig von dem momentan betrachteten Modell ist, einen Biasterm, der die Abweichung des aktuellen Modells $M$ vom Prognosemodell als Summe der quadrierten Prognose-Verzerrungen anzeigt und einen Varianzterm, der die Ungenauigkeiten widerspiegelt, die sich aus der Schätzung von $(|M|+1)$ unbekannten Parametern ergibt.
 	Der SPSE lässt sich über unterschiedliche Wege berechnen / abschätzen, mithilfe neuer Beobachtungen (1), (wiederholter) Zerlegung der Ursprungsdaten in Test- und Trainingsdaten (2) oder mittels Schätzung basierend auf der Residuenquadratsumme ("residual squared sum", RSS), hier im Vergleich zu o.g. SPSE:
 
-	\begin{align}
-	RSS^{(M)} := \sum_{i=1}^{n} E (Y_{i} - \hat{Y_i}^{(M)})^2
-	\end{align}
-	\begin{align}
-	SPSE^{(M)} := \sum_{i=1}^{n} E (Y_{i+n} - \hat{Y_i}^{(M)})^2
-	\end{align}
+	\[
+	\expect RSS^\m{(M)} \define \sum_{i=1}^{n} \expect (Y_{i} - \hat{Y_i}^\m{(M)})^2
+	\]
+	\[
+	SPSE^\m{(M)} \define \sum_{i=1}^{n} \expect (Y_{i+n} - \hat{Y_i}^\m{(M)})^2
+	\]
 
 	Es kann gezeigt werden, dass RSS den Wert von SPSE systematisch unterschätzt, dass diese Unterschätzung jedoch behoben werden kann (siehe Skript 12/2018):
 
-	\begin{align}
-	\mathchar"0362 SPSE^{(M)}} := RSS^{(M)} + 2\tilde{\sigma}_{\underline{full}}^2(|M|+1)
-	\end{align}
+    \[
+	SPSE^\m{(M)} \define \expect RSS^\m{(M)} + 2\tilde{\sigma}_{\underline{full}}^2(|M|+1)
+    \]
 
-
+    wobei $\tilde{\sigma}_{full}^2$ die Varianz des größten Modells ist.
 
 	% subsection mlr
 
@@ -103,6 +103,18 @@
 
 	\subsection{Model Validation}
 	\label{ssec:model-validation}
+    Ein geeigneter Parameter zur Messung der globalen Anpassungsgüte einer Regression ist $R^2$. \textbf{Quelle}
+    \[
+    {R^2}^{(M)} \define \frac {\sum_{i=1}^n \curvb{\hat{y}^{(M)}_i - \overline{y}}^2}{\sum_{i=1}^n \curvb{y_i - \overline{y}}^2}
+    \]
+    Dieser beschreibt den Anteil der durch die Regression erklärten Quadratsumme an der totale Quadratsumme und nimmt dadurch Werte zwischen 0 und 1 an.
+    Während ein $R^2$ von 1 für einen perfekten linearen Zusammenhang steht bedeutet ein Wert von 0, dass kein linearer Zusammenhang vorliegt.
+    Für das gewählte Modell ergibt sich ein Wert von \textbf{....}.
+    Dies weißt auf eine relativ gute Anpassung durch das gewählte Modell hin. \textbf{zu prüfen}
+    Zudem ist es sinnvoll neben dem Parameter $R^2$ ein Korrelationsdiagramm zwischen der durch das Modell geschätzten Ausprägung $\hat{y}_i$ und dem wahren Wert $y_i$ zu betrachten.
+    \textbf{Einfügen von Grafik: Korrelationsdiagramm}
+    
+    
 
 
 	% subsection model-validation
