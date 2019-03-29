@@ -1,46 +1,46 @@
 % !TeX spellcheck = de_DE
 \section{Methodik}
 \label{sec:Methodik}
-	
+
 	\subsection{Datensatz}
 	\label{ssec:Datensatz}
-	
+
 	    Der für die Modellwahl verwendete Datensatz beinhaltet die logarithmierten relativen Reflexionswerte $-\delta(\lambda)$ bei Wellenlängen zwischen 1400 nm und 2672 nm in einem Abstand von 4 nm sowie die Stoffmengeanteile $y^{(N)}$, $y^{(SOC)}$ und entsprechenden pH-Werte von insgesamt 533 Proben.
-	    Informationen über die chemische Zusammensetzung der Probe in den Reflexionswerten im Nahinfrarotbereich sind stark überlagert. \cite{Agelet2010} 
-	    Aus diesem Grund ist eine sorgfältige Auswahl relevanter Wellenlängen von besonderer Bedeutung für die Erstellung eines zuverlässigen Modells. 
-	    
-	
+	    Informationen über die chemische Zusammensetzung der Probe in den Reflexionswerten im Nahinfrarotbereich sind stark überlagert. \cite{Agelet2010}
+	    Aus diesem Grund ist eine sorgfältige Auswahl relevanter Wellenlängen von besonderer Bedeutung für die Erstellung eines zuverlässigen Modells.
+
+
 	% subsection Datensatz
 
 	\subsection{Statistisches Modell}
 	\label{ssec:Statistisches Modell}
-	
-	    Sei $n\in\SN$ die Größe des Datensatzes und $k\in\SN$ mit $k< n$ die Anzahl der Wellenlängen im Datensatz. 
+
+	    Sei $n\in\SN$ die Größe des Datensatzes und $k\in\SN$ mit $k< n$ die Anzahl der Wellenlängen im Datensatz.
 	    Entsprechend Abschnitt \ref{ssec:Datensatz} definieren wir dann die Einflussgröße $x_{ij}$ als für die $i$te Probe und $j$te Wellenlänge als
 	    \[
 			x_{ij} \define -\lg \delta_i(\lambda_j)
 		\]
 		für jedes $i,j\in\SN,i\leq n,j\leq k$.
-	    
+
 	    Der Stoffmengenanteil des Stickstoffs  $y^{(N)}$ stellt die Zielgröße unseres späteren Modells dar.
-	    Wie definieren hierfür den Vektor $y_i$ den Stoffmengenanteil der $i$ten Probe als den $n$ dimensionalen Vektor
+	    Wie definieren hierfür den Vektor der Stoffmengenanteile $y_i$ der $i$ten Probe als den $n$-dimensionalen Vektor
 		\[
 			 y^{(N)} \define \curvb{y^\m{(N)}_i}
 		\]
 
-        Nachdem wir sowohl die Einflussgrößen als auch die Zielgröße für das lineare Modell definiert haben lassen sich diese nun in Zusammenhang bringen.
-        Es ist plausibel anzunehmen, die sich sie Zielgröße durch einen Linearkombination der Einflussgrößen beschreiben lässt.
-        Hierfür definieren wir zunächst $Y^\m{(N)}$ als einen zufälligen Vektor von $y^\m{(N)}$
-        \[ 
-			 \expect Y^\m{(N)} \define \beta_0 + \sum_{j=1}^k{x_{ij}\beta_j} 
+        Nachdem wir sowohl die Einflussgrößen als auch die Zielgröße für das lineare Modell definiert haben, lassen sich diese nun in Zusammenhang bringen.
+        Es ist plausibel anzunehmen, sich die Zielgröße durch einen Linearkombination der Einflussgrößen beschreiben lässt.
+        Hierfür definieren wir zunächst $Y^\m{(N)}$ als einen zufälligen Vektor von $y^\m{(N)}$ mit
+        \[
+			 \expect Y^\m{(N)} \define \beta_0 + \sum_{j=1}^k{x_{ij}\beta_j}
 		\]
-		
+
 		Zudem ist es notwendig eine Variable $\varepsilon^\m{(N)}$ einzuführen welchen den Zufall der Messungen beschreibt.
 	    In Matrixschreibweise lässt sich dies als die Designmatrix $\mathbb{X} \in \SR^{n \times (k+1)}$, dem Parametervektor $\beta \in \SR^{k+1}$ und dem stochastisch  verteilten Parameter $\varepsilon^\m{(N)}$ darstellen, sodass gilt,
 		\[
 			Y^\m{(N)} = \mathbb{X}\beta + \varepsilon^\m{(N)}
 		\]
-		mit 
+		mit
 		\[
 			\expect \varepsilon^\m{(N)} = 0, \qquad \cov \varepsilon^\m{(N)} = (\sigma^2)^\m{(N)} \idmat
 		\]
@@ -49,44 +49,80 @@
 	    \[
 			\varepsilon^\m{(N)} \sim \FN \curvb{0,(\sigma^2)^\m{(N)}\idmat}
 		\]
-	    sodass sich für das Gesamtmodell gilt 
+	    sodass sich für das Gesamtmodell gilt
 		\[
 			Y^\m{(N)} \sim \FN \curvb{\mathbb{X}\beta^\m{(N)},(\sigma^2)^\m{(N)} \idmat}
 		\]
-	
+
 	% subsection Statistisches Modell
 
-	\subsection{Modellwahl im klassischen linearen Modell}
+	\subsection{Statistische Modellwahl im Falle von NIR-Spektroskopie}
 	\label{ssec:mlr}
-	Im klassischen linearen Modell wird meist ... (s. Skript, S. XY)
-	Das Problem mit der Wahl von $\alpha$ ...
-	Beim Hinzufügen neuer Einflussgrößen in das Modell wird die Nullhypothese $H_0$ ...
-	
-		
+	Seien $Y\in \rm I\!R^{n}$ die Zielgröße eines statistischen Modellwahlverfahrens und $X \in \rm I\!R^{n \times d}$ die Matrix von $d$ Einflussparametern und $n$ Beobachtungen.
+	Zur Wahl einer geeigneten Menge von Einflussparametern $x_i$ auf die Zielgröße $y_i$  wird im klassischen linearen Modell die Modellwahl über eine hierarchische Aufstellung von linearen Modellen erriecht.
+	Beginnend mit dem minimalen Modelle $E(Y_i) = \beta_0$ werden dem Modell nach und nach neue potenzielle Einflussparameter $x_{ik}$ hinzugefügt.
+	Zu jedem dieser neuen $x_{ik}$ wird dann eine Teststatistik aufgestellt, die darauf hinweist, ob der gewählte Parameter wichtig ist ist oder nicht.
+	Dabei ist die Nullhypothese, dass $x_{ik}$ keinen Einfluss auf die Zielgröße hat: $ H_0 = \beta_k = 0$ und wird abgelehnt, falls $H_1 = \beta_k \neq 0$ zutrifft.
+	Dies wird über die T-Teststatistik erreicht,  wobei für den Fall, dass $H_0$ richtig ist, gilt: $\frac{\hat{\beta_k}}{\sqrt{\sigma^2(X^TX)^{-1}_{kk}}} \sim t_{n-(k+1)}$.
+	Mit diesem Modellwahlverfahren ergeben sich einige Schwierigkeiten, wobei die für unseren Fall besonders schwerwiegenden herausgehoben werden: In dieser Arbeit haben wir es mit einer großen Anzahl potenzieller Einflussvariablen auf dem Nah-Infrarotspekturm zu tun.
+	A priori kann schwer eine inhaltliche Deutung vorgenommen werden, die gewisse Wellenlängen bevorzugt. Daher ist eine hierarchische Modellwahll mit wenigen, wohlüberlegten Einflussvariablen nicht möglich.
+	Demnach muss in dieser Arbeit die Anzahl der möglichen Einflussgrößen stark erhöht werden und hier bekommen wir ein Problem mit der T-Teststatistik.
+	Es ließen sich sehr viele unterschiedliche Kombinationen von Einflussgrößen aufstellen und in eine hierarchische Form bringen.
+	Doch da wir bei der T-Teststatistik ein $\underline{zufälliges}$ Intervall konstruieren, gegen das unsere Hypothese getestet wird, ist die Wahrscheinlichkeit bei oft wiederholten Tests fälschlicherweise die Nullhypothese abzulehnen steigend mit Anzahl der Versuche.
+	An ein automatisiertes Modellwahlverfahren, das in dieser Arbeit von Vorteil ist, ist also mittels des T-Tests nicht zu erreichen. (siehe Skript 11/2018)
+	Stattdessen bietet sich eine Modellwahl basierend auf dem erwarteten Prognosefehler ("sum of prediction squared error", SPSE) an:
+	\[
+		SPSE \define \expect \sum_{i=1}^{n} (Y_{i+n} - x_{i}^\m{(M)}\hat{\beta_i}^\m{(M)})^2
+	\]
+
+	Hierbei sind die Werte in $Y_{i+n}$ neue, potenzielle Beobachtungen zum Einflussvektor $x_i$ und $x_{i}^{(M)}\hat{\beta_i}^{((M)}$ ist sind die Prognosewerte aus dem Modell $M$.
+	Der Prognosefehler lässt sich in 3 Terme zerlegen: Einen irreduzierbaren Prognosefehler, der unabhängig von dem momentan betrachteten Modell ist, einen Biasterm, der die Abweichung des aktuellen Modells $M$ vom Prognosemodell als Summe der quadrierten Prognose-Verzerrungen anzeigt und einen Varianzterm, der die Ungenauigkeiten widerspiegelt, die sich aus der Schätzung von $(|M|+1)$ unbekannten Parametern ergibt.
+	Der SPSE lässt sich über unterschiedliche Wege berechnen / abschätzen, mithilfe neuer Beobachtungen (1), (wiederholter) Zerlegung der Ursprungsdaten in Test- und Trainingsdaten (2) oder mittels Schätzung basierend auf der Residuenquadratsumme ("residual squared sum", RSS), hier im Vergleich zu o.g. SPSE:
+
+	\[
+	\expect RSS^\m{(M)} \define \sum_{i=1}^{n} \expect (Y_{i} - \hat{Y_i}^\m{(M)})^2
+	\]
+	\[
+	SPSE^\m{(M)} \define \sum_{i=1}^{n} \expect (Y_{i+n} - \hat{Y_i}^\m{(M)})^2
+	\]
+
+	Es kann gezeigt werden, dass RSS den Wert von SPSE systematisch unterschätzt, dass diese Unterschätzung jedoch behoben werden kann (siehe Skript 12/2018):
+
+    \[
+	SPSE^\m{(M)} \define \expect RSS^\m{(M)} + 2\tilde{\sigma}_{\underline{full}}^2(|M|+1)
+    \]
+
+    wobei $\tilde{\sigma}_{full}^2$ die Varianz des größten Modells ist.
 
 	% subsection mlr
 
 	\subsection{Mallow's $C_{p}$}
 	\label{ssec:mallows-C_p}
-	
-		At this point, the model is specified using $k+1 = 320$ predictors for each response variable, using the whole domain of measured spectrum for each soil sample.
-		
-		
-	
-	
-	% subsection mallows-C_p
 
-		
+
+
 	\subsection{Model Validation}
 	\label{ssec:model-validation}
-	
-	
+    Ein geeigneter Parameter zur Messung der globalen Anpassungsgüte einer Regression ist $R^2$. \textbf{Quelle}
+    \[
+    {R^2}^{(M)} \define \frac {\sum_{i=1}^n \curvb{\hat{y}^{(M)}_i - \overline{y}}^2}{\sum_{i=1}^n \curvb{y_i - \overline{y}}^2}
+    \]
+    Dieser beschreibt den Anteil der durch die Regression erklärten Quadratsumme an der totale Quadratsumme und nimmt dadurch Werte zwischen 0 und 1 an.
+    Während ein $R^2$ von 1 für einen perfekten linearen Zusammenhang steht bedeutet ein Wert von 0, dass kein linearer Zusammenhang vorliegt.
+    Für das gewählte Modell ergibt sich ein Wert von \textbf{....}.
+    Dies weißt auf eine relativ gute Anpassung durch das gewählte Modell hin. \textbf{zu prüfen}
+    Zudem ist es sinnvoll neben dem Parameter $R^2$ ein Korrelationsdiagramm zwischen der durch das Modell geschätzten Ausprägung $\hat{y}_i$ und dem wahren Wert $y_i$ zu betrachten.
+    \textbf{Einfügen von Grafik: Korrelationsdiagramm}
+    
+    
+
+
 	% subsection model-validation
-	
+
 	\subsection{Assessment by Simulation}
 	\label{ssec:simulation}
-	
-		
-		
+
+
+
 	% subsection simulation
 % section methodology
