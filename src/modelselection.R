@@ -18,7 +18,7 @@ getDiffMatrix = function(M, rows, cols) {
   return(x)
 }
 
-nirs.data = read.csv("NIR.csv", sep=";")
+nirs.data = read.csv("../NIR.csv", sep=";")
 head(nirs.data)
 
 # nir data only
@@ -26,7 +26,6 @@ nir.data = nirs.data[, 4:322]
 
 # wavelengths
 x=seq(1400, 2664, 4)
-
 
 plot(seq(1400, 2672, 4), nir.data[1,], type='l', col=1, ylim=c(0.1,0.7))
 lines(seq(1400, 2672, 4), nir.data[2,], type='l', col=2, ylim=c(0.3,0.7))
