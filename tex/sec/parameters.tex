@@ -1,71 +1,71 @@
-\section{Prediction Parameters and Models}
-\label{sec:parameters}
-	
-	\begin{table}[H]
-		\center
-		\caption{Estimated model parameters of $P^\m{(SOC)}$ on selected model}
-		\setlength{\extrarowheight}{1.9pt}
-		\begin{tabular}{rr|rr|rr|rr}
-			\hline
-			$\lambda_i \ [\m{nm}]$ & $\beta^\m{(SOC)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(SOC)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(SOC)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(SOC)}_i$ \\
-			\hline
-			\hline
-			\input{cpp/soc-par}
-			\hline \\
-		\end{tabular}
-	\end{table}
-
-	\begin{table}[H]
-		\center
-		\caption{Estimated model parameters of $\overline{\m{pH}}$ on selected model}
-		\setlength{\extrarowheight}{1.9pt}
-		\begin{tabular}{rr|rr|rr|rr}
-			\hline
-			$\lambda_i \ [\m{nm}]$ & $\beta^\m{(pH)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(pH)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(pH)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(pH)}_i$ \\
-			\hline
-			\hline
-			\input{cpp/ph-par}
-			\hline \\
-		\end{tabular}
-	\end{table}
-
-	\begin{table}[H]
-		\center
-		\caption{Estimated model parameters of $P^\m{(N)}$ on selected model}
-		\setlength{\extrarowheight}{1.9pt}
-		\begin{tabular}{rr|rr|rr|rr}
-			\hline
-			$\lambda_i \ [\m{nm}]$ & $\beta^\m{(N)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(N)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(N)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(N)}_i$ \\
-			\hline
-			\hline
-			\input{cpp/n-par}
-			\hline \\
-		\end{tabular}
-	\end{table}
-
-
-	\begin{figure}[H]
-		\begin{subfigure}[b]{\textwidth}
-			\centering
-			\input{gp/ms-sa-soc-spec-rnd}
-			\caption{$p^{(\m{SOC})}$ with $\m{p}^{(\m{SOC})} = 72$}
-			\label{sfig:calib-soc}
-		\end{subfigure}
-		
-		\begin{subfigure}[b]{\textwidth}
-			\centering
-			\input{gp/ms-sa-n-spec-rnd}
-			\caption{$p^{(\m{N})}$ with $\m{p}^{(\m{N})} = 69$}
-			\label{sfig:calib-n}
-		\end{subfigure}
-
-		\begin{subfigure}[b]{\textwidth}
-			\centering
-			\input{gp/ms-sa-ph-spec-rnd}
-			\caption{$\m{pH}$ with $\m{p}^{(\m{pH})} = 58$}
-			\label{sfig:calib-ph}
-		\end{subfigure}
-		\caption{Displaying the spectra from figure \ref{fig:soil-spec-rnd} with wavelength included in the selected models for each response highlighted by vertical grey lines}
-	\end{figure}
-
-% section 
+%\section{Prediction Parameters and Models}
+%\label{sec:parameters}
+%	
+%	\begin{table}[H]
+%		\center
+%		\caption{Estimated model parameters of $P^\m{(SOC)}$ on selected model}
+%		\setlength{\extrarowheight}{1.9pt}
+%		\begin{tabular}{rr|rr|rr|rr}
+%			\hline
+%			$\lambda_i \ [\m{nm}]$ & $\beta^\m{(SOC)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(SOC)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(SOC)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(SOC)}_i$ \\
+%			\hline
+%			\hline
+%			\input{cpp/soc-par}
+%			\hline \\
+%		\end{tabular}
+%	\end{table}
+%
+%	\begin{table}[H]
+%		\center
+%		\caption{Estimated model parameters of $\overline{\m{pH}}$ on selected model}
+%		\setlength{\extrarowheight}{1.9pt}
+%		\begin{tabular}{rr|rr|rr|rr}
+%			\hline
+%			$\lambda_i \ [\m{nm}]$ & $\beta^\m{(pH)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(pH)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(pH)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(pH)}_i$ \\
+%			\hline
+%			\hline
+%			\input{cpp/ph-par}
+%			\hline \\
+%		\end{tabular}
+%	\end{table}
+%
+%	\begin{table}[H]
+%		\center
+%		\caption{Estimated model parameters of $P^\m{(N)}$ on selected model}
+%		\setlength{\extrarowheight}{1.9pt}
+%		\begin{tabular}{rr|rr|rr|rr}
+%			\hline
+%			$\lambda_i \ [\m{nm}]$ & $\beta^\m{(N)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(N)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(N)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(N)}_i$ \\
+%			\hline
+%			\hline
+%			\input{cpp/n-par}
+%			\hline \\
+%		\end{tabular}
+%	\end{table}
+%
+%
+%	\begin{figure}[H]
+%		\begin{subfigure}[b]{\textwidth}
+%			\centering
+%			\input{gp/ms-sa-soc-spec-rnd}
+%			\caption{$p^{(\m{SOC})}$ with $\m{p}^{(\m{SOC})} = 72$}
+%			\label{sfig:calib-soc}
+%		\end{subfigure}
+%		
+%		\begin{subfigure}[b]{\textwidth}
+%			\centering
+%			\input{gp/ms-sa-n-spec-rnd}
+%			\caption{$p^{(\m{N})}$ with $\m{p}^{(\m{N})} = 69$}
+%			\label{sfig:calib-n}
+%		\end{subfigure}
+%
+%		\begin{subfigure}[b]{\textwidth}
+%			\centering
+%			\input{gp/ms-sa-ph-spec-rnd}
+%			\caption{$\m{pH}$ with $\m{p}^{(\m{pH})} = 58$}
+%			\label{sfig:calib-ph}
+%		\end{subfigure}
+%		\caption{Displaying the spectra from figure \ref{fig:soil-spec-rnd} with wavelength included in the selected models for each response highlighted by vertical grey lines}
+%	\end{figure}
+%
+%% section 
