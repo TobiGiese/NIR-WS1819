@@ -22,19 +22,20 @@ NUM_ROWS = nrow(nirs.data)
 WAVELENGTHS = seq(1400, 2672, 4)
 RESPONSEVAR = "N"
 SAMPLE_SIZES = c(150, 200, 250, 300, 350, 400, 450, 500, 533)
-SIM_ITERATIONS = 100
+SIM_ITERATIONS = 10
 
 
 # ###############################
 # 1. Modelselection
 # ###############################
 nirs.criterion.slopedist = criterionSlopeDist(nirs.data, COLUMN_ID_NM_FROM, COLUMN_ID_NM_TO)
-plot(WAVELENGTHS[1:length(WAVELENGTHS)-1], nirs.criterion.slopedist, type = "l", col=1)
+selectedCriterion = nirs.criterion.slopedist
 
 # select wavelengths with highes variablilty
+plot(WAVELENGTHS[1:length(WAVELENGTHS)-1], selectedCriterion, type = "l", col=1)
 THRESHOLD = 0.001
 abline(h=THRESHOLD, col=2)
-fullModel.features = selectFeatures(nirs.data, WAVELENGTHS, THRESHOLD, nirs.criterion.slopedist)
+fullModel.features = selectFeatures(nirs.data, WAVELENGTHS, THRESHOLD, selectedCriterion)
 
 # build model from selected wavelength
 fullModel.formula = buildFormula(fullModel.features, "nm", RESPONSEVAR)
@@ -50,9 +51,10 @@ nirs.spse.true = calculateTrueSpse(nirs.lm.opt, nirs.optModelId, NUM_ROWS)
 nirs.spse.true
 
 # plot slope with selected features
-plot(WAVELENGTHS[1:length(WAVELENGTHS)-1], nirs.criterion.slopedist, type = "l", col=1)
+plot(WAVELENGTHS[1:length(WAVELENGTHS)-1], selectedCriterion, type = "l", col=1)
 selfeat = as.integer(substr(names(nirs.lm.opt$coefficients)[-1],3,6))
 sapply(selfeat, addSelectedFeatureToPlot, 3)
+
 
 
 # ###############################
