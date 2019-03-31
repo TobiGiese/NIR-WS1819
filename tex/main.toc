@@ -8,11 +8,11 @@
 \contentsline {subsection}{\numberline {3.2}Statistisches Modell}{2}
 \contentsline {subsection}{\numberline {3.3}Modellwahl im Falle der NIR-Spektroskopie}{2}
 \contentsline {subsection}{\numberline {3.4}Modellselektion}{3}
-\contentsline {subsection}{\numberline {3.5}SPSE-Vergleich}{3}
-\contentsline {section}{\numberline {4}Implementation}{3}
-\contentsline {section}{\numberline {5}Calibration}{3}
-\contentsline {subsection}{\numberline {5.1}Model Selection}{3}
-\contentsline {subsection}{\numberline {5.2}Goodness of Fit}{5}
-\contentsline {section}{\numberline {6}Simulation - Sch\IeC {\"a}tzgenauigkeit von Mallow's Cp}{5}
-\contentsline {section}{\numberline {7}Conclusion}{5}
+\contentsline {subsection}{\numberline {3.5}SPSE-Vergleich}{4}
+\contentsline {section}{\numberline {4}Implementation}{4}
+\contentsline {section}{\numberline {5}Calibration}{4}
+\contentsline {subsection}{\numberline {5.1}Model Selection}{4}
+\contentsline {subsection}{\numberline {5.2}Goodness of Fit}{4}
+\contentsline {section}{\numberline {6}Simulation - Sch\IeC {\"a}tzgenauigkeit von Mallow's Cp}{4}
+\contentsline {section}{\numberline {7}Conclusion}{4}
 \contentsline {section}{\numberline {A}R Source Code}{i}
