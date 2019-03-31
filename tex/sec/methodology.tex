@@ -6,7 +6,7 @@
 	\label{ssec:Datensatz}
 
 	    Der für die Modellwahl verwendete Datensatz beinhaltet die logarithmierten relativen Reflexionswerte $-\delta(\lambda)$ bei Wellenlängen zwischen 1400 nm und 2672 nm in einem Abstand von 4 nm sowie die Stoffmengeanteile $y^{(N)}$, $y^{(SOC)}$ und entsprechenden pH-Werte von insgesamt 533 Proben.
-	    Informationen über die chemische Zusammensetzung der Probe in den Reflexionswerten im Nahinfrarotbereich sind stark überlagert. \cite{Agelet2010}
+	    Informationen über die chemische Zusammensetzung der Probe in den Reflexionswerten im Nahinfrarotbereich sind stark überlagert \cite{Agelet2010}.
 	    Aus diesem Grund ist eine sorgfältige Auswahl relevanter Wellenlängen von besonderer Bedeutung für die Erstellung eines zuverlässigen Modells.
 
 
@@ -100,12 +100,12 @@
 	Das erste Ziel dieser Arbeit ist es, diejenigen Wellenlängen $\lambda\in\Lambda$ herauszufinden, deren Reflektionswerte $x_j$ der Nahinfrarotspektroskopie einen Einfluss auf den Stickstoffgehalt des Untergrunds hat.  Es wurden mehrere Selektionsverfahren verglichen, die auf zwei Annahmen basieren: \\
 	(1) Die erste Ableitung $x_j'$ der Wellenlängen zeigt an, wie groß die \textit{Veränderungen} der Reflektionswerte sind. Da bei der großen Anzahl an potenziellen Einflussparametern eine Vorauswahl schwierig ist, wurden also diejenigen mit auffälligem mathematischen Verhalten ausgewählt: (a) diejenigen Reflexionen, deren 1. Ableitung über einem Grenzwertes $\tau_1$ lag oder (b) diejenigen, deren Werte unterhalb eines Schwellenwertes lagen.\\
 	(2)Darüber hinaus wurden diejenigen Wellenlängen ausgewählt, die einen hohen Informationsgehalt,bzw.eine Variablilität $var(x_j') > \tau_2$ haben. Zur Berechnung der Variablilität wurden wiederum unterschiedliche Verfahren angewandt. In Modell (a) wurde die Differenz zwischen dem minimalen und dem maximalen Ableitungswert normaiert auf den Mittelwert, während (b) und (c) ohne Normierung arbeiten. In (b) wird lediglich zusätzlich der Betrag verwendet: 	\\ \\
-	(a) $var(\delta(\lambda)) = \frac{|max(\delta(\lambda)') - min(\delta(\lambda)')|}{mean((\delta(\lambda)'))}$\\
-	(b) $var(\delta(\lambda)) = |max(\delta(\lambda)') - min(\delta(\lambda)')|$\\
-	(c) $var(\delta(\lambda)) = max(\delta(\lambda)') - min(\delta(\lambda)')$\\ \\
+	(a) $var(x_j') = \frac{|max(x_j') - min(x_j')|}{mean(x_j')}$\\
+	(b) $var(x_j') = |max(x_j') - min(x_j')|$\\
+	(c) $var(x_j')= max(x_j') - min(x_j')$\\ \\
 	Der Vergleich zwischen den Modellen ergab, dass der zugehörige SPSE-Wert am kleinsten ist, wenn wir diejenigen Reflexionen verwenden, deren erste Ableitung und Variablilität über $\tau_1$, bzw. $\tau_2$ liegen. (1b) und (2b), oder:
 	\begin{align*}
-		\varDelta(\lambda)_{select} = \{(\delta(\lambda)') \in \Lambda | (\delta(\lambda)') > \tau_1 \wedge \\|max(\delta(\lambda)') - min(\delta(\lambda)')| > \tau_2\}
+		X_{select} = \{x_j' \in \Lambda | (x_j') > \tau_1 \wedge \\|max(x_j') - min(x_j')| > \tau_2\}
 	\end{align*}
 
 %	\begin{figure*}
