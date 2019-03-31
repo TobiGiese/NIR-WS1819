@@ -1,24 +1,18 @@
 \babel@toc {english}{}
 \contentsline {section}{\numberline {1}Einleitung}{1}
-\contentsline {section}{\numberline {2}Background}{1}
-\contentsline {subsection}{\numberline {2.1}Soil Parameters}{1}
-\contentsline {subsection}{\numberline {2.2}Near Infrared Spectroscopy}{1}
-\contentsline {section}{\numberline {3}Methodology}{1}
-\contentsline {subsection}{\numberline {3.1}Measured Data}{1}
-\contentsline {subsection}{\numberline {3.2}Statistical Model}{1}
-\contentsline {subsection}{\numberline {3.3}Statistische Modellwahl im Falle von NIR-Spektroskopie}{1}
-\contentsline {subsection}{\numberline {3.4}Mallow's $C_{p}$}{2}
-\contentsline {subsection}{\numberline {3.5}Simulated Annealing}{2}
-\contentsline {subsection}{\numberline {3.6}Model Validation}{2}
-\contentsline {subsection}{\numberline {3.7}Assessment by Simulation}{2}
-\contentsline {section}{\numberline {4}Implementation}{2}
-\contentsline {subsection}{\numberline {4.1}Choosing a Neighbour}{2}
-\contentsline {subsection}{\numberline {4.2}Additional Functions}{2}
-\contentsline {subsection}{\numberline {4.3}Preprocessing}{2}
-\contentsline {section}{\numberline {5}Calibration}{3}
-\contentsline {subsection}{\numberline {5.1}Model Selection}{3}
-\contentsline {subsection}{\numberline {5.2}Goodness of Fit}{3}
-\contentsline {section}{\numberline {6}Simulation - Sch\IeC {\"a}tzgenauigkeit von Mallow's Cp}{3}
-\contentsline {section}{\numberline {7}Conclusion}{3}
-\contentsline {section}{\numberline {A}Prediction Parameters and Models}{i}
-\contentsline {section}{\numberline {B}R Source Code}{ii}
+\contentsline {section}{\numberline {2}Hintergrund}{1}
+\contentsline {subsection}{\numberline {2.1}Gebundener Stickstoff}{1}
+\contentsline {subsection}{\numberline {2.2}Nahinfrarotspektroskopie}{1}
+\contentsline {section}{\numberline {3}Methodik}{2}
+\contentsline {subsection}{\numberline {3.1}Datensatz}{2}
+\contentsline {subsection}{\numberline {3.2}Statistisches Modell}{2}
+\contentsline {subsection}{\numberline {3.3}Modellwahl im Falle der NIR-Spektroskopie}{2}
+\contentsline {subsection}{\numberline {3.4}Modellselektion}{3}
+\contentsline {subsection}{\numberline {3.5}SPSE-Vergleich}{4}
+\contentsline {section}{\numberline {4}Implementation}{4}
+\contentsline {section}{\numberline {5}Calibration}{4}
+\contentsline {subsection}{\numberline {5.1}Model Selection}{4}
+\contentsline {subsection}{\numberline {5.2}Goodness of Fit}{4}
+\contentsline {section}{\numberline {6}Simulation - Sch\IeC {\"a}tzgenauigkeit von Mallow's Cp}{4}
+\contentsline {section}{\numberline {7}Conclusion}{4}
+\contentsline {section}{\numberline {A}R Source Code}{i}

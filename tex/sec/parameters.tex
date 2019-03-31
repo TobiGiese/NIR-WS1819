@@ -1,41 +1,13 @@
 \section{Prediction Parameters and Models}
 \label{sec:parameters}
-	
-	\begin{table}[H]
-		\center
-		\caption{Estimated model parameters of $P^\m{(SOC)}$ on selected model}
-		\setlength{\extrarowheight}{1.9pt}
-		\begin{tabular}{rr|rr|rr|rr}
-			\hline
-			$\lambda_i \ [\m{nm}]$ & $\beta^\m{(SOC)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(SOC)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(SOC)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(SOC)}_i$ \\
-			\hline
-			\hline
-%			\input{cpp/soc-par}
-			\hline \\
-		\end{tabular}
-	\end{table}
 
 	\begin{table}[H]
 		\center
-		\caption{Estimated model parameters of $\overline{\m{pH}}$ on selected model}
+		\caption{Geschätzte Modellparameter für Zielgrößen $Y$}
 		\setlength{\extrarowheight}{1.9pt}
 		\begin{tabular}{rr|rr|rr|rr}
 			\hline
-			$\lambda_i \ [\m{nm}]$ & $\beta^\m{(pH)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(pH)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(pH)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(pH)}_i$ \\
-			\hline
-			\hline
-%			\input{cpp/ph-par}
-			\hline \\
-		\end{tabular}
-	\end{table}
-
-	\begin{table}[H]
-		\center
-		\caption{Estimated model parameters of $P^\m{(N)}$ on selected model}
-		\setlength{\extrarowheight}{1.9pt}
-		\begin{tabular}{rr|rr|rr|rr}
-			\hline
-			$\lambda_i \ [\m{nm}]$ & $\beta^\m{(N)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(N)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(N)}_i$ & $\lambda_i \ [\m{nm}]$ & $\beta^\m{(N)}_i$ \\
+			$\lambda_i \ [\m{nm}]$ & $\beta_i$ & $\lambda_i \ [\m{nm}]$ & $\beta_i$ & $\lambda_i \ [\m{nm}]$ & $\beta_i$ & $\lambda_i \ [\m{nm}]$ & $\beta_i$ \\
 			\hline
 			\hline
 %			\input{cpp/n-par}
@@ -51,7 +23,7 @@
 			\caption{$p^{(\m{SOC})}$ with $\m{p}^{(\m{SOC})} = 72$}
 			\label{sfig:calib-soc}
 		\end{subfigure}
-		
+
 		\begin{subfigure}[b]{\textwidth}
 			\centering
 			\input{gp/ms-sa-n-spec-rnd}
@@ -68,4 +40,4 @@
 		\caption{Displaying the spectra from figure \ref{fig:soil-spec-rnd} with wavelength included in the selected models for each response highlighted by vertical grey lines}
 	\end{figure}
 
-% section 
+% section

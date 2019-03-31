@@ -3,46 +3,47 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: main.aux
 The style file: alpha.bst
 Database file #1: ref.bib
-Warning--I didn't find a database entry for "agelet:10a"
-You've used 0 entries,
+Warning--entry type for "Umweltbundesamt2017" isn't style-file defined
+--line 40 of file ref.bib
+You've used 4 entries,
             2543 wiz_defined-function locations,
-            559 strings with 4440 characters,
-and the built_in function-call counts, 24 in all, are:
-= -- 0
-> -- 0
-< -- 0
-+ -- 0
-- -- 0
-* -- 2
-:= -- 10
-add.period$ -- 0
-call.type$ -- 0
-change.case$ -- 0
-chr.to.int$ -- 0
-cite$ -- 0
-duplicate$ -- 0
-empty$ -- 1
-format.name$ -- 0
-if$ -- 2
+            588 strings with 5143 characters,
+and the built_in function-call counts, 1564 in all, are:
+= -- 146
+> -- 85
+< -- 2
++ -- 30
+- -- 29
+* -- 117
+:= -- 267
+add.period$ -- 10
+call.type$ -- 4
+change.case$ -- 28
+chr.to.int$ -- 4
+cite$ -- 4
+duplicate$ -- 50
+empty$ -- 111
+format.name$ -- 34
+if$ -- 306
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 0
-newline$ -- 3
-num.names$ -- 0
-pop$ -- 0
+missing$ -- 2
+newline$ -- 22
+num.names$ -- 12
+pop$ -- 32
 preamble$ -- 1
-purify$ -- 0
+purify$ -- 32
 quote$ -- 0
-skip$ -- 2
+skip$ -- 47
 stack$ -- 0
-substring$ -- 0
-swap$ -- 0
-text.length$ -- 0
-text.prefix$ -- 0
+substring$ -- 79
+swap$ -- 4
+text.length$ -- 2
+text.prefix$ -- 2
 top$ -- 0
-type$ -- 0
+type$ -- 32
 warning$ -- 0
-while$ -- 0
-width$ -- 0
-write$ -- 2
+while$ -- 14
+width$ -- 6
+write$ -- 49
 (There was 1 warning)

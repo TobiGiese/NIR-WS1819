@@ -1,3 +1,25 @@
-\begin{thebibliography}{}
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{PDD{\etalchar{+}}13}
+
+\bibitem[AHJ10]{Agelet2010}
+Lidia~Esteve Agelet and Charles~R Hurburgh~Jr.
+\newblock A tutorial on near infrared spectroscopy and its calibration.
+\newblock {\em Critical Reviews in Analytical Chemistry}, 40(4):246--260, 2010.
+
+\bibitem[PDD{\etalchar{+}}13]{Poeplau2013}
+C~Poeplau, A~Don, M~Dondini, J~Leifeld, R~Nemo, J~Schumacher, N~Senapati, and
+  M~Wiesmeier.
+\newblock Reproducibility of a soil organic carbon fractionation method to
+  derive rothc carbon pools.
+\newblock {\em European Journal of Soil Science}, 64(6):735--746, 2013.
+
+\bibitem[Sch19]{Schumacher.2019}
+Jens Schumacher.
+\newblock Skript zur vorlesung statistische verfahren im wintersemester
+  2018/19, 2019.
+
+\bibitem[Umw17]{Umweltbundesamt2017}
+Umweltbundesamt.
+\newblock Stickstoff, 2017.
 
 \end{thebibliography}
