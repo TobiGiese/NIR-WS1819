@@ -65,12 +65,12 @@
 	\frac{\hat{\beta_k}}{\sqrt{\sigma^2(\mathbb{X}^T\mathbb{X})^{-1}_{kk}}} \sim t_{n-(k+1)}.
 	\end{align*}
 	Dieses Verfahren ist vor allem dann besonders gut geeignet, wenn man bereits theoretisch fundierte Annahmen über die Einflussgrößen machen kann.
-	Mit diesem Modellwahlverfahren ergeben sich hier allerdings einige Schwierigkeiten, wobei die für unseren Fall besonders schwerwiegenden herausgehoben werden: In dieser Arbeit haben wir es mit einer großen Anzahl potenzieller Einflussvariablen auf dem Nah-Infrarotspektrum zu tun. A priori kann schwer eine inhaltliche Deutung vorgenommen werden, die gewisse Wellenlängen bevorzugt. Daher ist eine hierarchische Modellwahl mit wenigen, theoretisch begründeten Einflussvariablen nicht möglich. Demnach muss in dieser Arbeit die Anzahl der möglichen Einflussgrößen stark erhöht werden und hier bekommen wir ein Problem mit der T-Teststatistik. Es ließen sich sehr viele unterschiedliche Kombinationen von Einflussgrößen aufstellen und in eine hierarchische Form bringen. Doch da wir bei der T-Teststatistik ein \underline{zufälliges} Intervall konstruieren, gegen das unsere Hypothese getestet wird, wird die Wahrscheinlichkeit bei oft wiederholten Tests fälschlicherweise die Nullhypothese abzulehnen mit Anzahl der Versuchen immer größer. An ein automatisiertes Modellwahlverfahren, das in dieser Arbeit von Vorteil ist, ist also mittels des T-Tests nicht zu erreichen \cite{Schumacher.2019}.
+	Mit diesem Modellwahlverfahren ergeben sich hier allerdings einige Schwierigkeiten, wobei die für unseren Fall besonders schwerwiegenden herausgehoben werden: In dieser Arbeit haben wir es mit einer großen Anzahl potenzieller Einflussvariablen auf dem Nahinfrarotspektrum zu tun. A priori kann schwer eine inhaltliche Deutung vorgenommen werden, die gewisse Wellenlängen bevorzugt. Daher ist eine hierarchische Modellwahl mit wenigen, theoretisch begründeten Einflussvariablen nicht möglich. Demnach muss in dieser Arbeit die Anzahl der möglichen Einflussgrößen stark erhöht werden und hier bekommen wir ein Problem mit der T-Teststatistik. Es ließen sich sehr viele unterschiedliche Kombinationen von Einflussgrößen aufstellen und in eine hierarchische Form bringen. Doch da wir bei der T-Teststatistik ein \textit{zufälliges} Intervall konstruieren, gegen das unsere Hypothese getestet wird, wird die Wahrscheinlichkeit bei oft wiederholten Tests fälschlicherweise die Nullhypothese abzulehnen mit Anzahl der Versuchen immer größer. An ein automatisiertes Modellwahlverfahren, das in dieser Arbeit von Vorteil ist, ist also mittels des T-Tests nicht zu erreichen \cite{Schumacher.2019}.
 	Stattdessen bietet sich eine Modellwahl basierend auf dem erwarteten Prognosefehler ("sum of prediction squared error", SPSE) an:
 	\begin{align*}
-		SPSE := E(\sum_{i=1}^{n} (Y_{i+n} - x_{i}^{(M)}\hat{\beta_i}^{((M)})^2)
+		SPSE \define \expect(\sum_{i=1}^{n} (Y_{i+n} - \hat{Y_i}^{(M)})^2)
 	\end{align*}
-	Hierbei sind die Werte in $Y_{i+n}$ neue Beobachtungen zum Erwartungsvektor $x_i$ und $x_{i}^{(M)}\hat{\beta_i}^{((M)}$ ist sind die Prognosewerte aus dem zu testenden Modell $M$.
+	Hierbei sind die Werte in $Y_{i+n}$ neue Beobachtungen zum Erwartungsvektor $x_i$ und $\hat{Y_i}^{(M)}  = x_{i}^{(M)}\hat{\beta_i}^{((M)}$ ist sind die Prognosewerte aus dem zu testenden Modell $M$.
 	Der Prognosefehler lässt sich in 3 Terme zerlegen: Einen irreduzierbaren Prognosefehler, der unabhängig von dem momentan betrachteten Modell ist, einen Biasterm, der die Abweichung des aktuellen Modells $M$ vom Prognosemodell als Summe der quadrierten Prognose-Verzerrungen anzeigt und einen Varianzterm, der die Ungenauigkeiten widerspiegelt, die sich aus der Schätzung von $p = (|M|+1)$ unbekannten Parametern ergibt:
 	\begin{align*}
 	SPSE^{(M)} = n\sigma_{full}^2 + p\sigma_{full}^2 + (bias^{(M)})^2
@@ -78,10 +78,10 @@
 	Der SPSE lässt sich über unterschiedliche Wege schätzen: \\(1) mithilfe neuer Beobachtungen, \\(2) (wiederholter) Zerlegung der Ursprungsdaten in Test- und Trainingsdaten (Kreuzvalidierung)  oder \\(3) mittels Schätzung basierend auf der Residuenquadratsumme ("residual squared sum", RSS), hier im Vergleich zu o.g. SPSE:
 
 	\begin{align*}
-	RSS^{(M)} := \sum_{i=1}^{n} E (Y_{i} - \hat{Y_i}^{(M)})^2
+	RSS^{(M)} := \sum_{i=1}^{n} (Y_{i} - \hat{Y_i}^{(M)})^2
 	\end{align*}
 	\begin{align*}
-	SPSE^{(M)} := \sum_{i=1}^{n} E (Y_{i+n} - \hat{Y_i}^{(M)})^2
+	SPSE^{(M)} := \sum_{i=1}^{n} \expect (Y_{i+n} - \hat{Y_i}^{(M)})^2
 	\end{align*}
 	Es kann gezeigt werden, dass RSS den Wert von SPSE systematisch unterschätzt, dass diese Unterschätzung jedoch behoben werden kann, indem für alle Modelle die Varianzschätzung aus dem maximalen Modell verwendet wird\cite{Schumacher.2019}:
 	\begin{align*}
@@ -97,29 +97,24 @@
 	\subsection{Modellselektion}
 	\label{ssec:modellselektion}
 	Sei $\Lambda$ die Menge der erhobenen Wellenlängen in der Designmatrix.
-	Das erste Ziel dieser Arbeit ist es, diejenigen Wellenlängen $\lambda\in\Lambda$ herauszufinden, deren Reflektionswert $\delta(\lambda)$ der Nahinfrarot-Spektroskopie einen Einfluss auf den Stickstoffgehalt des Untergrunds hat.  Es wurden mehrere Selektionsverfahren verglichen, die auf zwei Annahmen basieren: \\
-	(1) Die erste Ableitung $\delta(\lambda)'$ der Wellenlängen zeigt an, wie groß die \underline{Veränderungen} der Reflektionswerte sind. Da bei der großen Anzahl an potenziellen Einflussparametern eine Vorauswahl schwierig ist, wurden also diejenigen mit auffälligem mathematischen Verhalten ausgewählt: (a) diejenigen Reflexionen, deren 1. Ableitung über einem Grenzwertes $\varepsilon_1$ lag oder (b) diejenigen, deren Werte unterhalb eines Schwellenwertes lagen.\\
-	(2)Darüber hinaus wurden diejenigen Wellenlängen ausgewählt, die einen hohen Informationsgehalt,bzw. Variablilität haben. Zur Berechnung der Variablilität wurden wiederum unterschiedliche Verfahren angewandt. In Modell (a) wurde die Differenz zwischen dem minimalen und dem maximalen Ableitungswert normaiert auf den Mittelwert, während (b) und (c) ohne Normierung arbeiten. In (b) wird lediglich zusätzlich der Betrag verwendet: 	\\ \\
+	Das erste Ziel dieser Arbeit ist es, diejenigen Wellenlängen $\lambda\in\Lambda$ herauszufinden, deren Reflektionswerte $x_j$ der Nahinfrarotspektroskopie einen Einfluss auf den Stickstoffgehalt des Untergrunds hat.  Es wurden mehrere Selektionsverfahren verglichen, die auf zwei Annahmen basieren: \\
+	(1) Die erste Ableitung $x_j'$ der Wellenlängen zeigt an, wie groß die \textit{Veränderungen} der Reflektionswerte sind. Da bei der großen Anzahl an potenziellen Einflussparametern eine Vorauswahl schwierig ist, wurden also diejenigen mit auffälligem mathematischen Verhalten ausgewählt: (a) diejenigen Reflexionen, deren 1. Ableitung über einem Grenzwertes $\tau_1$ lag oder (b) diejenigen, deren Werte unterhalb eines Schwellenwertes lagen.\\
+	(2)Darüber hinaus wurden diejenigen Wellenlängen ausgewählt, die einen hohen Informationsgehalt,bzw.eine Variablilität $var(x_j') > \tau_2$ haben. Zur Berechnung der Variablilität wurden wiederum unterschiedliche Verfahren angewandt. In Modell (a) wurde die Differenz zwischen dem minimalen und dem maximalen Ableitungswert normaiert auf den Mittelwert, während (b) und (c) ohne Normierung arbeiten. In (b) wird lediglich zusätzlich der Betrag verwendet: 	\\ \\
 	(a) $var(\delta(\lambda)) = \frac{|max(\delta(\lambda)') - min(\delta(\lambda)')|}{mean((\delta(\lambda)'))}$\\
 	(b) $var(\delta(\lambda)) = |max(\delta(\lambda)') - min(\delta(\lambda)')|$\\
 	(c) $var(\delta(\lambda)) = max(\delta(\lambda)') - min(\delta(\lambda)')$\\ \\
-	Der Vergleich zwischen den Modellen ergab, dass Mallow's Cp und der zugehörige SPSE am kleinsten sind, wenn wir diejenigen Reflexionen verwenden, deren erste Ableitung und Variablilität über $\varepsilon_1$, bzw. $\varepsilon_2$ liegen. (1b) und (2b), oder:
+	Der Vergleich zwischen den Modellen ergab, dass der zugehörige SPSE-Wert am kleinsten ist, wenn wir diejenigen Reflexionen verwenden, deren erste Ableitung und Variablilität über $\tau_1$, bzw. $\tau_2$ liegen. (1b) und (2b), oder:
 	\begin{align*}
-		\varDelta(\lambda)_{select} = \{(\delta(\lambda)') \in \Lambda | (\delta(\lambda)') > \varepsilon_1 \wedge \\|max(\delta(\lambda)') - min(\delta(\lambda)')| > \varepsilon_2\}
+		\varDelta(\lambda)_{select} = \{(\delta(\lambda)') \in \Lambda | (\delta(\lambda)') > \tau_1 \wedge \\|max(\delta(\lambda)') - min(\delta(\lambda)')| > \tau_2\}
 	\end{align*}
 
-	\begin{figure*}
-		\label{Wellenlängen_erste_Ableitung}
-		\includegraphics[width=\textwidth]{img/wave_1dev.png}
-		\caption{Ableitungen der Wellenlängen von fünf zufälligen Spektren}
-	\end{figure*}
+%	\begin{figure*}
+%		\label{Wellenlängen_erste_Ableitung}
+%		\includegraphics[width=\textwidth]{img/wave_1dev.png}
+%		\caption{Ableitungen der Wellenlängen von fünf zufälligen Spektren}
+%	\end{figure*}
 
 	Die so ausgewählten Wellenlängen wurden als Maximalmodell in der Berechnung von Mallow's Cp gegeben. Da immer noch sehr viele Variablen im Modell sind, wurde die performantere Rückwärtsselektion für die konkrete Berechnung verwendet.
-
-	\subsection{SPSE-Vergleich}
-	Das zweite Ziel dieser Arbeit ist der Vergleich des SPSE-Wertes für das aus \ref{ssec:modellselektion} gewonnene Idealmodell und der SPSE Schätzung über Mallows Cp, welches auf zufällig gezogene Spektren angewandt wurde.
-	Zunächst
-
 
 
 	\subsection{Validierung des Modells}
@@ -143,8 +138,6 @@
 
 
 
-<<<<<<< HEAD
-=======
 	\subsection{Theoretische Grundlagen der Simulation}
 	\label{ssec:Theoretische Grundlagen der Simulation}
 
@@ -184,4 +177,4 @@
 
 	% subsection Theoretische Grundlagen der Simulation
 % section methodology
->>>>>>> overleafinput
+
