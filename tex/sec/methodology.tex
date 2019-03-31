@@ -5,7 +5,9 @@
 	\subsection{Datensatz}
 	\label{ssec:Datensatz}
 
-	    Der für die Modellwahl verwendete Datensatz beinhaltet die logarithmierten relativen Reflexionswerte $-\delta(\lambda)$ bei Wellenlängen zwischen 1400 nm und 2672 nm in einem Abstand von 4 nm sowie die Stoffmengeanteile $y^{(N)}$, $y^{(SOC)}$ und entsprechenden pH-Werte von insgesamt 533 Proben.
+	    Der für die Modellwahl verwendete Datensatz beinhaltet die logarithmierten relativen Reflexionswerte $\delta(\lambda)$ bei Wellenlängen zwischen 1400 nm und 2672 nm in einem Abstand von 4 nm sowie die Stoffmengeanteile $y^\m{(N)}$, $y^\m{(SOC)}$ und entsprechenden pH-Werte von insgesamt 533 Proben.
+	    Für diese Arbeit sind lediglich die gegeben Reflexionswerte und der Stoffmengenanteil des Stickstoffes von Interesse.
+	    
 	    Informationen über die chemische Zusammensetzung der Probe in den Reflexionswerten im Nahinfrarotbereich sind stark überlagert. \cite{Agelet2010}
 	    Aus diesem Grund ist eine sorgfältige Auswahl relevanter Wellenlängen von besonderer Bedeutung für die Erstellung eines zuverlässigen Modells.
 
@@ -15,43 +17,43 @@
 	\subsection{Statistisches Modell}
 	\label{ssec:Statistisches Modell}
 
-	    Sei $n\in\SN$ die Größe des Datensatzes und $k\in\SN$ mit $k< n$ die Anzahl der Wellenlängen im Datensatz.
-	    Entsprechend Abschnitt \ref{ssec:Datensatz} definieren wir dann die Einflussgröße $x_{ij}$ als für die $i$te Probe und $j$te Wellenlänge als
+	    Sei $n\in\SN$ die Größe des Datensatzes und $d\in\SN$ mit $d< n$ die Anzahl der Wellenlängen im Datensatz.
+	    Entsprechend Abschnitt \ref{ssec:Datensatz} definieren wir dann die Einflussgröße $x_{ik}$ als für die $i$te Probe und $k$te Wellenlänge als
 	    \[
-			x_{ij} \define -\lg \delta_i(\lambda_j)
+			x_{ik} \define -\lg \delta_i(\lambda_k)
 		\]
-		für jedes $i,j\in\SN,i\leq n,j\leq k$.
+		für jedes $i,k\in\SN,i\leq n,k\leq d$.
 
-	    Der Stoffmengenanteil des Stickstoffs  $y^{(N)}$ stellt die Zielgröße unseres späteren Modells dar.
-	    Wie definieren hierfür den Vektor der Stoffmengenanteile $y_i$ der $i$ten Probe als den $n$-dimensionalen Vektor
+	    Der Stoffmengenanteil des Stickstoffs  $y^\m{(N)}$ stellt die Ausprägung der Zielgröße unseres späteren Modells dar.
+	    Wir definieren hierfür den Vektor der Stoffmengenanteile $y_i$ der $i$ten Probe als den $n$-dimensionalen Vektor
 		\[
-			 y^{(N)} \define \curvb{y^\m{(N)}_i}
+			 y \define \curvb{y^\m{(N)}_i}
 		\]
 
         Nachdem wir sowohl die Einflussgrößen als auch die Zielgröße für das lineare Modell definiert haben, lassen sich diese nun in Zusammenhang bringen.
         Es ist valide anzunehmen, dass sich die Zielgröße durch einen Linearkombination der Einflussgrößen beschreiben lässt.
-        Hierfür definieren wir zunächst $Y^\m{(N)}$ als einen zufälligen Vektor von $y^\m{(N)}$ mit
+        Hierfür definieren wir zunächst $Y$ als einen zufälligen Vektor von $y$ mit
         \[
-			 \expect Y^\m{(N)} \define \beta_0 + \sum_{j=1}^k{x_{ij}\beta_j}
+			 \expect Y \define \beta_0 + \sum_{j=1}^k{x_{ik}\beta_j}
 		\]
 
-		Zudem ist es notwendig eine Variable $\varepsilon^\m{(N)}$ einzuführen welchen den Zufall der Messungen beschreibt.
-	    In Matrixschreibweise lässt sich dies durch die Designmatrix $\mathbb{X} \in \SR^{n \times (k+1)}$, dem Parametervektor $\beta \in \SR^{k+1}$ und dem stochastisch  verteilten Parameter $\varepsilon^\m{(N)}$ wie folgt darstellen.
+		Zudem ist es notwendig eine Variable $\varepsilon$ einzuführen welchen den Zufall der Messungen beschreibt.
+	    In Matrixschreibweise lässt sich dies durch die Designmatrix $\mathbb{X} \in \SR^{n \times (d+1)}$, dem Parametervektor $\beta \in \SR^{d+1}$ und dem stochastisch  verteilten Parameter $\varepsilon$ wie folgt darstellen.
 		\[
-			Y^\m{(N)} = \mathbb{X}\beta + \varepsilon^\m{(N)}
+			Y = \mathbb{X}\beta + \varepsilon
 		\]
-		Für den Zufallsparameter $\varepsilon^\m{(N)}$ muss zudem gelten
+		Für den Zufallsparameter $\varepsilon$ muss zudem gelten
 		\[
-			\expect \varepsilon^\m{(N)} = 0, \qquad \cov \varepsilon^\m{(N)} = (\sigma^2)^\m{(N)} \idmat
+			\expect \varepsilon = 0, \qquad \cov \varepsilon = \sigma^2 \idmat
 		\]
-		wobei $(\sigma^2)^\m{(N)} \in (0,\infty)$.
-		Weiterhin soll angenommen werden, dass $\varepsilon^\m{(N)}$ normalverteilt ist mit
+		wobei $\sigma^2 \in (0,\infty)$.
+		Weiterhin soll angenommen werden, dass $\varepsilon$ normalverteilt ist mit
 	    \[
-			\varepsilon^\m{(N)} \sim \FN \curvb{0,(\sigma^2)^\m{(N)}\idmat}
+			\varepsilon \sim \FN \curvb{0,\sigma^2\idmat}
 		\]
 	    sodass sich für das Gesamtmodell gilt
 		\[
-			Y^\m{(N)} \sim \FN \curvb{\mathbb{X}\beta^\m{(N)},(\sigma^2)^\m{(N)} \idmat}
+			Y \sim \FN \curvb{\mathbb{X}\beta,\sigma^2 \idmat}
 		\]
 
 	% subsection Statistisches Modell
@@ -124,14 +126,15 @@
 
 	\subsection{Validierung des Modells}
 	\label{ssec:model-validation}
+	    \textbf{Hier muss stattdessen die der korrigierte Wert genommen werden.. korrigiere im morgen früh}
 			Ein geeigneter Parameter zur Messung der globalen Anpassungsgüte einer Regression ist $R^2$, definiert als \textbf{Quelle}
 			\[
 					{R^2}^{(M)} \define \frac {\sum_{i=1}^n \curvb{\hat{y}^{(M)}_i - \overline{y}}^2}{\sum_{i=1}^n \curvb{y_i - \overline{y}}^2}
 			\]
-			Dieser beschreibt den Anteil der durch die Regression erklärten Quadratsumme an der totale Quadratsumme und nimmt dadurch Werte zwischen 0 und 1 an.
+			Dieser beschreibt den Anteil der durch die Regression erklärten Varianz in den Daten dar und nimmt dadurch Werte zwischen 0 und 1 an.
 			Während ein $R^2$ von 1 für einen perfekten linearen Zusammenhang steht bedeutet ein Wert von 0, dass kein linearer Zusammenhang vorliegt.
 			Für das gewählte Modell ergibt sich ein Wert von \textbf{....}.
-			Dies weißt auf eine relativ gute Anpassung durch das gewählte Modell hin. \textbf{zu prüfen}
+			\textbf{Interpretation im Fazit}
 			Zudem ist es sinnvoll neben dem Parameter $R^2$ ein Korrelationsdiagramm zwischen der durch das Modell geschätzten Ausprägung $\hat{y}_i$ und dem wahren Wert $y_i$ zu betrachten.
 			\textbf{Einfügen von Grafik: Korrelationsdiagramm}
 
@@ -141,10 +144,6 @@
 	%\label{ssec:simulation}
 
 
-
-
-<<<<<<< HEAD
-=======
 	\subsection{Theoretische Grundlagen der Simulation}
 	\label{ssec:Theoretische Grundlagen der Simulation}
 
@@ -166,7 +165,7 @@
         \]
         wobei für den stochastisch verteilen Parameter $\varepsilon$ gilt
         \[
-            \varepsilon \sim \FN \curvb{0,\sigma^2\idmat_n}
+            \varepsilon \sim \FN \curvb{0,\sigma^2\idmat}
         \]
         und als Varianz die Varianz des Modells angenommen wird.
         \[
@@ -174,7 +173,7 @@
         \]
         Aus den generierten Pseudodaten wird ein neues bestes Modell $\widetilde{M}$ auf basierend auf dem kleinsten Cp-Wert ausgewählt, für dass gilt.
         \[
-            \widetilde{Y} \sim \FN \curvb{\mathbb{X}\widetilde{\beta}, \sigma^2 I_n}
+            \widetilde{Y} \sim \FN \curvb{\mathbb{X}^\m{(\widetilde{M})}\widetilde{\beta}, \sigma^2 I}
         \]
         Hierfür wird die Varianz als unbekannt angenommen.
         Neben dem Vergleich des wahren und geschätzten Prognosefehlers bei gleicher Stichprobengröße soll zudem überprüft werden welcher Einfluss die Änderung der Stichprobengröße auf den Wert des geschätzten SPSE hat.
