@@ -14,27 +14,12 @@ Insgesamt kann man sagen, dass die bisherigen Untersuchungen auf ausreichend gut
 
 \subsection{Simulation}
 \label{ssec:discuss:simulation}
-Die vorliegende Arbeit sollte den Einfluss des Stichprobenumfangs auf die SPSE-Schätzung mithilfe Mallow's Cp untersuchen. Die hier angegebenen Werte spiegeln den Mittelwert aus 10 Durchläufen wieder.
+Die vorliegende Arbeit sollte den Einfluss des Stichprobenumfangs auf die SPSE-Schätzung mithilfe Mallow's $C_p$ untersuchen. Die hier angegebenen Werte spiegeln den Mittelwert aus 10 Durchläufen wieder.
 
-\begin{table}[]
-	\caption{Über Mallow's Cp geschätzte SPSE Werte mit zugehörigen $n$}
-	\begin{tabular}{|l|l|}
-		\cline{1-2}
-		$n$   & $\hat{SPSE}$ \\ 		\cline{1-2}
-		150 &  0.4964226   \\ \cline{1-2}
-		200 &  0.4312206   \\ \cline{1-2}
-		250 &  0.521319    \\ \cline{1-2}
-		300 &  0.6097658  \\ \cline{1-2}
-		350 &  0.7058959   \\ \cline{1-2}
-		400 &  0.7947748 \\ \cline{1-2}
-		450 &  0.8807918  \\ \cline{1-2}
-		500 &  0.9750933   \\ \cline{1-2}
-		533 &  1.028092   \\ \cline{1-2}
+\input{tables/table_estimated_spse.tex}
 
-						\end{tabular}
-\end{table}
-
-Wie in Abbildung \ref{fig:spse} zu erkennen ist steigt der geschätzte SPSE-Wert außer bei simN < 200 monoton und nahezu linear mit zunehmender Stichprobengröße. Dies lässt auf einen starken linearen Einfluss von $n$ auf den SPSE-Wert schließen. In der Berechnung des SPSE ist $n$ sowohl als Faktor im unkontrollierten Prognosefehler als auch im Biasterm vorhanden, was den Einfluss auf das Ergebnis bereits vermuten ließ.
-Der tatsächliche SPSE - Wert von 0,981 wird bei der Schätzung über Mallow's Cp mit derselben Stichprobengröße (533) um 0,048\% überschätzt und liegt bei 1,028. 
+Wie in Abbildung \ref{fig:spse} zu erkennen ist steigt der geschätzte SPSE-Wert außer bei $n < 200$ monoton und nahezu linear mit zunehmender Stichprobengröße. Dies lässt auf einen starken linearen Einfluss von $n$ auf den SPSE schließen. In der Berechnung des SPSE ist $n$ sowohl als Faktor im unkontrollierten Prognosefehler als auch im Biasterm vorhanden, was den Einfluss auf das Ergebnis bereits vermuten ließ.
+Der tatsächliche SPSE von 0,981 wird bei der Schätzung über Mallow's $C_p$ mit derselben Stichprobengröße (533) um knapp 5\% überschätzt und liegt bei 1,028. 
 Daraus lässt sich schließen, dass der Biasterm durch die zufällige Simulation wohl leicht überschätzt wurde.
-Eine Schlussfolgerung aus den hier vorgefundenen Werten ist nun, dass SPSE Werte zur Vergleichbarkeit mittels des Stichprobenumfangs genormt sein müssen, um miteinander vergleichbar zu sein.
+Wir können also schlussfolgern, dass SPSE Werte, die auf verschiedenen Stichprobengrößen beruhen, normiert werden müssen, um miteinander vergleichbar zu sein.
+

@@ -2,8 +2,8 @@
     \centering
     \begin{tikzpicture}
         \begin{axis}[ 
-            ylabel = N,
-            xlabel = simN,
+            ylabel = SPSE,
+            xlabel = n,
             xmin=0, xmax=600,
             ymin=0, ymax=1.5,
             legend pos = north west,
@@ -32,12 +32,9 @@
             coordinates {
                 (533,0.9813258)
             };
-            \addlegendentry{{\scriptsize wahrer SPSE}}
-            
-            %\addplot +[ycomb, no marks, dashed] 
-            %table[x=x, y expr=0.0105 ,col sep=comma] {plots/data/selectedFeatures.csv};
+            \addlegendentry{{\scriptsize tatsächlicher SPSE}}
         \end{axis}
     \end{tikzpicture}
-    \captionof{figure}{SPSE}
+    \captionof{figure}{geschätzer sowie tatsächlicher SPSE in Abhängigkeit der Stichprobengröße}
     \label{fig:spse}
 \end{figure}
