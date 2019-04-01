@@ -1,6 +1,20 @@
-\section{Implementation}
+\section{Implementierung}
 \label{sec:implementation}
-	
-	
+\subsection{Modellwahl}
+\label{ssec:modelwahl}
+Wie in Abschnitt \ref{ssec:modellselektion} beschrieben, benötigen wir zur Auswahl der relevanten Prädiktoren die erste Ableitung der Reflektionswerte. Die Methode \textit{getSlope} berechnet diese als Differenz benachbarter Messwerte. Daraus ergibt sich in Methode \textit{criterionSlopeDist} die Variabilität je Wellenlänge als Differenz des größten und des kleinsten Wertes. Alle Wellenlängen mit einer Variablität größer einem vorgegebenen Schwellwert (hier: $0.001$) werden in Methode \textit{selectFeatures} für das Maximalmodell ausgewählt. Alle ausgewählen Variablen gehen linear in das Maximalmodell ein.\\
+Mittels der im Paket \text{leaps} bereitgestellten Methode \text{regsubsets} wird aus dem 149 Prädiktoren umfassenden Maximalmodell das Modell als Bestes bestimmt, welches den kleinsten $C_p$ Wert aufweist. Die Variablen sowie die geschätzen Parameter des ausgewählen Modells sind in Tabelle \ref{table:model_parameters} dargestellt.\\
+\input{plots/plot_selected_features.tex}
+
+\subsection{Simulation}
+Das so ausgewählte, optimale Modell wird nun verwendet, um Pseudobeobachtungswerte zu simulieren. Die Simulation erfolgt in mehreren Runden und für verschiedene Stichprobengrößen von 150, 200, 250, 300, 350, 400, 450 und 500 zufällig ausgewählten sowie für die gesamten 533 Spektren des vorliegenden Datensatzes. In Methode \textit{simulateOnDatSubset} erfolgt zunächst die zufällige Auswahl der übergebenen Anzahl an Sprektren. Anschließend wird das unter Abschnitt \ref{ssec:modelwahl} bestimmte, optimale Modell verwendet, um neue Stockstoffwerte zu erzeugen, wobei, wie in Abschnitt \ref{ssec:Theoretische Grundlagen der Simulation} beschrieben, eine Normalverteilung der Zufallsgröße angenommen wird. In jedem Simulationsdurchlauf wird der Ergebnisvektor als arithmetisches Mittel aus 1000 Durchgängen erzeugt. \\
+Mit den so erzeugten Pseudobeobachtungen, sowie den originalen Reflektionswerten wird nun ein zweites mal die Methode \textit{regsubsets} aus dem \textit{leaps} Paket aufgerufen, um für den neuen Datensatz das beste Modell mittels Mallows' $C_p$-Kriterium zu bestimmen. Für jedes beste Modell wird die Modellgröße sowie der $C_p$-Wert erfasst.\\
+Im Anschluss an die Somulation erfolgt die Berechnung des erwarteten Prognosefehler, welche in Methode \textit{calculateTrueSpse} nach Formel (\ref{eq:spse_true}) erfolgt. Die Schätzung des erwarteten Prognosefehlers aus den CP Werten der Simulation erfolgt in Methode \textit{calculateEstimatedSpse} nach der Formel
+\[
+\hat{\m{SPSE}}^{\m{(M)}} \define (C_p^{\m{(M)}} + (|M| + 1)) \Tilde{\sigma}^2_{full}
+\]
+
+\input{plots/plot_correlation.tex}
+\input{plots/plot_spse.tex}
 		
 % section implementation

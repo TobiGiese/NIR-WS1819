@@ -59,7 +59,7 @@
 	% subsection Statistisches Modell
 
 	\subsection{Modellwahl im Falle der NIR-Spektroskopie}
-	\label{ssec:mlr}
+	\label{ssec:modellwahl_nir}
 	Seien $Y\in \rm I\!R^{n}$ die Zielgröße in einem statistischen Modellwahlverfahrens und $\mathbb{X} \in \rm I\!R^{n \times d}$ eine Designmatrix.
 	Zur Wahl einer geeigneten Menge von $k$ Einflussparametern auf die Zielgröße $y_i$  wird klassischerweise die Modellwahl über eine hierarchische Aufstellung von linearen Modellen erreicht. Beginnend mit dem minimalen Modell $E(Y_i) = \beta_0$ werden nach und nach neue potenzielle Einflussparameter $x_{ik}$ hinzugefügt. Zu jedem dieser neuen $x_{ik}$ wird dann eine Teststatistik aufgestellt, die darauf hinweist, ob der gewählte Parameter wichtig ist ist oder nicht. Dabei ist die Nullhypothese, dass $x_{ik}$ keinen Einfluss auf die Zielgröße hat: $ H_0 = \beta_k = 0$ und wird abgelehnt, falls $H_1 = \beta_k \neq 0$ zutrifft.
 	Dies wird über die T-Teststatistik erreicht,  wobei für den Fall, dass $H_0$ richtig ist, gilt:
@@ -86,9 +86,9 @@
 	SPSE^{(M)} := \sum_{i=1}^{n} \expect (Y_{i+n} - \hat{Y_i}^{(M)})^2
 	\end{align*}
 	Es kann gezeigt werden, dass RSS den Wert von SPSE systematisch unterschätzt, dass diese Unterschätzung jedoch behoben werden kann, indem für alle Modelle die Varianzschätzung aus dem maximalen Modell verwendet wird\cite{Schumacher.2019}:
-	\begin{align*}
+	\begin{equation}\label{eq:spse_true}
 	SPSE^\m{(M)} := RSS^\m{(M)} + 2 \tilde{\sigma}_{full} ^2 (k+1)
-	\end{align*}
+	\end{equation}
 	Die Minimierung des SPSE entspricht der Minimierung des Mallow's Cp- Kriteriums, das für die folgenden Analysen getestet werden soll. Dabei gilt:
 	\begin{align*}
 	Cp^{(M)} = \frac{1}{\sigma_{full}^2} \sum_{i=1}^\m{n} (y_i - \hat{y_i}^\m{(M)})^2 - n + 2(k+1)

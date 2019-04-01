@@ -1,0 +1,10 @@
+\begin{table}[H]
+	\center
+    \begin{tabular}{rr|rr|rr|rr|rr}%
+        $x_i$ & $\beta_i$ & $x_i$ & $\beta_i$ & $x_i$ & $\beta_i$ & $x_i$ & $\beta_i$ & $x_i$ & $\beta_i$
+        \csvreader{tables/data/parameters.csv}{}
+        {\\\hline\csvcoli & \csvcolii & \csvcoliii & \csvcoliv & \csvcolv & \csvcolvi & \csvcolvii & \csvcolviii & \csvcolix & \csvcolx }
+    \end{tabular}
+    \caption{Enthaltene Features und geschätzte Parameter $\beta$ des ausgewählten Modells}
+	\label{table:model_parameters}
+\end{table}

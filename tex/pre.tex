@@ -113,7 +113,7 @@
 
 
 % package for including csv-tables from file
-% \usepackage{csvsimple}
+\usepackage{csvsimple}
 % package for creating, loading and manipulating databases
 \usepackage{datatool}
 
@@ -150,7 +150,17 @@
 
 
 \usepackage{tcolorbox}
-% \usepackage{tikz}
+\usepackage{tikz}
+%\usetikzlibrary{patterns}
+%\usetikzlibrary{pgfplots.groupplots}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.13}
+\usepackage{scalerel}
+\usepackage{stackengine}
+
+%\pgfplotsset{every tick label/.append style={font=\scriptsize}}
+
+
 % \tcbuselibrary{listings}
 \tcbuselibrary{many}
 \tcbset{fonttitle=\footnotesize}
@@ -165,6 +175,7 @@
 \usepackage{natbib}
 \bibliographystyle{alpha}
 \usepackage{url}
+\usepackage{hyperref}
 
 % \usepackage{indentfirst}
 
@@ -182,3 +193,4 @@
 \input{page-style}
 
 \usepackage{multirow}
+

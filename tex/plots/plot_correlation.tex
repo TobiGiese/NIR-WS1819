@@ -1,0 +1,31 @@
+\begin{figure*}[ht]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[ 
+            ylabel = $N_{origin}$,
+            xlabel = $N_{est}$,
+            xmin=0, xmax=0.8,
+            ymin=0, ymax=0.8,
+            legend pos = north west,
+            scaled ticks = false,
+            width = .5\textwidth,
+            ymajorgrids,
+            xmajorgrids,
+            %height = 8cm,
+            cycle list name=black white
+        ]
+            \addplot +[only marks]
+            table[x=origN, y=simN, col sep=comma] {plots/data/correlation_plot_data.csv};
+            %\addlegendentry{{\scriptsize Variablität}}
+            \begin{scope}[red]
+                \draw[red] ({axis cs:0,0}) -- ({axis cs:1,1});
+            \end{scope}   
+            %\addplot +[ycomb, no marks, dashed] 
+            %table[x=x, y expr=0.0105 ,col sep=comma] {plots/data/selectedFeatures.csv};
+            
+            
+        \end{axis}
+    \end{tikzpicture}
+    \captionof{figure}{Korrelationsplot}
+    \label{fig:correlation}
+\end{figure*}
