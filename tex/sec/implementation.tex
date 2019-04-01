@@ -4,7 +4,8 @@
 \label{ssec:impl:modelwahl}
 \input{plots/plot_selected_features.tex}
 Wie in Abschnitt \ref{ssec:modellselektion} beschrieben, benötigen wir zur Auswahl der relevanten Prädiktoren die erste Ableitung der Reflektionswerte. Die Methode \textit{getSlope} berechnet diese als Differenz benachbarter Messwerte. Daraus ergibt sich in Methode \textit{criterionSlopeDist} die Variabilität je Wellenlänge als Differenz des größten und des kleinsten Wertes. Alle Wellenlängen mit einer Variablität größer einem vorgegebenen Schwellwert (hier: $0.001$) werden in Methode \textit{selectFeatures} für das Maximalmodell ausgewählt. Alle ausgewählen Variablen gehen linear in das Maximalmodell ein.\\
-Mittels der im Paket \text{leaps} bereitgestellten Methode \text{regsubsets} wird aus dem 149 Prädiktoren umfassenden Maximalmodell das Modell als Bestes bestimmt, welches den kleinsten $C_p$ Wert aufweist. Die Variablen sowie die geschätzen Parameter des ausgewählen Modells sind in Tabelle \ref{table:model_parameters} dargestellt.\\
+Mittels der im Paket \text{leaps} bereitgestellten Methode \text{regsubsets} wird aus dem 149 Prädiktoren umfassenden Maximalmodell das Modell als Bestes bestimmt, welches den kleinsten $C_p$-Wert aufweist. 
+Die Variablen sowie die geschätzen Parameter des ausgewählen Modells sind in Tabelle \ref{table:model_parameters} dargestellt.\\
 
 \subsection{Simulation}
 \label{ssec:impl:simulation}

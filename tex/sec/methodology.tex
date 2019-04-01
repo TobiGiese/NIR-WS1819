@@ -2,7 +2,7 @@
 \section{Methodik}
 \label{sec:Methodik}
 
-	\subsection{Datensatz}
+	\subsection{Der Datensatz}
 	\label{ssec:Datensatz}
 
 	    Der für die Modellwahl verwendete Datensatz beinhaltet die logarithmierten relativen Reflexionswerte $\delta(\lambda)$ bei Wellenlängen zwischen 1400 nm und 2672 nm in einem Abstand von 4 nm sowie die Stoffmengeanteile $y^\m{(N)}$, $y^\m{(SOC)}$ und entsprechenden pH-Werte von insgesamt 533 Proben.
@@ -55,28 +55,28 @@
 		\[
 			Y \sim \FN \curvb{\mathbb{X}\beta,\sigma^2 \idmat}
 		\]
-      
+
 
 	% subsection Statistisches Modell
 
 	\subsection{Modellwahl im Falle der NIR-Spektroskopie}
 	\label{ssec:modellwahl_nir}
 	Seien $Y\in \rm I\!R^{n}$ die Zielgröße in einem statistischen Modellwahlverfahren und $\mathbb{X} \in \rm I\!R^{n \times d}$ eine Designmatrix.
-	Zur Wahl einer geeigneten Menge von $k$ Einflussparametern auf die Zielgröße $y_i$  wird klassischerweise die Modellwahl über eine hierarchische Aufstellung von linearen Modellen erreicht. 
-	Beginnend mit dem minimalen Modell $E(Y_i) = \beta_0$ werden nach und nach neue potenzielle Einflussparameter $x_{ik}$ in das Modell hinzugefügt. 
-	Zu jedem dieser neuen $x_{ik}$ wird dann eine Teststatistik aufgestellt, die darauf hinweist, ob der gewählte Parameter wichtig ist ist oder nicht. 
+	Zur Wahl einer geeigneten Menge von $k$ Einflussgröße auf die Zielgröße $y_i$  wird klassischerweise die Modellwahl über eine hierarchische Aufstellung von linearen Modellen erreicht.
+	Beginnend mit dem minimalen Modell $\expect(Y_i) = \beta_0$ werden nach und nach neue potenzielle Einflussparameter $x_{ik}$ hinzugefügt.
+	Zu jedem dieser neuen $x_{ik}$ wird dann eine Teststatistik aufgestellt, die darauf hinweist, ob der gewählte Parameter wichtig ist ist oder nicht.
 	Dabei ist die Nullhypothese, dass $x_{ik}$ keinen Einfluss auf die Zielgröße hat: $ H_0 : \beta_k = 0$ und wird abgelehnt, falls $H_1 : \beta_k \neq 0$ zutrifft.
 	Dies wird über die T-Teststatistik erreicht, wobei für den Fall, dass $H_0$ richtig ist, gilt:
 	\begin{align*}
-		\frac{\hat{\beta_k}}{\sqrt{\sigma^2(\mathbb{X}^T\mathbb{X})^{-1}_{kk}}} \sim t_{n-(k+1)}.
+		\frac{\hat{\beta_k}}{\sqrt{\sigma^2(\mathbb{X}^T\mathbb{X})^{-1}_{kk}}} \sim t_{n-(k+1)}
 	\end{align*}
 	Dieses Verfahren ist vor allem dann besonders gut geeignet, wenn man bereits theoretisch fundierte Annahmen über die Einflussgrößen machen kann \cite{Schumacher.2019}.
 	Mit diesem Modellwahlverfahren ergeben sich hier allerdings einige Schwierigkeiten:
 	Durch die große Anzahl potenzieller Einflussgrößen im Form von Reflexionswerten kann a priori nur schwer eine inhaltliche Deutung vorgenommen werden.
-	Daher ist Identifizierung weniger wichtiger Einflussgrößen und somit eine effektive hierarchische Modellwahl nicht möglich. 
-	Demnach muss in dieser Arbeit die Anzahl der möglichen Einflussgrößen stark erhöht werden und hier bekommen wir ein Problem mit der T-Teststatistik. 
-	Es ließen sich sehr viele unterschiedliche Kombinationen von Einflussgrößen aufstellen und in eine hierarchische Form bringen. 
-	Doch da wir bei der T-Teststatistik ein \textit{zufälliges} Intervall konstruieren, gegen das unsere Hypothese getestet wird, steigt die Wahrscheinlichkeit, bei oft wiederholten Tests fälschlicherweise die Nullhypothese abzulehnen mit Anzahl der Versuchen. 
+	Daher ist Identifizierung weniger wichtiger Einflussgrößen und somit eine effektive hierarchische Modellwahl nicht möglich.
+	Demnach muss in dieser Arbeit die Anzahl der möglichen Einflussgrößen stark erhöht werden und hier bekommen wir ein Problem mit der T-Teststatistik.
+	Es ließen sich sehr viele unterschiedliche Kombinationen von Einflussgrößen aufstellen und in eine hierarchische Form bringen.
+	Da wir bei der T-Teststatistik jedoch ein \textit{zufälliges} Intervall konstruieren, gegen das unsere Hypothese getestet wird, wird die Wahrscheinlichkeit bei oft wiederholten Tests fälschlicherweise die Nullhypothese abzulehnen mit Anzahl der Versuchen immer größer.
 	Ein automatisiertes Modellwahlverfahren, das viele unterschiedliche Modelle vergleichen kann, ist also mittels des T-Tests nicht zu erreichen \cite{Schumacher.2019}.
 	Stattdessen bietet sich eine Modellwahl basierend auf dem erwarteten Prognosefehler ("sum of prediction squared error", SPSE) an:
 	\begin{align*}
@@ -99,7 +99,7 @@
 	\begin{equation}\label{eq:spse_true}
 	SPSE^\m{(M)} := RSS^\m{(M)} + 2 \tilde{\sigma}_{full} ^2 (k+1)
 	\end{equation}
-	Die Minimierung des SPSE entspricht der Minimierung des Mallow's Cp- Kriteriums, das für die folgenden Analysen getestet werden soll. Dabei gilt:
+	Die Minimierung des SPSE entspricht der Minimierung des Mallow's $C_p$- Kriteriums, das für die folgenden Analysen getestet werden soll. Dabei gilt:
 	\begin{align*}
 	C^\m{(M)}_p = \frac{1}{\sigma_\m{full}^2} \sum_{i=1}^\m{n} (y_i - \hat{y_i}^\m{(M)})^2 - n + 2(k+1)
 	\end{align*}
@@ -107,11 +107,11 @@
 	\subsection{Modellselektion}
 	\label{ssec:modellselektion}
 	Sei $\Lambda$ das Spektrum der erhobenen Wellenlängen im vorliegenden Datensatz.
-	Das erste Ziel dieser Arbeit ist es, diejenigen Wellenlängen $\lambda\in\Lambda$ herauszufinden, deren logarithmierte Reflektionswerte $x_j$ durch den vom Stickstoffgehalt der Bodenproben beeinflusst werden.  
+	Das erste Ziel dieser Arbeit ist es, diejenigen Wellenlängen $\lambda\in\Lambda$ herauszufinden, deren logarithmierte Reflexionswerte $x_j$ durch den enthaltenen Stickstoff am stärksten beeinflusst werden.
 	Es wurden mehrere Selektionsverfahren verglichen, die auf zwei Annahmen basieren: \\
-	(1) Die erste Ableitung $x_j'$ der Reflexionswerte zeigt an die \textit{Veränderungen} der $x_j$ über das gesamte Spektrum an. 
+	(1) Die erste Ableitung $x_j'$ der Reflexionswerte zeigt an die \textit{Veränderungen} der $x_j$ über das gesamte Spektrum an.
 	Da bei der großen Anzahl an potenziellen Einflussgrößen eine Vorauswahl schwierig ist, wurden also diejenigen mit auffälligem mathematischen Verhalten ausgewählt: (a) diejenigen Reflexionen, deren 1. Ableitung über einem Schwellwert $\tau_1$ lag oder (b) diejenigen, deren Werte unterhalb eines Schwellwertes lagen.\\
-	(2) Darüber hinaus wurden diejenigen Wellenlängen ausgewählt, die eine hohe Variablilität $var(x_j') > \tau_2$ aufweisen. 
+	(2) Darüber hinaus wurden diejenigen Wellenlängen ausgewählt, die eine hohe Variablilität $var(x_j') > \tau_2$ aufweisen.
 	Zur Berechnung der Variablilität wurden wiederum unterschiedliche Verfahren angewandt. In Modell (a) wurde die Differenz zwischen dem minimalen und dem maximalen Ableitungswert normaiert auf den Mittelwert, während (b) und (c) ohne Normierung arbeiten. In (b) wird lediglich zusätzlich der Betrag verwendet: 	\\ \\
 	(a) $var(x_j') = \frac{|max(x_j') - min(x_j')|}{mean(x_j')}$\\
 	(b) $var(x_j') = |max(x_j') - min(x_j')|$\\
@@ -121,13 +121,8 @@
 		X_{select} = \{x_j'|max(x_j') - min(x_j')| > \tau_1\}
 	\end{align*}
 
-%	\begin{figure*}
-%		\label{Wellenlängen_erste_Ableitung}
-%		\includegraphics[width=\textwidth]{img/wave_1dev.png}
-%		\caption{Ableitungen der Wellenlängen von fünf zufälligen Spektren}
-%	\end{figure*}
-
-	Die so ausgewählten Wellenlängen wurden als Maximalmodell in der Berechnung von Mallow's $C_p$ gegeben. Da immer noch sehr viele Variablen im Modell sind, wurde die performantere Rückwärtsselektion für die konkrete Berechnung verwendet.
+	Die so ausgewählten Wellenlängen wurden als Maximalmodell in der Berechnung von Mallow's $C_p$ gegeben.
+	Da immer noch sehr viele Variablen im Modell sind, wurde die performantere Rückwärtsselektion für die konkrete Berechnung verwendet.
 
 	\subsection{Validierung des Modells}
 	\label{ssec:model-validation}
@@ -142,9 +137,6 @@
 
 	% subsection model-validation
 
-	%\subsection{Assessment by Simulation}
-	%\label{ssec:simulation}
-
 
 	\subsection{Theoretische Grundlagen der Simulation}
 	\label{ssec:Theoretische Grundlagen der Simulation}
@@ -152,7 +144,7 @@
         Wie in Abschnitt \ref{ssec:modellwahl_nir} beschrieben gibt der SPSE den erwarteten Prognosefehler an.
         Es ist offensichtlich, dass dieser Wert möglichst gering sein sollte, um ein verlässliche Vorhersagen zu neuen Daten zu generieren.
 
-        Im Allgemeine kann der SPSE mit Hilfe neuer Beobachtungen geschätzt werden\cite{Schumacher.2019}.
+        Im Allgemeine kann der SPSE mit Hilfe neuer Beobachtungen geschätzt werden.\cite{Schumacher.2019}
         Da diese nicht zur Verfügung stehen werden stattdessen neuen Pseudobeobachtungen der Zielgröße mit Hilfe des gewählten Modells generiert.
         Der aus der Pseudobeobachtungen geschätzte Prognosefehler kann der mit dem wahren wahren Prognosefehler des Modellsverglichen werden.
         Bei gegebenem Modells $M$ wird der wahre Prognosefehler durch
@@ -173,13 +165,13 @@
         \[
             \sigma^2 \define \curvb{\tilde{\sigma}^2}^{(M)}
         \]
-        Aus den generierten Pseudodaten wird ein neues bestes Modell $\widetilde{M}$ auf basierend auf dem kleinsten Cp-Wert ausgewählt, für dass gilt.
+        Aus den generierten Pseudodaten wird ein neues bestes Modell $\widetilde{M}$ basierend auf dem kleinsten $C_p$-Wert ausgewählt, für dass gilt:
         \[
             \widetilde{Y} \sim \FN \curvb{\mathbb{X}^\m{(\widetilde{M})}\widetilde{\beta}, \sigma^2 I}
         \]
         Hierfür wird die Varianz als unbekannt angenommen.
         Neben dem Vergleich des wahren und geschätzten Prognosefehlers bei gleicher Stichprobengröße soll zudem überprüft werden welcher Einfluss die Änderung der Stichprobengröße auf den Wert des geschätzten SPSE hat.
-        Hierzu werden die verschiedenen Stichprobengrößen von $n = (150, 200, 250, 300, 350, 400, 450, 500, 533)$ gewählt und zufällig aus dem Datensatz ausgewählt.
+        Hierzu werden die verschiedenen Stichprobengrößen gewählt und zufällig aus dem Datensatz ausgewählt.
         Um die Verzerrung der Ergebnisse durch zufällige Ausreißer zu vermeiden werden die Simulationen mehrfach durchgeführt.
 
 
