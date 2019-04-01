@@ -87,6 +87,7 @@ sim.spse.est = (sim.cp + SAMPLE_SIZES) * sigma2.tilde.full
 plot(x=150, y=mean(as.vector(t(sim.spse.est[1,]))), xlim=c(0,550), ylim=c(0,2), pch=16, col=1)
 for (i in 2:length(SAMPLE_SIZES)) {
   points(x=SAMPLE_SIZES[i], y=mean(as.vector(t(sim.spse.est[i,]))), pch=16, col=1)
+  print(mean(as.vector(t(sim.spse.est[i,]))))
 }
 points(x=NUM_ROWS, y=spse_true, col=2, pch=16)
 
