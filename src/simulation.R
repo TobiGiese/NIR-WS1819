@@ -3,17 +3,6 @@
 # ###############################
 source("helper.R")
 
-getDesignmatrix = function(subsets, modelId, responsevar, data) {
-  X <- summary(subsets)$which
-  xvars <- dimnames(X)[[2]][-1]
-  id <- X[modelId,]
-  form <- reformulate(xvars[which(id[-1])], responsevar, id[1])
-  mod.nir <- lm(form, data)
-  designMatrix <- model.matrix(mod.nir)
-  
-  return(designMatrix)
-}
-
 getSDs = function(designMatrix, means, data.origin) {
   residuals = as.vector(data.origin$N - means)
   sd = sqrt(as.numeric(t(residuals) %*% residuals / (dim(data.origin)[1] - dim(designMatrix)[2])))

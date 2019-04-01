@@ -15,12 +15,18 @@ nirs.data = read.csv("../NIR.csv", sep=";")
 
 set.seed(13)
 
+# general 
 COLUMN_ID_N = 2
 COLUMN_ID_NM_FROM = 4
 COLUMN_ID_NM_TO = ncol(nirs.data)
 NUM_ROWS = nrow(nirs.data)
 WAVELENGTHS = seq(1400, 2672, 4)
 RESPONSEVAR = "N"
+
+# modelselection
+THRESHOLD = 0.001
+
+# simulation
 SAMPLE_SIZES = c(150, 200, 250, 300, 350, 400, 450, 500, 533)
 SIM_ITERATIONS = 10
 
@@ -33,13 +39,11 @@ selectedCriterion = nirs.criterion.slopedist
 
 # select wavelengths with highes variablilty
 plot(WAVELENGTHS[1:length(WAVELENGTHS)-1], selectedCriterion, type = "l", col=1)
-THRESHOLD = 0.001
 abline(h=THRESHOLD, col=2)
 fullModel.features = selectFeatures(nirs.data, WAVELENGTHS, THRESHOLD, selectedCriterion)
 
 # build model from selected wavelength
 fullModel.formula = buildFormula(fullModel.features, "nm", RESPONSEVAR)
-
 
 # modelselection based on Mallow's CP from full model
 nirs.subsets = regsubsets(fullModel.formula, nirs.data, really.big=T, nvmax=nrow(fullModel.features)+1, method="backward")
@@ -54,8 +58,6 @@ nirs.spse.true
 plot(WAVELENGTHS[1:length(WAVELENGTHS)-1], selectedCriterion, type = "l", col=1)
 selfeat = as.integer(substr(names(nirs.lm.opt$coefficients)[-1],3,6))
 sapply(selfeat, addSelectedFeatureToPlot, 3)
-
-
 
 # ###############################
 # 2. Simulation
@@ -95,4 +97,5 @@ points(x=NUM_ROWS, y=spse_true2, col=3, pch=16)
 # ##########################
 # 1. correlation plot
 simN = simulate(nirs.lm.opt, nirs.data, 533, 1000)
-plot(simN, nirs.data$N)
+plot(simN, nirs.data$N, xlim=c(0,0.8), ylim=c(0,0.8))
+abline(a=0,b=1, col=2)
