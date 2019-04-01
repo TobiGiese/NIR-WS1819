@@ -81,8 +81,7 @@ for (run in 1:SIM_ITERATIONS) {
 # ############################
 sigma2.tilde.full = calcauletSigma2TildeFull(nirs.lm.full, nrow(fullModel.features)+1, NUM_ROWS)
 
-spse_true = calculateTrueSpse(nirs.lm.opt, nirs.optModelId, NUM_ROWS)
-spse_true2 = calculateTrueSpse2(nirs.lm.opt, nirs.optModelId, nirs.lm.full, NUM_ROWS, nrow(fullModel.features)+1)
+spse_true = calculateTrueSpse(nirs.lm.opt, nirs.optModelId, nirs.lm.full, NUM_ROWS, nrow(fullModel.features)+1)
 
 sim.spse.est = (sim.cp + SAMPLE_SIZES) * sigma2.tilde.full
 plot(x=150, y=mean(as.vector(t(sim.spse.est[1,]))), xlim=c(0,550), ylim=c(0,2), pch=16, col=1)
@@ -90,12 +89,11 @@ for (i in 2:length(SAMPLE_SIZES)) {
   points(x=SAMPLE_SIZES[i], y=mean(as.vector(t(sim.spse.est[i,]))), pch=16, col=1)
 }
 points(x=NUM_ROWS, y=spse_true, col=2, pch=16)
-points(x=NUM_ROWS, y=spse_true2, col=3, pch=16)
 
 # ###########################
 # plots
 # ##########################
 # 1. correlation plot
 simN = simulate(nirs.lm.opt, nirs.data, 533, 1000)
-plot(simN, nirs.data$N, xlim=c(0,0.8), ylim=c(0,0.8))
+plot(nirs.data$N, simN, xlim=c(0,0.8), ylim=c(0,0.8))
 abline(a=0,b=1, col=2)
