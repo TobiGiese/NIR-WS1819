@@ -95,10 +95,10 @@
 	\begin{align*}
 	SPSE^{(M)} \define \sum_{i=1}^{n} \expect (Y_{i+n} - \hat{Y_i}^{(M)})^2
 	\end{align*}
-	Es kann gezeigt werden, dass RSS den Wert von SPSE systematisch unterschätzt, dies jedoch durch die Verwendung der geschätzten Varianz des maximalen Modells behoben werden kann.\cite{Schumacher.2019}:
-	\begin{align*}
-	SPSE^\m{(M)} \define RSS^\m{(M)} + 2 \tilde{\sigma}_{full} ^2 (k+1)
-	\end{align*}
+  Es kann gezeigt werden, dass RSS den Wert von SPSE systematisch unterschätzt, dies jedoch durch die Verwendung der geschätzten Varianz des maximalen Modells behoben werden kann.\cite{Schumacher.2019}:
+	\begin{equation}\label{eq:spse_true}
+	SPSE^\m{(M)} := RSS^\m{(M)} + 2 \tilde{\sigma}_{full} ^2 (k+1)
+	\end{equation}
 	Die Minimierung des SPSE entspricht der Minimierung des Mallow's Cp- Kriteriums, das für die folgenden Analysen getestet werden soll. Dabei gilt:
 	\begin{align*}
 	C^\m{(M)}_p = \frac{1}{\sigma_\m{full}^2} \sum_{i=1}^\m{n} (y_i - \hat{y_i}^\m{(M)})^2 - n + 2(k+1)

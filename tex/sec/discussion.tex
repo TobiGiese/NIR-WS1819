@@ -1,0 +1,13 @@
+\section{Ergebnisse und Diskussion}
+\label{sec:discuss}
+
+\subsection{Modellwahl}
+\label{ssec:discuss:modelselect}
+Unter Anwendung der in Abschnitt \ref{ssec:modellselektion} bzw \ref{ssec:impl:modelwahl} vorgestellten Methode wurde aus einem 149 Prädiktoren umfassenden Maximalmodell das in Tabelle \ref{table:model_parameters} angegebene, 50 Prädiktoren große Modell anhand des kleinsten $C_p$-Wertes von $\m{\approx3.92}$ als optimales Modell ausgewählt.\\
+\input{plots/plot_correlation.tex}
+Der Wert des Bestimmtheitsmaßes $R^2 = 0.82$ zeigt, dass das gewählte Modell die Varianz in den Daten gut erklären kann. Dies spiegelt auch das in Abbildung \ref{fig:correlation} abgebildete Korrelationsdiagramm wieder, in welchen der wahre Wert auf der x-Achse und der geschätzte Stickstoffmengenanteil auf der y-Achse aufgetragen sind.
+Abweichungen sind lediglich im unteren Bereich zwischen $0.0$ und $0.03$ und ab $0.3$ zu beobachten, wo der Stoffmengenanteil des Stickstoffs durch das Modell unterschätzt wird.
+Dies lässt dich vermutlich durch die geringe Datendichte in diesen Bereichen erklären.
+Insgesamt kann man sagen, dass die bisherigen Untersuchungen auf ausreichend gute Prognosen durch das Modell hindeuten.
+
+\input{plots/plot_spse.tex}
