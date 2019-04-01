@@ -17,5 +17,5 @@
 \contentsline {subsection}{\numberline {5.1}Modellwahl}{5}{subsection.5.1}
 \contentsline {subsection}{\numberline {5.2}Simulation}{6}{subsection.5.2}
 \contentsline {section}{\numberline {6}Fazit}{6}{section.6}
-\contentsline {section}{\numberline {A}Prediction Parameters and Models}{i}{appendix.A}
+\contentsline {section}{\numberline {A}Einflussgr\IeC {\"o}\IeC {\ss }en und Parameter des Modells}{i}{appendix.A}
 \contentsline {section}{\numberline {B}R Source Code}{i}{appendix.B}
