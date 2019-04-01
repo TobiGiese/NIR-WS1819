@@ -1,6 +1,8 @@
-# ###############################
-# FUNCTIONS: helper
-# ###############################
+# ##################################################
+# File: helper.R
+# Scope: convinience functions
+# ##################################################
+
 buildFormula = function(features, colName, respVar) {
   featString = paste(features[,colName], collapse="+")  
   featString = paste(1, featString, sep="+")

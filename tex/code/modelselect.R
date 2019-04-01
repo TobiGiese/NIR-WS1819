@@ -1,6 +1,8 @@
-# ###############################
-# FUNCTIONS: initial model selection
-# ###############################
+# ##################################################
+# File: modelselect.R
+# Scope: functions used for initial model selection
+# ##################################################
+
 getSlope = function(data, col_from, col_to) {
   slope = matrix(nrow = nrow(data), ncol=col_to-col_from)
   for (i in 1:(col_to-col_from)) {
@@ -31,10 +33,3 @@ selectFeatures = function(data, feat.all, th, crit) {
   
   return (feat.select)
 }
-
-
-
-
-
-
-
